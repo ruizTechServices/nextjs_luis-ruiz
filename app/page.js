@@ -41,8 +41,8 @@ export default function Portfolio() {
           My Work
         </h2>
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
-          I've contributed to numerous projects that help companies achieve
-          their goals. Here's a glimpse of my work.
+          I&apos;ve contributed to numerous projects that help companies achieve
+          their goals. Here&apos;s a glimpse of my work.
         </p>
         <div className="flex flex-wrap justify-center gap-4 mt-5">
           <Image
