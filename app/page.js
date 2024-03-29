@@ -36,14 +36,16 @@ export default function Portfolio() {
         />
       </section>
 
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-gray-200 dark:bg-gray-700">
-        <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-          My Work
-        </h2>
-        <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
-          I&apos;ve contributed to numerous projects that help companies achieve
-          their goals. Here&apos;s a glimpse of my work.
-        </p>
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-custom-background bg-no-repeat bg-center dark:bg-gray-700">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg">
+          <h2 className="text-4xl font-bold text-white drop-shadow-2xl">
+            My Work
+          </h2>
+          <p className="mt-3 text-lg text-white dark:text-gray-300">
+            I&apos;ve contributed to numerous projects that help companies
+            achieve their goals. Here&apos;s a glimpse of my work.
+          </p>
+        </div>
         <div className="flex flex-wrap justify-center gap-4 mt-5">
           <Image
             src="/images/me_2.PNG"
@@ -52,7 +54,7 @@ export default function Portfolio() {
             height={200}
           />
           <Image
-            src="/images/me_2.PNG"
+            src="/images/background_1.jpg"
             alt="Project 2"
             width={200}
             height={200}
