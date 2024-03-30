@@ -1,8 +1,12 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\page.js
 import Image from "next/image";
+import HeroSection from "./components/main/heroSection";
+
 
 export default function Portfolio() {
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
+      <HeroSection />
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
           Welcome to Luis-ruiz.com

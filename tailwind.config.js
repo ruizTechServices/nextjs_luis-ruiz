@@ -13,6 +13,20 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
           'custom-background': "url('/images/background_1.jpg')",
       },
+      keyframes: {
+        typing: {
+          from: { width: '0' },
+          to: { width: '100%' },
+        },
+        blink: {
+          '0%, 100%': { opacity: '0' },
+          '50%': { opacity: '1' },
+        },
+      },
+      animation: {
+        typing: 'typing 4s steps(40, end) infinite',
+        blink: 'blink 0.75s infinite',
+      },
     },
   },
   plugins: [],
