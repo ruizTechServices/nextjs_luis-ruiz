@@ -8,7 +8,7 @@ export default function Portfolio() {
           Welcome to Luis-ruiz.com
         </h1>
         <p className="mt-3 text-xl text-gray-600 dark:text-gray-300">
-          A portfolio of Luis Ruiz, Full-Stack Web Developer
+          A portfolio of Luis Ruiz, An Awesome Full-Stack Web Developer
         </p>
         <Image
           src="/images/luisIT.jpg"
