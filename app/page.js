@@ -2,7 +2,6 @@
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 
-
 export default function Portfolio() {
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -40,7 +39,7 @@ export default function Portfolio() {
         />
       </section>
 
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-custom-background bg-no-repeat bg-center dark:bg-gray-700">
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-700">
         <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg">
           <h2 className="text-4xl font-bold text-white drop-shadow-2xl">
             My Work
@@ -51,24 +50,27 @@ export default function Portfolio() {
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-4 mt-5">
-          <Image
-            src="/images/me_2.PNG"
-            alt="Project 1"
-            width={200}
-            height={200}
-          />
-          <Image
-            src="/images/background_1.jpg"
-            alt="Project 2"
-            width={200}
-            height={200}
-          />
-          <Image
-            src="/images/me_2.PNG"
-            alt="Project 3"
-            width={200}
-            height={200}
-          />
+          <iframe
+            src="https://catherineruiz.com"
+            title="Project 1"
+            width="500"
+            height="400"
+            style={{ overflowX: "hidden" }} // Changed to an object
+          ></iframe>
+          <iframe
+            src="https://Compulogicpc.com"
+            title="Project 2"
+            width="500"
+            height="400"
+            style={{ overflowX: "hidden" }} // Changed to an object
+          ></iframe>
+          <iframe
+            src="https://ruiztechsevices.com"
+            title="Project 3"
+            width="500"
+            height="400"
+            style={{ overflowX: "hidden" }} // Changed to an object
+          ></iframe>
         </div>
       </section>
     </main>
