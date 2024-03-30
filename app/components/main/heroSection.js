@@ -3,7 +3,7 @@
 import AnimatedText from "../ui/animatedText";
 
 const HeroSection = () => {
-  const titles = ["Devops Engineer", "Designer", "Creator", "Full-Stack Developer"];
+  const titles = ["Developer", "Designer", "Creator", "Programmer"];
 
   return (
     <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
