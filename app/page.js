@@ -1,6 +1,8 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\page.js
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
+import supabase from "./utils/supabase/supabaseClient";
+
 
 export default function Portfolio() {
   return (
