@@ -2,9 +2,12 @@
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 import supabase from "./utils/supabase/supabaseClient";
+import Link from "next/link";
+
 
 
 export default function Portfolio() {
+
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
@@ -55,7 +58,7 @@ export default function Portfolio() {
           <iframe
             src="https://catherineruiz.com"
             title="Project 1"
-            className="h-[500px]" 
+            className="h-[500px]"
           ></iframe>
           <iframe
             src="https://Compulogicpc.com"
@@ -69,6 +72,26 @@ export default function Portfolio() {
           ></iframe>
         </div>
       </section>
+      <section className="bg-gradient-to-bl from-green-200 via-green-400 to-green-500 text-white p-4">
+        <div className="container mx-auto text-center py-4 flex flex-col md:flex-row justify-evenly items-center">
+          <Link href="/login" className="">
+              Login
+          </Link>
+          <Link href="/dashboard" className="">
+              Dashboard
+          </Link>
+          <Link href="/about" className="">
+              About Me
+          </Link>
+          <Link href="/contact" className="">
+              Contact
+          </Link>
+          <Link href="/services" className="">
+              Services
+          </Link>
+        </div>
+      </section>
     </main>
   );
+
 }

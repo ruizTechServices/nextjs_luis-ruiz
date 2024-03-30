@@ -6,7 +6,7 @@ const HeroSection = () => {
   const titles = ["Developer", "Designer", "Creator", "Programmer"];
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
+    <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-bl from-green-200 via-green-400 to-green-500">
       <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-5">
         I am a &nbsp;
         <AnimatedText texts={titles} speed={3000} className="text-indigo-600" />
