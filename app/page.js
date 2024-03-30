@@ -49,27 +49,21 @@ export default function Portfolio() {
             achieve their goals. Here&apos;s a glimpse of my work.
           </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 mt-5">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           <iframe
             src="https://catherineruiz.com"
             title="Project 1"
-            width="500"
-            height="400"
-            style={{ overflowX: "hidden" }} // Changed to an object
+            className="h-[500px]" 
           ></iframe>
           <iframe
             src="https://Compulogicpc.com"
             title="Project 2"
-            width="500"
-            height="400"
-            style={{ overflowX: "hidden" }} // Changed to an object
+            className="h-[500px]"
           ></iframe>
           <iframe
             src="https://ruiztechsevices.com"
             title="Project 3"
-            width="500"
-            height="400"
-            style={{ overflowX: "hidden" }} // Changed to an object
+            className="h-[500px]"
           ></iframe>
         </div>
       </section>
