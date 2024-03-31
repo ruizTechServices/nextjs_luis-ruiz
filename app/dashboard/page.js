@@ -1,3 +1,4 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\dashboard\page.js
 "use client";
 import { useEffect, useState } from "react";
 import supabase from "../utils/supabase/supabaseClient";
@@ -6,26 +7,46 @@ const Dashboard = () => {
   const [fetchError, setFetchError] = useState(null);
   const [journal, setJournal] = useState(null);
 
-  useEffect(() => {
-    const fetchJournal = async () => {
-      try {
-        const { data, error } = await supabase.from("journal").select();
-
-        if (error) {
-          setFetchError("Could not fetch the journal data...", error.message);
-          setJournal(null);
-          console.log(error);
-        }
-        if (data) {
-          setJournal(data);
-          setFetchError(null);
-        }
-      } catch (err) {
-        setFetchError(err.message);
+  const fetchJournal = async () => {
+    try {
+      const { data, error } = await supabase.from("journal").select();
+      if (error) {
+        setFetchError("Could not fetch the journal data...", error.message);
+        setJournal(null);
+        console.log(error);
+      } else {
+        setJournal(data);
+        setFetchError(null);
       }
-    };
+    } catch (err) {
+      setFetchError(err.message);
+    }
+  };
+
+
+  useEffect(() => {
     fetchJournal();
   }, []);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    const formData = new FormData(event.target);
+    const title = formData.get("title");
+    const content = formData.get("content");
+    const tags = formData.get("tags");
+
+    const { data, error } = await supabase
+      .from("journal")
+      .insert([{ title, content, tags }]);
+
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("Entry added:", data);
+      event.target.reset(); // Resets the form fields
+      fetchJournal(); // Assuming fetchJournal is accessible, re-fetch journal entries
+    }
+  };
 
   return (
     <>
@@ -60,7 +81,7 @@ const Dashboard = () => {
       </section>
       {/* Add new journal entry form */}
       <section className="container mx-auto p-4 w-3/4 shadow-2xl m-10 rounded-lg bg-white dark:bg-gray-800">
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="title"
