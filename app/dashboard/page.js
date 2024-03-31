@@ -29,30 +29,32 @@ const Dashboard = () => {
 
   return (
     <>
-      <section className="flex flex-col items-center justify-center h-screen">
-        <h1 className="text-4xl font-bold mb-4">Welcome to your Dashboard</h1>
+      <section className="flex flex-col items-center justify-center h-screen p-4">
+        <h1 className="text-4xl font-bold mb-4">
+          Hey, Giovanni! Welcome to your Dashboard
+        </h1>
       </section>
-      <section>
+
+      <section className="container mx-auto p-4">
         {fetchError && (
-          <div className="bg-red-500 text-white p-4 rounded-md">
+          <div className="bg-red-500 text-black p-4 rounded-md">
             <p>{fetchError}</p>
           </div>
         )}
         {journal && (
-          <div className="container mx-auto space-y-4 flex flex-col md:flex-row justify-evenly items-center">
-            <div className="">
+          <div className="">
+            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md flex flex-col items-center justify-center">
               {journal.map((journal) => (
-                <p key={journal.id}>{journal.title}</p>
-              ))}
-            </div>
-            <div className="">
-              {journal.map((journal) => (
-                <p key={journal.id}>{journal.content}</p>
+                <div key={journal.id} className="w-1/2 p-4 border-2 rounded-lg shadow-xl mb-5">
+                  <p className="text-xl font-bold">{journal.title}</p>
+                  <p className="italic">{journal.content}</p>
+                </div>
               ))}
             </div>
           </div>
         )}
       </section>
+
       <section className="bg-gradient-to-bl from-green-200 via-green-400 to-green-500 text-white p-4">
         <div className="container mx-auto text-center py-4 flex flex-col md:flex-row justify-evenly items-center">
           <a href="/" className="">
