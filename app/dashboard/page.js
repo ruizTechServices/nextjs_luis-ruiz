@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import supabase from "../utils/supabase/supabaseClient";
+import MainFooter from "../components/main/mainFooter";
 
 const Dashboard = () => {
   const [fetchError, setFetchError] = useState(null);
@@ -134,27 +135,7 @@ const Dashboard = () => {
         </form>
       </section>
 
-      {/* footer */}
-
-      <section className="bg-gradient-to-bl from-green-200 via-green-400 to-green-500 text-white p-4">
-        <div className="container mx-auto text-center py-4 flex flex-col md:flex-row justify-evenly items-center">
-          <a href="/" className="">
-            Home
-          </a>
-          <a href="/dashboard" className="">
-            Dashboard
-          </a>
-          <a href="/about" className="">
-            About Me
-          </a>
-          <a href="/contact" className="">
-            Contact
-          </a>
-          <a href="/services" className="">
-            Services
-          </a>
-        </div>
-      </section>
+      <MainFooter />
     </>
   );
 };
