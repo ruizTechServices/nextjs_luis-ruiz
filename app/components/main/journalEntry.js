@@ -10,7 +10,7 @@ export const JournalEntry = ({ id, title, content }) => {
 
     return (
         <>
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md mb-5 mx-auto text-center w-full md:w-1/3">
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-md mb-5 ml-10 mr-10 text-center w-full md:w-1/3">
               <p className="text-4xl font-bold text-black dark:text-white">{title}</p>
               <p className="italic text-gray-900 dark:text-gray-100">
                   {showMore ? content : previewContent}

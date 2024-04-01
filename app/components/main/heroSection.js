@@ -1,6 +1,7 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\heroSection.js
 "use client";
 import AnimatedText from "../ui/animatedText";
+import Logo from "../ui/logo";
 
 const HeroSection = () => {
   const titles = ["Developer", "Designer", "Creator", "Programmer"];
