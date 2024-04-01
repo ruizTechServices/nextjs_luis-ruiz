@@ -9,11 +9,11 @@ export const JournalEntry = ({ id, title, content }) => (
     <div className="w-1/2 p-4 border-2 rounded-lg shadow-xl mb-5">
       <p className="text-4xl font-bold">{title}</p>
       <p className="italic">{content}</p>
-      <div className="flex justify-end button">
-        <Link className="text-blue-600" href={`/journal/${id}`}>
+      {/* <div className="flex justify-end button">
+        <Link className="text-blue-600" href={'/' + id }>
           View Entry
         </Link>
-      </div>
+      </div> */}
     </div>
   </>
 );
