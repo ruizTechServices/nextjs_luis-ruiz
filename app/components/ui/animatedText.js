@@ -1,7 +1,7 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\ui\animatedText.js
 import React, { useState, useEffect } from "react";
 
-const AnimatedText = ({ texts, speed = 3000 }) => {
+const AnimatedText = ({ texts, speed = 2000 }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {

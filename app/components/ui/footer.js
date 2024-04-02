@@ -10,7 +10,7 @@ function Footer(props) {
         <Logo />
       </div>
       <div className="mb-4 sm:mb-0">
-        &copy; {new Date().getFullYear()} ruizTechServices| Luis-Ruiz.com All
+        &copy;{new Date().getFullYear()} <Link href={'https://ruiztechservices.com'}>ruizTechServices</Link><span className="animate-blink">|</span> Luis-Ruiz.com All
         rights reserved.
       </div>
 
