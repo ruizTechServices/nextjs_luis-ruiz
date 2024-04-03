@@ -1,14 +1,10 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\page.js
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
-import supabase from "./utils/supabase/supabaseClient";
 import Link from "next/link";
 import MainFooter from "./components/main/mainFooter";
 
-
-
 export default function Portfolio() {
-
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
@@ -76,5 +72,4 @@ export default function Portfolio() {
       <MainFooter />
     </main>
   );
-
 }

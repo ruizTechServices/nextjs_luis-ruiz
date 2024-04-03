@@ -1,6 +1,6 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntryForm.js
 import { useState } from "react";
-import supabase from "../../utils/supabase/supabaseClient";
+import supabase from "../../../lib/utils/supabase/supabaseClient";
 
 export const JournalEntryForm = () => {
   const [title, setTitle] = useState("");

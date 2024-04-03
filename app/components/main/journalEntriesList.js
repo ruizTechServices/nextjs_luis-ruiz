@@ -1,6 +1,6 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntriesList.js
 import { useEffect, useState } from "react";
-import supabase from "../../utils/supabase/supabaseClient";
+import supabase from "../../../lib/utils/supabase/supabaseClient";
 import { JournalEntry } from "../main/journalEntry";
 
 export const JournalEntriesList = () => {

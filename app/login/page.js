@@ -2,7 +2,6 @@
 "use client";
 import { useState } from "react";
 import MainFooter from "../components/main/mainFooter";
-import { login, signup } from "./actions";
 
 function LoginForm() {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,51 +11,6 @@ function LoginForm() {
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
-
-  // async function handleLogin(event) {
-  //   event.preventDefault(); // Prevent the form from submitting the traditional way
-
-  //   let { error } = await supabase.auth.signIn({
-  //     email: email,
-  //     password: password,
-  //   });
-
-  //   if (error) {
-  //     console.error(error.message);
-  //   } else {
-  //     console.log("Logged in successfully!");
-  //     alert("Yo you signed in!");
-  //     Router.push("/dashboard");
-  //   }
-  // }
-
-  // async function handleGoogleSignIn() {
-  //   let { error } = await supabase.auth.signInWithOAuth({
-  //     provider: "google",
-  //   });
-
-  //   if (error) {
-  //     console.error("Google sign-in error:", error.message);
-  //   } else {
-  //     console.log("Signed in with Google successfully!");
-  //     // Handle successful Google sign-in, like redirecting to the dashboard
-  //   }
-  // }
-
-  // async function handleRegister(event) {
-  //   event.preventDefault();
-  //   let { error } = await supabase.auth.signUp({
-  //     email: email,
-  //     password: password,
-  //   });
-
-  //   if (error) {
-  //     console.error("Error signing up:", error.message);
-  //   } else {
-  //     console.log("Registration successful!");
-  //     router.push("/dashboard");
-  //   }
-  // }
 
   return (
     <>
@@ -81,17 +35,10 @@ function LoginForm() {
             <button
               className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 w-full"
               type="submit"
-              formAction={login}
             >
               Login
             </button>
-            {/* <button
-              className="bg-red-500 text-white p-2 rounded hover:bg-red-700 w-full mt-4"
-              type="button"
-              onClick={handleGoogleSignIn}
-            >
-              Sign in with Google
-            </button> */}
+
             <p
               className="text-blue-500 cursor-pointer mt-2"
               onClick={toggleForm}
@@ -111,27 +58,19 @@ function LoginForm() {
               className="border p-2 mb-2 w-full"
               type="email"
               placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="border p-2 mb-2 w-full"
               type="password"
               placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 w-full"
               type="submit"
-              formAction={signup}
             >
               Register
             </button>
-            {/* <button
-              className="bg-red-500 text-white p-2 rounded hover:bg-red-700 w-full mt-4"
-              type="button"
-            >
-              Register with Google
-            </button> */}
+
             <p
               className="text-blue-500 cursor-pointer mt-2"
               onClick={toggleForm}
