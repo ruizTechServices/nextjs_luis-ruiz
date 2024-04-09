@@ -1,4 +1,5 @@
 //C:\Users\Gio\Desktop\ruizTechServices\websites\nextjs_luis-ruiz\app\reset_password\page.js
+'use client';
 import { useState } from 'react';
 import supabase from '../../lib/utils/supabase/supabaseClient'; // Adjust the import path accordingly
 

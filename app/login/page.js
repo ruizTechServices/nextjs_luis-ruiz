@@ -19,16 +19,15 @@ function LoginForm() {
     navigation.goto('/reset_password');
 };
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      login(email, password); // Ensure these actions are async and handle them appropriately
-    } else {
-      signup(email, password, username); // Adjusted to include username
-    }
-  };
-  return (
-    <>
+  // const handleFormSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (isLogin) {
+  //     login(email, password); // Ensure these actions are async and handle them appropriately
+  //   } else {
+  //     signup(email, password, username); // Adjusted to include username
+  //   }
+  // };
+  return (  <>
       <form className="flex justify-center items-center flex-col w-full h-screen" onSubmit={e => { e.preventDefault(); isLogin ? login(email, password) : signup(email, password); }}>
         {isLogin ? (
           <div className="flex flex-col p-4 border border-gray-200 rounded-lg w-full max-w-xs sm:max-w-md md:max-w-lg">

@@ -1,3 +1,4 @@
+//C:\Users\Gio\Desktop\ruizTechServices\websites\nextjs_luis-ruiz\app\login\actions.js
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -7,6 +8,7 @@ import { redirect } from "next/navigation";
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
 export async function login(formData) {
+  // Directly use formData parameter to extract email and password
   const data = {
     email: String(formData.get("email")),
     password: String(formData.get("password"))
@@ -19,13 +21,13 @@ export async function login(formData) {
     return;
   }
 
-  // Ensure this path reflects the user's ID appropriately
+  // Redirect to the dashboard upon successful login
   revalidatePath("/dashboard");
   redirect("/dashboard");
 }
 
 export async function signup(formData) {
-  // Use the imported supabase instance directly
+  // Similarly, directly use formData parameter for signing up
   const data = {
     email: String(formData.get("email")),
     password: String(formData.get("password"))
@@ -38,6 +40,7 @@ export async function signup(formData) {
     return;
   }
 
+  // After signing up, redirect to check_email to verify the user's email address
   revalidatePath("/check_email");
   redirect("/check_email");
 }
