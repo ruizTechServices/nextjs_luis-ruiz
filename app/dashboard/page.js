@@ -1,11 +1,12 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\dashboard\page.js
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MainFooter from "../components/main/mainFooter"; //
 import { DashboardHeader } from "../components/main/dashboardHeader"; //
 import { JournalEntryForm } from "../components/main/journalEntryForm"; //
 import { JournalEntriesList } from "../components/main/journalEntriesList"; //
 import Modal from "../components/ui/modal"; //
+import supabase from "../../lib/utils/supabase/supabaseClient";
 
 const Dashboard = () => {
   // State to manage the visibility of the modal
@@ -16,6 +17,8 @@ const Dashboard = () => {
 
   // Function to close the modal
   const closeModal = () => setIsModalOpen(false);
+
+  
   return (
     <>
       <DashboardHeader />

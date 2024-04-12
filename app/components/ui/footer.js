@@ -4,7 +4,7 @@ import Logo from "./logo";
 
 function Footer(props) {
   return (
-    <footer className="bg-gray-800 text-white p-6 flex flex-col items-center sm:flex-row sm:justify-between">
+    <footer className="bg-gradient-to-tr from-green-300 via-blue-500 to-purple-600 text-white p-6 flex flex-col items-center sm:flex-row sm:justify-between">
       {/* Left Section - You could place your branding here */}
       <div>
         <Logo />

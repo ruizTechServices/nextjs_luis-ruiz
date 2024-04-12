@@ -1,7 +1,7 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\mainFooter.js
 import Footer from "../ui/footer";
-
-
+import { useState, useEffect } from 'react';
+import supabase from '../../lib/connections/supabase/client'; 
 
 function MainFooter() {
   const footerLinks = [
@@ -13,6 +13,26 @@ function MainFooter() {
     { href: "/contact", label: "Contact" },
     { href: "/services", label: "Services" },
   ];
+
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) console.error('Error fetching session', error);
+      else setSession(data.session); 
+    };
+    fetchSession();
+  }, []); 
+
+  if (!session) {
+    return (
+      <div className="container mx-auto p-8 text-center"> 
+        <h2 className='text-2xl font-semibold'>Sorry, you need to be logged in </h2>
+        <p>Please log in to access this page</p> 
+      </div>
+    );
+  }
 
   return (
     // ... your page content
