@@ -1,36 +1,31 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\signout\page.js
+// Path: C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\signout\page.js
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
 export default function SignOut() {
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Mark component as being mounted in a client environment
-    setIsClient(true);
-    if (!isClient) return; // Ensure that sign-out logic only runs on the client side
-
-    const signOutUser = async () => {
+    // Function to sign out the user using Supabase
+    async function signOutUser() {
       const { error } = await supabase.auth.signOut();
       if (!error) {
         router.push("/signin");
       } else {
-        // Optionally handle the error, perhaps by displaying a message
         console.error("Error during sign out:", error.message);
+        // Optionally, handle the error, perhaps by displaying a message or logging it somewhere
       }
-    };
+    }
 
-    signOutUser();
-  }, [isClient, router]);
+    // Ensure this code runs only on the client side
+    if (typeof window !== "undefined") {
+      signOutUser();
+    }
+  }, [router]); // Depend on 'router' to ensure it is included in the hook's dependency array
 
-  if (!isClient) {
-    // Optionally render a loading indicator or nothing while waiting for the client environment
-    return null;
-  }
-
+  // Render the UI indicating a sign-out process
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="text-center">
