@@ -47,6 +47,6 @@ export async function signup(email, password, username) {
   }
 
   // After signing up, redirect to check_email to verify the user's email address
-  revalidatePath("/check_email");
-  redirect("/check_email");
+  revalidatePath("/check-email");
+  redirect("/check-email");
 }
