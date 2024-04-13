@@ -5,11 +5,27 @@ import { useState, useEffect } from 'react';
 import supabase from './../../../lib/utils/supabase/supabaseClient'; 
 
 function MainFooter() {
-  const footerLinks = [
+  const footerLinks_users = [
+    { href: "/", label: "Home" },
+    { href: "/signout", label: "Signout" }, //<===This should only appear if the user is logged in
+    { href: "/users", label: "Users" }, //<===This users page must appear ONLY if the registered users are logged in. I also want to display the href as `/users/${userId}` for each user.
+    { href: "/about-me", label: "About Me" },
+    { href: "/contact", label: "Contact" },
+    { href: "/services", label: "Services" },
+  ];
+
+  const footerLinks_2 = [
     { href: "/", label: "Home" },
     { href: "/login", label: "Login" },
+    { href: "/about-me", label: "About Me" },
+    { href: "/contact", label: "Contact" },
+    { href: "/services", label: "Services" },
+  ];
+
+  const footerLinks_gio = [
+    { href: "/", label: "Home" },
+    { href: "/signout", label: "Signout" },
     { href: "/dashboard", label: "Dashboard" },//<===This dashboard must appear ONLY if 'Giosterr44@gmail.com' is logged in.
-    { href: "/users", label: "Users" }, //<===This users page must appear ONLY if the registered users are logged in. I also want to display the href as `/users/${userId}` for each user.
     { href: "/about-me", label: "About Me" },
     { href: "/contact", label: "Contact" },
     { href: "/services", label: "Services" },
@@ -31,14 +47,23 @@ function MainFooter() {
       <div className="container mx-auto p-8 text-center"> 
         <h2 className='text-2xl font-semibold'>Sorry, you need to be logged in </h2>
         <p>Please log in to access this page</p> 
+        <Footer
+          links={
+            session?.user?.email === "Giosterr44@gmail.com"
+              ? footerLinks_gio
+              : session?.user?.id
+              ? footerLinks_users
+              : footerLinks_2
+          }
+        />
       </div>
     );
   }
 
-  return (
-    // ... your page content
-    <Footer links={footerLinks} />  
-  );
+  // return (
+  //   // ... your page content
+  //   <Footer links={footerLinks} />  
+  // );
 }
 
 export default MainFooter;
