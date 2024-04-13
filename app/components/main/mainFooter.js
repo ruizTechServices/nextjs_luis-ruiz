@@ -1,7 +1,7 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\mainFooter.js
 import Footer from "../ui/footer";
 import { useState, useEffect } from 'react';
-import supabase from '../../lib/connections/supabase/client'; 
+import supabase from './../../../lib/utils/supabase/supabaseClient'; 
 
 function MainFooter() {
   const footerLinks = [
