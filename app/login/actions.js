@@ -13,7 +13,7 @@ export async function login(formData) {
     email: String(formData.get("email")),
     password: String(formData.get("password"))
   };
-
+  //where is the data being sent to??
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
@@ -27,20 +27,36 @@ export async function login(formData) {
 }
 
 export async function signup(formData) {
-  // Similarly, directly use formData parameter for signing up
   const data = {
     email: String(formData.get("email")),
-    password: String(formData.get("password"))
+    password: String(formData.get("password")),
+    phone: String(formData.get("phone")) // Assuming you have a 'phone' field in your form
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { user, error } = await supabase.auth.signUp({
+    email: data.email,
+    password: data.password
+  });
 
   if (error) {
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
     return;
   }
 
+  // Update user metadata with phone number
+  if (user) {
+    const { error: updateError } = await supabase.from('profiles').update({
+      phone: data.phone
+    }).eq('id', user.id);
+
+    if (updateError) {
+      console.error('Error updating user metadata:', updateError.message);
+      // Handle error appropriately
+    }
+  }
+
   // After signing up, redirect to check_email to verify the user's email address
   revalidatePath("/check_email");
   redirect("/check_email");
 }
+
