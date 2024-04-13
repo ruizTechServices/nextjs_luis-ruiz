@@ -1,4 +1,4 @@
-//C:\Users\Gio\Desktop\ruizTechServices\websites\nextjs_luis-ruiz\app\login\actions.js
+// Path: C:\Users\Gio\Desktop\ruizTechServices\websites\nextjs_luis-ruiz\app\login\actions.js
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -7,14 +7,11 @@ import { redirect } from "next/navigation";
 // Assuming supabaseClient.js correctly exports an instance of the Supabase client
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
-export async function login(formData) {
-  // Directly use formData parameter to extract email and password
-  const data = {
-    email: String(formData.get("email")),
-    password: String(formData.get("password"))
-  };
-  //where is the data being sent to??
-  const { error } = await supabase.auth.signInWithPassword(data);
+export async function login(email, password) {
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
 
   if (error) {
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
@@ -26,16 +23,10 @@ export async function login(formData) {
   redirect("/dashboard");
 }
 
-export async function signup(formData) {
-  const data = {
-    email: String(formData.get("email")),
-    password: String(formData.get("password")),
-    phone: String(formData.get("phone")) // Assuming you have a 'phone' field in your form
-  };
-
+export async function signup(email, password, username) {
   const { user, error } = await supabase.auth.signUp({
-    email: data.email,
-    password: data.password
+    email: email,
+    password: password,
   });
 
   if (error) {
@@ -43,10 +34,10 @@ export async function signup(formData) {
     return;
   }
 
-  // Update user metadata with phone number
+  // Update user metadata with username
   if (user) {
     const { error: updateError } = await supabase.from('profiles').update({
-      phone: data.phone
+      username: username
     }).eq('id', user.id);
 
     if (updateError) {
@@ -59,4 +50,3 @@ export async function signup(formData) {
   revalidatePath("/check_email");
   redirect("/check_email");
 }
-
