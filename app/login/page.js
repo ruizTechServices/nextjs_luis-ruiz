@@ -1,7 +1,6 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\login\page.js
 "use client";
 import { useState } from "react";
-import MainFooter from "../components/main/mainFooter";
 import { login, signup } from "./actions";
 import { useNavigation } from "next/navigation";
 
@@ -127,7 +126,6 @@ function LoginForm() {
           </div>
         )}
       </form>
-      <MainFooter />
     </>
   );
 }

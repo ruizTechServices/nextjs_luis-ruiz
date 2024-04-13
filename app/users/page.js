@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import MainFooter from "../components/main/mainFooter";
 
 export default function Dashboard() {
   const [users, setUsers] = useState([]);
@@ -42,7 +41,6 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
-      <MainFooter />
     </>
   );
 }

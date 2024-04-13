@@ -2,7 +2,6 @@
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 import Link from "next/link";
-import MainFooter from "./components/main/mainFooter";
 
 export default function Portfolio() {
   return (
@@ -74,7 +73,6 @@ export default function Portfolio() {
           ></iframe>
         </div>
       </section>
-      <MainFooter />
     </main>
   );
 }
