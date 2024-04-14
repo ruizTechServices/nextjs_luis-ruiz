@@ -1,3 +1,6 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\dashboard\page.js
+"use client";
+import { useState } from 'react';
 import DashboardHeader from "../components/main/dashboardHeader";
 import JournalEntriesList from "../components/main/journal/journalEntriesList";
 import JournalEntryForm from "../components/main/journal/journalEntryForm";
