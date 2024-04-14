@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 const ProfileCard = ({ title, content }) => {
   return (
-    <div className="bg-yellow-300 w-full rounded-3xl shadow-2xl m-2 flex flex-col items-center justify-center">
+    <div className="bg-yellow-300 dark:bg-orange-300 dark:text-white w-full rounded-3xl shadow-2xl m-2 flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold">{title}</h1>
-      <p className="text-xl bg-white rounded-2xl h-fit w-full p-2">
+      <p className="text-xl bg-white dark:bg-black dark:text-white rounded-2xl h-fit w-full p-2">
         {content}
         {/*I want to create a code for a dropdown or something that hides a paragraph of one sentence or more. For example
         if the paragraph has more than one sentence, the rest of the paragraph is hidden behind a link called 'more'. When the
