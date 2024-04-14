@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,6 +14,7 @@
     "@supabase/supabase-js": "^2.41.1",
     "axios": "^1.6.8",
     "next": "14.1.4",
+    "openai": "^4.33.1",
     "react": "^18",
     "react-dom": "^18"
   },
