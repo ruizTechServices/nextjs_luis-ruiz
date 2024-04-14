@@ -1,7 +1,7 @@
 // Path: C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\signout\page.js
 "use client";
 import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; // Import from 'next/navigation'
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
 const SignOut = () => {
