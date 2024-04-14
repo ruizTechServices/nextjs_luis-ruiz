@@ -18,7 +18,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <Logo className="w-24 h-24 mb-8" />
+      <Logo className="w-[5px] h-[5px]" />
       <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-bl from-green-200 via-green-400 to-green-500">
         <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-5">
           I am a &nbsp;

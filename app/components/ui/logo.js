@@ -3,7 +3,7 @@ import React from "react";
 const Logo = () => {
   return (
     <>
-      <div className="relative w-full h-0 pt-[100%] pb-0 shadow-md mt-6 mb-3 overflow-hidden rounded-lg will-change-transform">
+      <div className="relative w-auto pt-[100%] pb-0 shadow-md mt-6 mb-3 overflow-hidden rounded-lg">
         <iframe
           loading="lazy"
           className="absolute w-full h-full top-0 left-0 border-none p-0 m-0"
@@ -16,7 +16,6 @@ const Logo = () => {
         rel="noopener noreferrer"
         className="block"
       >
-        Luis Ruiz
       </a>
     </>
   );
