@@ -1,8 +1,5 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\chatbot.js
-"use client";
 import { useState } from "react";
-// Removed old connection import
-import { anthropic } from "../../../lib/utils/anthropic/claude"; // Import the Anthropics connection
 
 export const ChatbotForm = () => {
   const [selectedAPI, setSelectedAPI] = useState("");
@@ -64,6 +61,22 @@ export const ChatbotForm = () => {
     }
 
     setMessage("");
+  };
+
+  const anthropic = async (message) => {
+      const response = await fetch('/api/anthropic/claude3-opus', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ input: message })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch response from Anthropic API: ' + response.statusText);
+    }
+    const data = await response.json();
+    return data;
   };
   
   return (

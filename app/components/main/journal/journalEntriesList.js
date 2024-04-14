@@ -43,7 +43,7 @@ export const JournalEntriesList = () => {
         </div>
       )}
       {journal.length > 0 && (
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md flex flex-col md:flex-row md:flex-wrap md:justify-around items-center justify-center">
+        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-md flex flex-col md:flex-row md:flex-wrap md:justify-around items-center justify-center overflow-hidden">
           {journal.map((entry) => (
             <JournalEntry
               key={entry.id}

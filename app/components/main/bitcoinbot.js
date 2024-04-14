@@ -23,7 +23,7 @@ const BitcoinPriceClock = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-full">
       <div className="bg-black text-white font-mono text-4xl p-10 rounded-lg shadow-lg">
         <h1>Bitcoin Price:</h1>
         <p className="text-6xl">{price}</p>

@@ -44,7 +44,7 @@ function Modal({ isOpen, closeModal, children }) {
                 as="h3"
                 className="text-lg font-medium leading-6 text-gray-900"
               >
-                Modal Title
+                {/*Modal Title goes here*/}
               </Dialog.Title>
               <div className="mt-2">{children}</div>
 
