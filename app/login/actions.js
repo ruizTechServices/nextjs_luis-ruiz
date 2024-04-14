@@ -3,34 +3,32 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-// Assuming supabaseClient.js correctly exports an instance of the Supabase client
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
 export async function login(email, password) {
+  let session = null;
+
   const { error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password
   });
 
-  supabase.auth.onAuthStateChange((event, session) => {
+  supabase.auth.onAuthStateChange((event, updatedSession) => {
+    session = updatedSession;
+    console.log("Auth state changed:", event, session);
+
     if (event === "SIGNED_IN") {
-      console.log("User signed in successfully.", event, session);
-      // Redirect to the dashboard upon successful login
+      console.log("User signed in successfully.", session);
       revalidatePath("/dashboard");
       redirect("/dashboard");
     }
   });
 
   if (error) {
-    console.log("User not signed in successfully.", error, session);
+    console.log("Login failed:", error.message);
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
     return;
   }
-
-  // Redirect to the dashboard upon successful login
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
 }
 
 export async function signup(email, password, username) {
@@ -40,11 +38,11 @@ export async function signup(email, password, username) {
   });
 
   if (error) {
+    console.error("Signup failed:", error.message);
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
     return;
   }
 
-  // Update user metadata with username
   if (user) {
     const { error: updateError } = await supabase.from('profiles').update({
       username: username
@@ -52,11 +50,11 @@ export async function signup(email, password, username) {
 
     if (updateError) {
       console.error('Error updating user metadata:', updateError.message);
-      // Handle error appropriately
+    } else {
+      console.log("User metadata updated successfully for", username);
     }
   }
 
-  // After signing up, redirect to check_email to verify the user's email address
   revalidatePath("/check-email");
   redirect("/check-email");
 }
