@@ -1,3 +1,5 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\bitcoinbot.js
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 

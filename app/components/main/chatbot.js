@@ -1,4 +1,5 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\chatbot.js
+"use client";
 import { useState } from "react";
 import { connection } from "../../../lib/utils/openai/connection"; // Import the connection function
 
