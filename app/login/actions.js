@@ -13,7 +13,17 @@ export async function login(email, password) {
     password: password
   });
 
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN") {
+      console.log("User signed in successfully.", event, session);
+      // Redirect to the dashboard upon successful login
+      revalidatePath("/dashboard");
+      redirect("/dashboard");
+    }
+  });
+
   if (error) {
+    console.log("User not signed in successfully.", error, session);
     redirect(`/error?message=${encodeURIComponent(error.message)}`);
     return;
   }

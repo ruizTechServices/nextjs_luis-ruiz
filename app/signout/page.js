@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import supabase from "../../lib/utils/supabase/supabaseClient";
 
-export default function SignOut() {
+const SignOut = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -20,9 +20,7 @@ export default function SignOut() {
     }
 
     // Ensure this code runs only on the client side
-    if (typeof window !== "undefined") {
-      signOutUser();
-    }
+    signOutUser();
   }, [router]); // Depend on 'router' to ensure it is included in the hook's dependency array
 
   // Render the UI indicating a sign-out process
@@ -33,4 +31,6 @@ export default function SignOut() {
       </div>
     </div>
   );
-}
+};
+
+export default SignOut;

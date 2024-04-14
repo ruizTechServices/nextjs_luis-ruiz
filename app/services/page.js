@@ -1,10 +1,9 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\services\page.js
 import Head from "next/head";
-import Image from "next/image";
-import { Fragment } from "react";
 
 export default function Services() {
   return (
-    <Fragment>
+    <>
       <Head>
         <title>Luis Ruiz - Services</title>
         <meta
@@ -53,6 +52,6 @@ export default function Services() {
           {/* Add more cards for other services as needed */}
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
