@@ -8,8 +8,7 @@ function Footer(props) {
 
   return (
     <footer className="bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600 text-white p-6 flex flex-col items-center sm:flex-row sm:justify-between">
-      {/* Left Section - You could place your branding here */}
-      <div>
+      <div className="border-red-500 z-150 w-20">
         <Logo />
       </div>
       <div className="mb-4 sm:mb-0">
@@ -17,14 +16,6 @@ function Footer(props) {
         rights reserved.
       </div>
 
-      {/* Right Section - Navigation Links */}
-      {/* <ul className="flex flex-col md:flex flex-wrap gap-4">
-        {props.links.map((link) => (
-          <li key={link.href}>
-            <Link href={link.href}>{link.label}</Link>
-          </li>
-        ))}
-      </ul> */}
       <Dropdown links={props.links} />
     </footer>
   );

@@ -15,10 +15,10 @@ function MainFooter() {
         console.error("Error fetching session", error);
         return;
       }
+  
       const session = data.session;
-      const user = session?.user;
-
-      if (user) {
+      if (session) { // User is signed in
+        const user = session.user; 
         let userLinks = [
           { href: "/", label: "Home" },
           { href: "/about-me", label: "About Me" },
@@ -26,13 +26,16 @@ function MainFooter() {
           { href: "/services", label: "Services" },
           { href: "/signout", label: "Signout" }
         ];
-        if (user.email === "Giosterr44@gmail.com") {
+  
+        if (user.email === "Giosterr44@gmail.com") { 
           userLinks.push({ href: "/dashboard", label: "Dashboard" });
-        } else if (user.id) {
+        } else if (user.id) { 
           userLinks.push({ href: `/users/${user.id}`, label: "User Profile" });
         }
+  
         setLinks(userLinks);
-      } else {
+  
+     } else { // User is not signed in
         setLinks([
           { href: "/", label: "Home" },
           { href: "/login", label: "Login" },
@@ -44,6 +47,7 @@ function MainFooter() {
     };
     fetchSession();
   }, []);
+  
 
   return <Footer links={links} />;
 }
