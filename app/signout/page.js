@@ -12,7 +12,7 @@ const SignOut = () => {
     async function signOutUser() {
       const { error } = await supabase.auth.signOut();
       if (!error) {
-        router.push("/signin");
+        router.push("/login"); // Redirect the user to the login page after successful sign-out
       } else {
         console.error("Error during sign out:", error.message);
         // Optionally, handle the error, perhaps by displaying a message or logging it somewhere

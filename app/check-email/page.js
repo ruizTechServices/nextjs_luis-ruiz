@@ -19,3 +19,4 @@ export default function CheckEmail() {
     </div>
   );
 }
+{/*You are going to have to run tests. When a user DID NOT signup accurately, a message has to be displayed saying that the signup was not successful, try again. */}

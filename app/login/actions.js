@@ -3,17 +3,18 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import supabase from "../../lib/utils/supabase/supabaseClient";
+import { createClient } from "../../lib/utils/supabase/server";
 
 export async function login(email, password) {
+  const supabase = createClient();
   let session = null;
 
   const { error } = await supabase.auth.signInWithPassword({
     email: email,
-    password: password
+    password: password,
   });
 
-  supabase.auth.onAuthStateChange((event, updatedSession) => {
+  const authStateChangeHandler = (event, updatedSession) => {
     session = updatedSession;
     console.log("Auth state changed:", event, session);
 
@@ -22,7 +23,9 @@ export async function login(email, password) {
       revalidatePath("/dashboard");
       redirect("/dashboard");
     }
-  });
+  };
+
+  supabase.auth.onAuthStateChange(authStateChangeHandler);
 
   if (error) {
     console.log("Login failed:", error.message);
@@ -31,7 +34,8 @@ export async function login(email, password) {
   }
 }
 
-export async function signup(email, password, username) {
+export async function signup(email, password) {
+  const supabase = createClient();
   const { user, error } = await supabase.auth.signUp({
     email: email,
     password: password,
@@ -44,17 +48,7 @@ export async function signup(email, password, username) {
   }
 
   if (user) {
-    const { error: updateError } = await supabase.from('profiles').update({
-      username: username
-    }).eq('id', user.id);
-
-    if (updateError) {
-      console.error('Error updating user metadata:', updateError.message);
-    } else {
-      console.log("User metadata updated successfully for", username);
-    }
+    console.log("Signup successful:", user);
+    redirect("/check-email");
   }
-
-  revalidatePath("/check-email");
-  redirect("/check-email");
 }

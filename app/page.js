@@ -11,8 +11,15 @@ import { FaNodeJs } from "react-icons/fa";
 import { FaReact } from "react-icons/fa";
 import { TbBrandNextjs } from "react-icons/tb";
 import { RiSvelteFill } from "react-icons/ri";
+import { FcLinux } from "react-icons/fc";
+import { createClient } from "@/lib/utils/supabase/server";
 
-export default function Portfolio() {
+export default async function Portfolio() {
+  const supabase = createClient();
+  
+const { data: { user } } = await supabase.auth.getUser()
+
+
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
@@ -36,14 +43,12 @@ export default function Portfolio() {
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
           I code in <span>many</span> programming languages & frameworks.
         </h2>
-        <div className="flex flex-col md:flex-row justify-center mt-6 space-x-10">
-          <div className="flex justify-center mt-10  hover:animate-bounce">
-            <Link href="https://javascript.com">
+        <div className="flex flex-col flex-wrap md:flex-row justify-center mt-6 md:space-x-10">
+          <div className="flex justify-center m-6 hover:animate-bounce">
               <IoLogoJavascript className="text-6xl text-yellow-300 bg-black" />
-            </Link>
           </div>
-          <div className="flex justify-center m-5 hover:animate-bounce">
-            <FaPython className="text-6xl text-opacity-75 text-blue-500 shadow-4xl" />
+          <div className="flex justify-center m-6 hover:animate-bounce">
+            <FaPython className="text-6xl text-blue-500 shadow-4xl" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce ">
             <FaHtml5 className="text-6xl text-orange-400" />
@@ -65,6 +70,9 @@ export default function Portfolio() {
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
             <RiSvelteFill className="text-6xl text-orange-600" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <FcLinux className="text-6xl text-orange-600" />
           </div>
         </div>
         {/* <div>

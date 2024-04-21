@@ -59,6 +59,7 @@ function LoginForm() {
       setIsLoading(false);
     }
   };
+
   return (
     <form
       className="flex justify-center items-center flex-col w-full h-screen"
