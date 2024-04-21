@@ -4,6 +4,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/utils/supabase/server";
+import jwt_decode from "jwt-decode";
 
 export async function login(email, password) {
   const supabase = createClient();
@@ -17,19 +18,23 @@ export async function login(email, password) {
   const authStateChangeHandler = (event, updatedSession) => {
     session = updatedSession;
     console.log("Auth state changed:", event, session);
-
+  
     if (event === "SIGNED_IN") {
       console.log("User signed in successfully.", session);
       revalidatePath("/dashboard");
       redirect("/dashboard");
-       // Check for token expiration and schedule a refresh
-       setTimeout(() => {
+      
+      const decodedToken = jwt_decode(session.access_token);
+      const timeToExpiry = (decodedToken.exp * 1000) - Date.now() - (60 * 1000); // 1 minute before expiry
+      
+      // Check for token expiration and schedule a refresh
+      setTimeout(() => {
         // This will automatically call the Supabase function to refresh the session
         supabase.auth.refreshSession();
-      }, (session.expires_in - 60) * 1000); // Refresh 1 minute before token expires
+      }, timeToExpiry);
     }
   };
-
+  
   supabase.auth.onAuthStateChange(authStateChangeHandler);
 
   if (error) {

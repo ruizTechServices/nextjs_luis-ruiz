@@ -15,9 +15,13 @@ import { FcLinux } from "react-icons/fc";
 import { createClient } from "@/lib/utils/supabase/server";
 
 export default async function Portfolio() {
-  const supabase = createClient();
+  // const supabase = createClient();
   
-const { data: { user } } = await supabase.auth.getUser()
+  // const { data: { user } } = await supabase.auth.getUser()
+
+  // if (user) {
+  //   console.log(`Logged in user: ${user.email}`);
+  // }
 
 
   return (
