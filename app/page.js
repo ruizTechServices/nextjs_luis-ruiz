@@ -67,6 +67,7 @@ export default function Portfolio() {
             <RiSvelteFill className="text-6xl text-orange-600" />
           </div>
         </div>
+        <h1>:)</h1>
         {/* <div>
           <Link
             className="hover:animate-bounce"
