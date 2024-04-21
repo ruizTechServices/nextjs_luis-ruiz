@@ -2,6 +2,15 @@
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 import Link from "next/link";
+import { IoLogoJavascript } from "react-icons/io5";
+import { FaPython } from "react-icons/fa";
+import { FaHtml5 } from "react-icons/fa";
+import { BiLogoTailwindCss } from "react-icons/bi";
+import { FaPhp } from "react-icons/fa";
+import { FaNodeJs } from "react-icons/fa";
+import { FaReact } from "react-icons/fa";
+import { TbBrandNextjs } from "react-icons/tb";
+import { RiSvelteFill } from "react-icons/ri";
 
 export default function Portfolio() {
   return (
@@ -21,6 +30,52 @@ export default function Portfolio() {
           height={200}
           className="rounded-full"
         />
+      </section>
+
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
+        <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+          I code in <span>many</span> programming languages & frameworks.
+        </h2>
+        <div className="flex flex-col md:flex-row justify-center mt-6 space-x-10">
+          <div className="flex justify-center mt-10  hover:animate-bounce">
+            <Link href="https://javascript.com">
+              <IoLogoJavascript className="text-6xl text-yellow-300 bg-black" />
+            </Link>
+          </div>
+          <div className="flex justify-center m-5 hover:animate-bounce">
+            <FaPython className="text-6xl text-opacity-75 text-blue-500 shadow-4xl" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce ">
+            <FaHtml5 className="text-6xl text-orange-400" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <BiLogoTailwindCss className="text-6xl text-blue-300" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <FaPhp className="text-6xl text-black" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <FaNodeJs className="text-6xl text-green-600" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <FaReact className="text-6xl text-blue-300" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <TbBrandNextjs className="text-6xl text-black" />
+          </div>
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <RiSvelteFill className="text-6xl text-orange-600" />
+          </div>
+        </div>
+        {/* <div>
+          <Link
+            className="hover:animate-bounce"
+            href="https://ruiztechservices.com"
+            target="_blank"
+          >
+            ruizTechServices<span className="animate-blink">|</span>
+          </Link>
+        </div> */}
       </section>
 
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-800">
