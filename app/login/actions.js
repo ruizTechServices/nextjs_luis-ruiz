@@ -22,6 +22,11 @@ export async function login(email, password) {
       console.log("User signed in successfully.", session);
       revalidatePath("/dashboard");
       redirect("/dashboard");
+       // Check for token expiration and schedule a refresh
+       setTimeout(() => {
+        // This will automatically call the Supabase function to refresh the session
+        supabase.auth.refreshSession();
+      }, (session.expires_in - 60) * 1000); // Refresh 1 minute before token expires
     }
   };
 
