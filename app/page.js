@@ -67,7 +67,6 @@ export default function Portfolio() {
             <RiSvelteFill className="text-6xl text-orange-600" />
           </div>
         </div>
-        <h1>:)</h1>
         {/* <div>
           <Link
             className="hover:animate-bounce"
@@ -129,22 +128,22 @@ export default function Portfolio() {
           ></iframe>
           <iframe
             src="https://demon-child.com"
-            title="Project 4"
+            title="Project 5"
             className="h-[500px]"
           ></iframe>
           <iframe
             src="https://letmeexplain.online"
-            title="Project 4"
+            title="Project 6"
             className="h-[500px]"
           ></iframe>
           <iframe
             src="https://rrtruckingservices.com"
-            title="Project 4"
+            title="Project 7"
             className="h-[500px]"
           ></iframe>
           <iframe
             src="https://dont-download.com"
-            title="Project 4"
+            title="Project 8"
             className="h-[500px]"
           ></iframe>      
         </div>
