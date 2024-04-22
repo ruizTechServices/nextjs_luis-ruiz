@@ -7,7 +7,7 @@ import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
 import ChatbotForm from "../components/main/chatbot";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
-import  PersonalAssistant  from "../../app/components/main/personalAssistant";//<<<======WE ARE FOCUSING ON THIS
+import  PersonalAssistant  from "../../app/components/main/personalAssistant";
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -19,22 +19,22 @@ function Dashboard() {
       <DashboardHeader />
       <JournalEntriesList />
 
-      <div className="container mx-auto w-80 mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
+      <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
           <button
             onClick={() => openModal(<JournalEntryForm />)}
-            className="button rounded-md bg-blue-500 p-5 w-full md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+            className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
           >
             Add Journal Entry
           </button>
         <button
-          onClick={() => openModal(<PersonalAssistant/>)}///<==============AND THIS
-          className="button rounded-md bg-blue-500 p-5 w-full md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+          onClick={() => openModal(<PersonalAssistant/>)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           My Chatbot!
         </button>
         <button
           onClick={() => openModal(<BitcoinPriceClock />)}
-          className="button rounded-md bg-blue-500 p-5 w-full   md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           Bitcoin Price Status
         </button>
