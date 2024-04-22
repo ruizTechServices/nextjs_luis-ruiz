@@ -7,7 +7,7 @@ import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
 import ChatbotForm from "../components/main/chatbot";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
-import  PersonalAssistant  from "../../app/components/main/personalAssistant";
+import  PersonalAssistant  from "../../app/components/main/personalAssistant";//<<<======WE ARE FOCUSING ON THIS
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -27,7 +27,7 @@ function Dashboard() {
             Add Journal Entry
           </button>
         <button
-          onClick={() => openModal(<PersonalAssistant/>)}
+          onClick={() => openModal(<PersonalAssistant/>)}///<==============AND THIS
           className="button rounded-md bg-blue-500 p-5 w-full md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           My Chatbot!
