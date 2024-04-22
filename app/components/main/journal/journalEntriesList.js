@@ -11,7 +11,9 @@ export const JournalEntriesList = () => {
   useEffect(() => {
     const fetchJournal = async () => {
       try {
-        const { data, error } = await supabase.from("journal").select();
+        const { data, error } = await supabase
+          .from("journal")
+          .select();
         if (error) throw error;
         setJournal(data);
       } catch (error) {
@@ -24,8 +26,8 @@ export const JournalEntriesList = () => {
 
     myChannel
       .on("postgres_changes", { event: "*", schema: "public" }, (payload) => {
-        console.log("Change received!", payload);
         fetchJournal();
+        console.log("Change received!", payload);        
       })
       .subscribe();
 
@@ -50,6 +52,7 @@ export const JournalEntriesList = () => {
               id={entry.id}
               title={entry.title}
               content={entry.content}
+              tags={entry.tags}
             />
           ))}
         </div>
