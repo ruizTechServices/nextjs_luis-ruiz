@@ -12,9 +12,9 @@ export const JournalEntry = ({ id, title, content, tags }) => {
 
   return (
     <>
-      <div className="bg-white flex flex-col dark:bg-gray-800 p-4 rounded-2xl shadow-md mb-5 ml-10 mr-10 text-center items-center align-middle w-full md:w-1/3">
-        <p className="p-4 text-4xl font-bold bg-gradient-to-r from-purple-700 via-sky-200 to-cyan-900 rounded-xl text-black dark:text-white">{title}</p>
-        <div className="italic text-center flex flex-col justify-center items-center m-4 p-4 border-2 text-gray-900 dark:text-gray-100 md:w-3/4 mx-auto">
+      <div className="">
+        <p className="font-bold text-3xl text-center">{title}</p>
+        <div className="italic flex flex-col justify-center items-center m-4 p-4 border-2 text-gray-900 dark:text-gray-100 md:w-3/4 mx-auto">
           {showMore ? content : previewContent}
           <button
             onClick={toggleShowMore}
@@ -22,12 +22,12 @@ export const JournalEntry = ({ id, title, content, tags }) => {
           >
             {showMore ? "Show Less" : "Show More"}
           </button>
-          <div>
-            <button className="border-2 rounded-full p-4 hover:bg-gradient-to-br from-teal-600 via-pink-500 to-blue-600" type="button" onClick={() => setTagsVisible(!tagsVisible)}>
+          <button className="border-2 rounded-full p-3 hover:bg-gradient-to-br from-teal-600 via-pink-500 to-blue-600" type="button" onClick={() => setTagsVisible(!tagsVisible)}>
               Tags
             </button>
+          <div className="">            
             {tagsVisible && (
-              <div className="font-bold not-italic text-xl border rounded w-fit border-red-500">
+              <div className="text-center font-bold not-italic text-xl border rounded w-fit mt-5">
                 {tags}
               </div>
             )}

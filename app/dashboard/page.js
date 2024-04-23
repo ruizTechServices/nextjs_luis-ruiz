@@ -7,7 +7,7 @@ import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
 import ChatbotForm from "../components/main/chatbot";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
-import  PersonalAssistant  from "../../app/components/main/personalAssistant";
+import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 
 function Dashboard() {
@@ -18,18 +18,27 @@ function Dashboard() {
   return (
     <>
       <DashboardHeader />
-      <JournalEntriesList />
-      <ContactEntriesList />
-
       <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
-          <button
-            onClick={() => openModal(<JournalEntryForm />)}
-            className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-          >
-            Add Journal Entry
-          </button>
         <button
-          onClick={() => openModal(<PersonalAssistant/>)}
+          onClick={() => openModal(<JournalEntriesList />)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          Journal
+        </button>
+        <button
+          onClick={() => openModal(<ContactEntriesList />)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          Contact List/Entries
+        </button>
+        <button
+          onClick={() => openModal(<JournalEntryForm />)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          Add Journal Entry
+        </button>
+        <button
+          onClick={() => openModal(<PersonalAssistant />)}
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           My Chatbot!

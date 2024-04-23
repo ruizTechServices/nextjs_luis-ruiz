@@ -38,14 +38,14 @@ export const JournalEntriesList = () => {
   }, []);
 
   return (
-    <section className="w-full p-4">
+    <section className="">
       {fetchError && (
         <div className="bg-red-500 text-black p-4 rounded-md">
           <p>{fetchError}</p>
         </div>
       )}
       {journal.length > 0 && (
-        <div className="bg-gray-100 h-screen overflow-scroll dark:bg-gray-800 p-4 rounded-md shadow-md flex flex-col md:flex-row md:flex-wrap md:justify-around items-center justify-center">
+        <div className="dark:bg-gray-800 dark:text-white">
           {journal.map((entry) => (
             <JournalEntry
               key={entry.id}
