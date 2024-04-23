@@ -8,6 +8,7 @@ import ChatbotForm from "../components/main/chatbot";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
 import  PersonalAssistant  from "../../app/components/main/personalAssistant";
+import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -18,6 +19,7 @@ function Dashboard() {
     <>
       <DashboardHeader />
       <JournalEntriesList />
+      <ContactEntriesList />
 
       <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
           <button

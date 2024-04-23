@@ -1,6 +1,6 @@
 "use client";
 
-import ContactCard from "../components/main/contactInfoCard";
+import ContactCard from "../components/main/contact/contactInfoCard";
 
 
 export default function Contact() {

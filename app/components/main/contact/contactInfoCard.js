@@ -1,17 +1,60 @@
+///The data that goes into this component gets sent to `contactEntryList.js` thru Supabase. basically this is where the user posts their information and contactentrylist is where it is displayed.
 "use client";
-import React from "react";
+import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
+import supabase from "../../../../lib/utils/supabase/supabaseClient";
 
 export default function ContactCard() {
+  const [fullname, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [fetchError, setFetchError] = useState(null);
+  const [contactlist, setContactList] = useState([]);
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const fetchContactList = async () => {
+    try {
+      const { data, error } = await supabase.from("contactlist").select();
+      if (error) {
+        setFetchError("Could not fetch the Contact List data...", error.message);
+        setContactList([]);
+      } else {
+        setContactList(data);
+        setFetchError(null);
+      }
+    } catch (err) {
+      setFetchError(err.message);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log(data); // Sends data to the console
-    router.push("/thank-you"); // Redirects the user to a thank you page
-  };
+
+    if (!data.fullname || !data.email || !data.message) { // Correct the field names according to form data keys
+        console.error("Please fill out all required fields.");
+        return;
+    }
+
+    const { error } = await supabase
+        .from("contactlist")
+        .insert([{ fullname: data.fullname, phone: data.phone, email: data.email, message: data.message }]);
+
+    if (error) {
+        console.error(error.message);
+    } else {
+        console.log("Entry added");
+        await fetchContactList();
+        setFullName("");
+        setPhone("");
+        setEmail("");
+        setMessage("");
+        router.push("/thank-you"); // Redirect only on successful insert
+    }
+};
+
 
   return (
     <div className="container mx-auto h-auto p-5">
@@ -20,15 +63,15 @@ export default function ContactCard() {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="name"
+              htmlFor="fullname"
               className="block text-sm font-medium text-gray-700"
             >
-              Name:
+              Fullname:
             </label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="fullname"
+              name="fullname"
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
