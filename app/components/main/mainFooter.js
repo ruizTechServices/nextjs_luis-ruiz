@@ -11,8 +11,7 @@ function MainFooter() {
             { href: "/about-me", label: "About Me" },
             { href: "/contact", label: "Contact" },
             { href: "/services", label: "Services" },
-            { href: "/dashboard", label: "Dashboard" },
-            // { href: "/dashboard", label: "Dashboard" }
+            { href: "/dashboard", label: "Dashboard" }//<====THis is what I want to toggle hidden and not hidden
           ];  
 
   return <Footer links={userLinks} />;
