@@ -37,14 +37,14 @@ export const ContactEntriesList = () => {
   }, []);
 
   return (
-    <section className="w-1/4 border-4 m-5 rounded overflow-scroll">
+    <section className="flex p-5 md:w-1/4 border-4 my-5 mx-3 rounded overflow-scroll">
       {fetchError && (
         <div className="bg-red-500 text-black p-4 rounded-md">
           <p>{fetchError}</p>
         </div>
       )}
       {contactlist.length > 0 && (
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-md shadow-xl flex flex-col md:flex-row md:flex-wrap md:justify-around items-center justify-center">
+        <div className="bg-gray-100 dark:bg-gray-800 dark:text-white">
           {contactlist.map((entry) => (
             <ContactEntry
               key={entry.id}
