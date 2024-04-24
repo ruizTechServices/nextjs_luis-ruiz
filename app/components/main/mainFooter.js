@@ -28,9 +28,9 @@ function MainFooter() {
   return (
     <>
       {/* dashboard link visibility logic */}
-      <button onClick={toggleDashboardVisibility} className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700">
+      {/* <button onClick={toggleDashboardVisibility} className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700">
         Toggle Dashboard
-      </button>
+      </button> */}
       <Footer links={userLinks} />
     </>
   );
