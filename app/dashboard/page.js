@@ -9,6 +9,7 @@ import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
 import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
+import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -48,6 +49,12 @@ function Dashboard() {
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           Bitcoin Price Status
+        </button>
+        <button
+          onClick={() => openModal(<BlogEntryForm/>)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          Blog Entry Form
         </button>
       </div>
 

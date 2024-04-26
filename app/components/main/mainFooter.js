@@ -28,6 +28,7 @@ function MainFooter() {
   return (
     <>
       {/* dashboard link visibility logic */}
+      {/* So, I commented out the dashboard link visibility logic because I want the dashboard to be visible when a specific user is signed in. I want to be able to have the backend check if there is a user logged in. If there is, check if the user's email is 'giosterr44@gmail.com'. if it is, then, display '/dashboard'. If it isn't, don't display anything. */}
       {/* <button onClick={toggleDashboardVisibility} className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-700">
         Toggle Dashboard
       </button> */}
