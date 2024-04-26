@@ -71,7 +71,7 @@ function LoginForm() {
             {isLoading ? "Processing..." : "Login"}
           </button>
           <p className="text-blue-500 cursor-pointer mt-2" onClick={resetPass}>Forgotten your password?</p>
-          <p className="text-blue-500 cursor-pointer mt-2" onClick={toggleForm}>Don't have an account? Register</p>
+          <p className="text-blue-500 cursor-pointer mt-2" onClick={toggleForm}>Don&apos;t have an account? Register</p>
         </div>
       ) : (
         <div className="flex flex-col p-4 border border-gray-200 rounded-lg w-full max-w-xs sm:max-w-md md:max-w-lg">
