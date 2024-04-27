@@ -79,15 +79,6 @@ export default async function Portfolio() {
             <FcLinux className="text-6xl text-orange-600" />
           </div>
         </div>
-        {/* <div>
-          <Link
-            className="hover:animate-bounce"
-            href="https://ruiztechservices.com"
-            target="_blank"
-          >
-            ruizTechServices<span className="animate-blink">|</span>
-          </Link>
-        </div> */}
       </section>
 
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-800">
@@ -95,9 +86,9 @@ export default async function Portfolio() {
           About Me
         </h2>
         <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
-          With 10 years of experience as a full-stack web developer, I have a
-          deep understanding of technologies such as NextJS, Sveltekit,
-          JavaScript, TypeScript, and more.
+          With over a decade of experience as a full-stack web developer, I
+          possess a profound expertise in technologies including NextJS,
+          Sveltekit, JavaScript, TypeScript, among others.
         </p>
         <Image
           src="/images/me_2.PNG"
@@ -117,47 +108,47 @@ export default async function Portfolio() {
             achieve their goals. Here&apos;s a glimpse of my work.
           </p>
         </div>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           <iframe
             src="https://catherineruiz.com"
             title="Project 1"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://Compulogicpc.com"
             title="Project 2"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://ruiztechsevices.com"
             title="Project 3"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://24hourgpt.com"
             title="Project 4"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://demon-child.com"
             title="Project 5"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://letmeexplain.online"
             title="Project 6"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://rrtruckingservices.com"
             title="Project 7"
-            className="h-[500px]"
+            className="aspect-video"
           ></iframe>
           <iframe
             src="https://dont-download.com"
             title="Project 8"
-            className="h-[500px]"
-          ></iframe>      
+            className="aspect-video"
+          ></iframe>
         </div>
       </section>
     </main>
