@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import MainFooter from "./components/main/mainFooter";
 import Head from "next/head";
+import {Adsense} from "../app/components/main/adsense"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +29,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
+        <Adsense pId="ca-pub-8779702295184066" />
       </Head>
       <body className={inter.className}>
         {children}
