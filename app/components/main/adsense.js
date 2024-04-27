@@ -6,10 +6,11 @@ const Adsense = ({ pId }) => {
         <Script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-${pId}"}`}
-            crossOrigin="anonymous"
+            crossorigin="anonymous"
             strategy="afterInteractive"
         />
     );
 }
 
 export default Adsense;
+// {/*ca-pub-8779702295184066*/}

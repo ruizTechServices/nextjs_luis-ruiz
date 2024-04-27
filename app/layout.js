@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import MainFooter from "./components/main/mainFooter";
 import Head from "next/head";
-import {Adsense} from "../app/components/main/adsense"
+import Adsense from "../app/components/main/adsense"
 
 const inter = Inter({ subsets: ["latin"] });
 
