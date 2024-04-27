@@ -1,22 +1,9 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\blog\page.js
 "use client";
 import React from "react";
-import Image from "next/image";
-import { BlogEntry } from "../components/main/blog/blogEntry";
-import { useEffect, useState } from "react";
-import supabase from "../../lib/utils/supabase/supabaseClient";
 import { BlogEntriesList } from "../components/main/blog/blogEntryList";
 
 export default function Blog() {
-
-
-    let user = {
-        name: "Luis",
-        email: "github.com/luisr-escobar",
-        image: "/images/luisIT.jpg",
-    };
-
-    let image = user.image;
-
     return (
         <div className="container mx-auto">
             <div className="container mx-auto text-center">

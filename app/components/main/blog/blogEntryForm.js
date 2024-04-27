@@ -1,4 +1,4 @@
-// C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntryForm.js
+// C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\components\main\blog\blogEntryForm.js
 "use client";
 import { useState } from "react";
 import supabase from "../../../../lib/utils/supabase/supabaseClient";

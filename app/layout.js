@@ -9,11 +9,6 @@ export const metadata = {
   description: "Portfolio of Luis Ruiz, a full-stack Developer",
 };
 
-// let user = {
-//   name: "Luis Chaka Ruiz",
-//   email: "github.com/luisr-escobar",
-//   image: "/images/luisIT.jpg",
-// };
 
 export default function RootLayout({ children }) {
   return (

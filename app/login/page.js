@@ -83,7 +83,7 @@ function LoginForm() {
           <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 w-full" type="submit" disabled={isLoading}>
             {isLoading ? "Signing Up..." : "Sign Up"}
           </button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {errorMessage && <p className="error-message text-red-500">{errorMessage}</p>}
           <p className="text-blue-500 cursor-pointer mt-2" onClick={toggleForm}>Already have an account? Login</p>
         </div>
       )}

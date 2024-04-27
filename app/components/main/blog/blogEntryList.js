@@ -52,6 +52,7 @@ export const BlogEntriesList = () => {
                         <BlogEntry
                             key={entry.id}
                             id={entry.id}
+                            created_at={entry.created_at}
                             title={entry.title}
                             summary={entry.summary}
                             body={entry.body}
