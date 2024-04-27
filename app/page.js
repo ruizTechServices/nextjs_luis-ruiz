@@ -16,7 +16,7 @@ import { createClient } from "@/lib/utils/supabase/server";
 
 export default async function Portfolio() {
   // const supabase = createClient();
-  
+
   // const { data: { user } } = await supabase.auth.getUser()
 
   // if (user) {
@@ -49,7 +49,7 @@ export default async function Portfolio() {
         </h2>
         <div className="flex flex-col flex-wrap md:flex-row justify-center mt-6 md:space-x-10">
           <div className="flex justify-center m-6 hover:animate-bounce">
-              <IoLogoJavascript className="text-6xl text-yellow-300 bg-black" />
+            <IoLogoJavascript className="text-6xl text-yellow-300 bg-black" />
           </div>
           <div className="flex justify-center m-6 hover:animate-bounce">
             <FaPython className="text-6xl text-blue-500 shadow-4xl" />
