@@ -120,7 +120,7 @@ export default async function Portfolio() {
             className="aspect-video"
           ></iframe>
           <iframe
-            src="https://ruiztechsevices.com"
+            src="https://ruiztechservices.com"
             title="Project 3"
             className="aspect-video"
           ></iframe>
