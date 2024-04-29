@@ -1,3 +1,4 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\server.js
 "use strict";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -6,29 +7,35 @@ import Cookies from "js-cookie";
 
 const IndexServer = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const router = useRouter();
-  const { user } = router.query;
-  const supabase = createClient(user);
-  const { data, error } = supabase.from("users").select("*");
-  if (error) {
-    console.log(error);
-  }
-  if (data) {
-    console.log(data);
-  }
+  const supabase = createClient();
 
-  const userId = Cookies.get("userId");
   useEffect(() => {
-    if (userId) {
-      console.log("User ID from cookie:", userId);
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, [userId]);
+    const checkSession = async () => {
+      const session = Cookies.get("session");
+      if (session) {
+        const { user, error } = await supabase.auth.api.getUser(session);
+        if (user && !error) {
+          console.log("User is logged in", user);
+          setIsLoggedIn(true);
+        } else {
+          console.log("Session is invalid or expired", error);
+          setIsLoggedIn(false);
+          router.push('/login');
+        }
+      } else {
+        router.push('/login');
+      }
+    };
 
-  return { isLoggedIn };
+    checkSession();
+  }, [router, supabase]);
+
+  return (
+    <div>
+      {isLoggedIn ? "User is logged in" : "Not logged in"}
+    </div>
+  );
 };
 
 export default IndexServer;

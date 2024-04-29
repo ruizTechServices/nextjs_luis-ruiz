@@ -13,20 +13,14 @@ import { TbBrandNextjs } from "react-icons/tb";
 import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import { createClient } from "@/lib/utils/supabase/server";
+import ProjectViewer from "./components/main/iframe";
 
 export default async function Portfolio() {
-  // const supabase = createClient();
-
-  // const { data: { user } } = await supabase.auth.getUser()
-
-  // if (user) {
-  //   console.log(`Logged in user: ${user.email}`);
-  // }
-
 
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
+
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
           Welcome to Luis-ruiz.com
@@ -42,6 +36,7 @@ export default async function Portfolio() {
           className="rounded-full"
         />
       </section>
+      <div className="md:container mx-auto w-1/2 border border-blue-400"></div>
 
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
@@ -98,59 +93,98 @@ export default async function Portfolio() {
         />
       </section>
 
+      <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <h1 className="text-4xl font-bold text-center text-white">Luis Ruiz</h1>
+        <p className="text-center text-xl mt-2 text-gray-800">New York City Native</p>
+
+        <div className="mt-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg">
+          <div className="relative w-full h-full rounded-full overflow-hidden">
+            <Image
+              src="/images/luisIT.jpg"
+              alt="Luis Ruiz"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-full"
+            />
+          </div>
+        </div>
+
+        <div className="mt-8 text-center max-w-4xl mx-auto">
+          <p className="text-lg leading-relaxed text-gray-800">
+            Luis Ruiz, a 35-year-old professional with roots in New York City, currently oversees
+            management operations at Compulogic. Demonstrating a strong commitment to community
+            engagement, Luis conducts educational initiatives aimed at enhancing brand visibility
+            and trust.
+          </p>
+          <div className="my-8 text-xl font-bold border-b-4 border-gray-700"></div>
+          <h3 className="text-2xl font-bold text-gray-800">Professional Skills</h3>
+          <p className="text-lg mt-2 text-gray-800">
+            With expertise in general maintenance and a profound passion for business growth and
+            personal development, Luis excels in diverse environments. He holds a Bachelor&apos;s
+            degree in Information Technology from the University of Phoenix, underscoring his strong
+            foundation in technical skills.
+          </p>
+          <h3 className="text-2xl font-bold text-gray-800 mt-8">Interests</h3>
+          <p className="text-lg mt-2 text-gray-800">
+            Luis finds pleasure in engaging with complex video games like Red Dead Redemption 2,
+            Helldivers 2, and Genshin Impact, which he believes stimulate strategic and analytical
+            thinking. His enthusiasm for programming is driven by a goal to reach a level of
+            expertise where his skills are indispensable to others.
+          </p>
+        </div>
+      </main>
+    </section>
+
+      <div className="my-10 mx-auto md:container w-3/4 border border-blue-400"></div>
+
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-700">
-        <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-lg shadow-lg">
-          <h2 className="text-4xl font-bold text-white drop-shadow-2xl">
+        <div className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5">
+          <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
             My Work
           </h2>
-          <p className="mt-3 text-lg text-white dark:text-gray-300">
+          <p className="mt-3 text-lg text-black font-bold dark:text-gray-300">
             I&apos;ve contributed to numerous projects that help companies
             achieve their goals. Here&apos;s a glimpse of my work.
           </p>
         </div>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          <iframe
-            src="https://catherineruiz.com"
-            title="Project 1"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://Compulogicpc.com"
-            title="Project 2"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://ruiztechservices.com"
-            title="Project 3"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://24hourgpt.com"
-            title="Project 4"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://demon-child.com"
-            title="Project 5"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://letmeexplain.online"
-            title="Project 6"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://rrtruckingservices.com"
-            title="Project 7"
-            className="aspect-video"
-          ></iframe>
-          <iframe
-            src="https://dont-download.com"
-            title="Project 8"
-            className="aspect-video"
-          ></iframe>
+        <ProjectViewer />
+      </section>
+
+      <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px]">
+        <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
+          <div className="flex flex-col justify-center text-center w-full font-bold text-4xl ">
+            <h1>Web Designer</h1>
+            <h1>Web Developer</h1>
+            <h1>DevOps Engineer</h1>
+            <h1>Software Engineer</h1>
+          </div>
+        </div>
+        <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
+          <div className="flex justify-center items-center align-middle w-full mx-5 my-5 border-2 overflow-hidden">
+            <Image
+              src={"/images/gioWater.jpg"}
+              alt="Luis"
+              width={5000}
+              height={0}
+              className="rounded-2xl"
+            />
+          </div>
         </div>
       </section>
+
+
+
+      {/* <section className="border-4 h-[500px] bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
+        <div className="flex overflow-hidden border-4 h-[200px] w-1/2 bg-white">
+          <div className="border-4 border-blue-500 h-[200px] w-1/2 bg-white">
+
+          </div>
+          <div className="border-4 border-red-500 h-[200px] w-1/2 bg-white">
+
+          </div>
+        </div>
+      </section> */}
     </main>
   );
 }

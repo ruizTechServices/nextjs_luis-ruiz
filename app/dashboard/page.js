@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { DashboardHeader } from "../components/main/dashboardHeader";
 import { JournalEntriesList } from "../components/main/journal/journalEntriesList";
 import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
-import ChatbotForm from "../components/main/chatbot";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
 import Modal from "../components/ui/modal";
 import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
+import CreateAssistantForm from '../components/main/createAssistant';
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -20,6 +20,12 @@ function Dashboard() {
     <>
       <DashboardHeader />
       <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
+        {/* <button
+          onClick={() => openModal(<CreateAssistantForm />)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          Create An Assistant
+        </button> */}
         <button
           onClick={() => openModal(<JournalEntriesList />)}
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
@@ -51,7 +57,7 @@ function Dashboard() {
           Bitcoin Price Status
         </button>
         <button
-          onClick={() => openModal(<BlogEntryForm/>)}
+          onClick={() => openModal(<BlogEntryForm />)}
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           Blog Entry Form

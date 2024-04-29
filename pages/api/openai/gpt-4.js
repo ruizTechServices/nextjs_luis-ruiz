@@ -1,4 +1,4 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\pages\api\openai\gpt-4.js
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\pages\api\openai\gpt-4.js
 import { openai } from '../../../lib/utils/openai/connection';
 
 export default async function handler(req, res) {
