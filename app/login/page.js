@@ -91,7 +91,7 @@ export default function Login({ params }) {
                 Forgotten your password?
               </p>
               <p className="text-blue-500 cursor-pointer" onClick={toggleForm}>
-                Don't have an account? Register
+                Don&apos;t have an account? Register
               </p>
             </>
           ) : (
