@@ -1,3 +1,4 @@
+// C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\components\main\AuthButton.js
 // Import necessary modules and components
 const { createClient } = require('../../../lib/utils/supabase/server');
 const Link = require('next/link');

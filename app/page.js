@@ -1,4 +1,5 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\page.js
+//CC:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\page.js
+"use client";
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 import Link from "next/link";
@@ -12,32 +13,13 @@ import { FaReact } from "react-icons/fa";
 import { TbBrandNextjs } from "react-icons/tb";
 import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
-import { createClient } from "../lib/utils/supabase/server";
 import ProjectViewer from "./components/main/iframe";
-import { AuthButton } from "../app/components/main/AuthButton";
 
-export default async function Portfolio() {
-  const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
-    try {
-      createClient();
-      return true;
-    } catch (e) {
-      return false;
-    }
-  };
-
-  const isSupabaseConnected = canInitSupabaseClient();
+export default function Portfolio() {
 
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
-
-      {/* <div>
-      {isSupabaseConnected && <AuthButton />}
-      </div> */}
-
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
           Welcome to Luis-ruiz.com
@@ -112,47 +94,47 @@ export default async function Portfolio() {
       </section>
 
       <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <h1 className="text-4xl font-bold text-center text-white">Luis Ruiz</h1>
-        <p className="text-center text-xl mt-2 text-gray-800">New York City Native</p>
+        <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <h1 className="text-4xl font-bold text-center text-white">Luis Ruiz</h1>
+          <p className="text-center text-xl mt-2 text-gray-800">New York City Native</p>
 
-        <div className="mt-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg">
-          <div className="relative w-full h-full rounded-full overflow-hidden">
-            <Image
-              src="/images/luisIT.jpg"
-              alt="Luis Ruiz"
-              layout="fill"
-              objectFit="cover"
-              className="rounded-full"
-            />
+          <div className="mt-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg">
+            <div className="relative w-full h-full rounded-full overflow-hidden">
+              <Image
+                src="/images/luisIT.jpg"
+                alt="Luis Ruiz"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-full"
+              />
+            </div>
           </div>
-        </div>
 
-        <div className="mt-8 text-center max-w-4xl mx-auto">
-          <p className="text-lg leading-relaxed text-gray-800">
-            Luis Ruiz, a 35-year-old professional with roots in New York City, currently oversees
-            management operations at Compulogic. Demonstrating a strong commitment to community
-            engagement, Luis conducts educational initiatives aimed at enhancing brand visibility
-            and trust.
-          </p>
-          <div className="my-8 text-xl font-bold border-b-4 border-gray-700"></div>
-          <h3 className="text-2xl font-bold text-gray-800">Professional Skills</h3>
-          <p className="text-lg mt-2 text-gray-800">
-            With expertise in general maintenance and a profound passion for business growth and
-            personal development, Luis excels in diverse environments. He holds a Bachelor&apos;s
-            degree in Information Technology from the University of Phoenix, underscoring his strong
-            foundation in technical skills.
-          </p>
-          <h3 className="text-2xl font-bold text-gray-800 mt-8">Interests</h3>
-          <p className="text-lg mt-2 text-gray-800">
-            Luis finds pleasure in engaging with complex video games like Red Dead Redemption 2,
-            Helldivers 2, and Genshin Impact, which he believes stimulate strategic and analytical
-            thinking. His enthusiasm for programming is driven by a goal to reach a level of
-            expertise where his skills are indispensable to others.
-          </p>
-        </div>
-      </main>
-    </section>
+          <div className="mt-8 text-center max-w-4xl mx-auto">
+            <p className="text-lg leading-relaxed text-gray-800">
+              Luis Ruiz, a 35-year-old professional with roots in New York City, currently oversees
+              management operations at Compulogic. Demonstrating a strong commitment to community
+              engagement, Luis conducts educational initiatives aimed at enhancing brand visibility
+              and trust.
+            </p>
+            <div className="my-8 text-xl font-bold border-b-4 border-gray-700"></div>
+            <h3 className="text-2xl font-bold text-gray-800">Professional Skills</h3>
+            <p className="text-lg mt-2 text-gray-800">
+              With expertise in general maintenance and a profound passion for business growth and
+              personal development, Luis excels in diverse environments. He holds a Bachelor&apos;s
+              degree in Information Technology from the University of Phoenix, underscoring his strong
+              foundation in technical skills.
+            </p>
+            <h3 className="text-2xl font-bold text-gray-800 mt-8">Interests</h3>
+            <p className="text-lg mt-2 text-gray-800">
+              Luis finds pleasure in engaging with complex video games like Red Dead Redemption 2,
+              Helldivers 2, and Genshin Impact, which he believes stimulate strategic and analytical
+              thinking. His enthusiasm for programming is driven by a goal to reach a level of
+              expertise where his skills are indispensable to others.
+            </p>
+          </div>
+        </main>
+      </section>
 
       <div className="my-10 mx-auto md:container w-3/4 border border-blue-400"></div>
 
@@ -179,7 +161,7 @@ export default async function Portfolio() {
           </div>
         </div>
         <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
-          <div className="flex justify-center items-center align-middle w-full mx-5 my-5 border-2 overflow-hidden">
+          <div className="flex justify-center items-center align-middle w-full mx-5 my-5 overflow-hidden">
             <Image
               src={"/images/gioWater.jpg"}
               alt="Luis"
