@@ -172,19 +172,6 @@ export default async function Portfolio() {
           </div>
         </div>
       </section>
-
-
-
-      {/* <section className="border-4 h-[500px] bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
-        <div className="flex overflow-hidden border-4 h-[200px] w-1/2 bg-white">
-          <div className="border-4 border-blue-500 h-[200px] w-1/2 bg-white">
-
-          </div>
-          <div className="border-4 border-red-500 h-[200px] w-1/2 bg-white">
-
-          </div>
-        </div>
-      </section> */}
     </main>
   );
 }

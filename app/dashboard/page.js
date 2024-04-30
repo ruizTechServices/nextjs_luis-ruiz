@@ -13,6 +13,17 @@ import CreateAssistantForm from '../components/main/createAssistant';
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  const getLoggedInUser = async () => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    setLoggedInUser(user);
+    console.log(loggedInUser);
+  }
+  getLoggedInUser();
+  
 
   const openModal = (contentComponent) => setModalContent(contentComponent);
   const closeModal = () => setModalContent(null);
