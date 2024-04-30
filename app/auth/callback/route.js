@@ -1,5 +1,5 @@
 // Import necessary modules
-const { createClient } = require('@/utils/supabase/server');
+const { createClient } = require('../../../lib/utils/supabase/server');
 const { NextResponse } = require('next/server');
 
 // Define the GET handler as an asynchronous function
