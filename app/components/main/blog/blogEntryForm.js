@@ -1,7 +1,7 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\components\main\blog\blogEntryForm.js
 "use client";
 import { useState } from "react";
-import supabase from "../../../../lib/utils/supabase/supabaseClient";
+import {createClient} from "../../../../lib/utils/supabase/supabaseClient";
 
 export const BlogEntryForm = () => {
     const [title, setTitle] = useState("");
@@ -11,6 +11,7 @@ export const BlogEntryForm = () => {
     const [references, setReferences] = useState("");
     const [fetchError, setFetchError] = useState(null);
     const [blog_posts, setBlog_Posts] = useState([]);
+  const supabase = createClient();
 
     const fetchBlogPosts = async () => {
         try {

@@ -1,7 +1,7 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntryForm.js
 "use client";
 import { useState } from "react";
-import supabase from "../../../../lib/utils/supabase/supabaseClient";
+import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
 
 export const JournalEntryForm = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +9,7 @@ export const JournalEntryForm = () => {
   const [tags, setTags] = useState("");
   const [fetchError, setFetchError] = useState(null);
   const [journal, setJournal] = useState([]);
+  const supabase = createClient();
 
   const fetchJournal = async () => {
     try {

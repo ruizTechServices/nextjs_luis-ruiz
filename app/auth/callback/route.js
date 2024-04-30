@@ -1,45 +1,24 @@
-import { createServerClient } from '@supabase/ssr';
-import { cookies } from 'next/headers';
-import { NextRequest, NextResponse } from 'next/server';
+// Import necessary modules
+const { createClient } = require('@/utils/supabase/server');
+const { NextResponse } = require('next/server');
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url);
-  const token_hash = searchParams.get('token_hash');
-  const type = searchParams.get('type') || null;
-  const next = searchParams.get('next') || '/';
-  const redirectTo = request.nextUrl.clone();
-  redirectTo.pathname = next;
+// Define the GET handler as an asynchronous function
+async function GET(request) {
+  // The `/auth/callback` route is required for the server-side auth flow implemented
+  // by the SSR package. It exchanges an auth code for the user's session.
+  // Reference: https://supabase.com/docs/guides/auth/server-side/nextjs
+  const requestUrl = new URL(request.url);
+  const code = requestUrl.searchParams.get('code');
+  const origin = requestUrl.origin;
 
-  if (token_hash && type) {
-    const cookieStore = cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      {
-        cookies: {
-          get(name) {
-            return cookieStore.get(name)?.value;
-          },
-          set(name, value, options) {
-            cookieStore.set({ name, value, ...options });
-          },
-          remove(name, options) {
-            cookieStore.delete({ name, ...options });
-          },
-        },
-      }
-    );
-
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
-    if (!error) {
-      return NextResponse.redirect(redirectTo);
-    }
+  if (code) {
+    const supabase = createClient();
+    await supabase.auth.exchangeCodeForSession(code);
   }
 
-  // Redirect the user to an error page with some instructions
-  redirectTo.pathname = '/auth/auth-code-error';
-  return NextResponse.redirect(redirectTo);
+  // URL to redirect to after sign up process completes
+  return NextResponse.redirect(`${origin}/protected`);
 }
+
+// Export the GET handler
+module.exports.GET = GET;

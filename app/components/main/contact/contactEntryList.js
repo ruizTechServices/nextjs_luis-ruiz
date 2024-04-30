@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import supabase from "../../../../lib/utils/supabase/supabaseClient";
+import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
 import { ContactEntry } from "./contactEntry";
 
 export const ContactEntriesList = () => {
   const [fetchError, setFetchError] = useState(null);
   const [contactlist, setContactList] = useState([]);
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchContactList = async () => {

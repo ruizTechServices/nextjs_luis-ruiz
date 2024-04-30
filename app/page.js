@@ -12,14 +12,31 @@ import { FaReact } from "react-icons/fa";
 import { TbBrandNextjs } from "react-icons/tb";
 import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
-import { createClient } from "@/lib/utils/supabase/server";
+import { createClient } from "../lib/utils/supabase/server";
 import ProjectViewer from "./components/main/iframe";
+import { AuthButton } from "../app/components/main/AuthButton";
 
 export default async function Portfolio() {
+  const canInitSupabaseClient = () => {
+    // This function is just for the interactive tutorial.
+    // Feel free to remove it once you have Supabase connected.
+    try {
+      createClient();
+      return true;
+    } catch (e) {
+      return false;
+    }
+  };
+
+  const isSupabaseConnected = canInitSupabaseClient();
 
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
+
+      {/* <div>
+      {isSupabaseConnected && <AuthButton />}
+      </div> */}
 
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
@@ -36,6 +53,7 @@ export default async function Portfolio() {
           className="rounded-full"
         />
       </section>
+
       <div className="md:container mx-auto w-1/2 border border-blue-400"></div>
 
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">

@@ -1,28 +1,28 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\middleware.js 
-import { updateSession } from './lib/utils/supabase/middleware';
+// Import the required module from "next/server"
+const { updateSession } = require("./lib/utils/supabase/middleware");
 
-export async function middleware(request) {
-  return await updateSession(request, () => {
-    const token = request.cookies.get("session")?.value;
-  });
-
-  // const { user, error } = await supabase.auth.api.getUser(token);
-
-  // if (user && !error) {
-  //   // Token is valid, so renew it by setting a new cookie
-  //   const cookieOptions = { path: '/', httpOnly: true, secure: true, sameSite: 'lax' };
-  //   request.cookies.set('session', token, cookieOptions);
-  //   return NextResponse.next();
-  // } else {
-  //   // Token is invalid or expired, redirect to login
-  //   const redirectTo = request.nextUrl.clone();
-  //   redirectTo.pathname = '/login';
-  //   return NextResponse.redirect(redirectTo);
-  // }
+// Define the middleware function
+async function middleware(request) {
+  return await updateSession(request);
 }
 
-export const config = {
+// Export the middleware function
+module.exports.middleware = middleware;
+
+// Configuration object to specify matcher rules
+const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
+     * Feel free to modify this pattern to include more paths.
+     */
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
+
+// Export the configuration
+module.exports.config = config;

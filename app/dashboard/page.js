@@ -10,20 +10,36 @@ import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
 import CreateAssistantForm from '../components/main/createAssistant';
+import { createClient } from "@/lib/utils/supabase/supabaseClient";
+import { redirect } from 'next/navigation';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const supabase = createClient();
+  const router = useRouter();
+  const [users, setUsers] = useState(null);
+  const [id, setId] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [user, setUser] = useState(null);
 
-  const getLoggedInUser = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    setLoggedInUser(user);
-    console.log(loggedInUser);
-  }
-  getLoggedInUser();
-  
+  useEffect(() => {
+    const getLoggedInUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        redirect("/");
+      }
+      setLoggedInUser(user);
+      console.log(loggedInUser);
+      getLoggedInUser();
+    }
+  });
+
+
 
   const openModal = (contentComponent) => setModalContent(contentComponent);
   const closeModal = () => setModalContent(null);
