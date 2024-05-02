@@ -14,6 +14,7 @@ import { TbBrandNextjs } from "react-icons/tb";
 import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
+import GptStore from "./components/main/gpt_store";
 
 export default function Portfolio() {
 
@@ -149,6 +150,7 @@ export default function Portfolio() {
           </p>
         </div>
         <ProjectViewer />
+        <GptStore />
       </section>
 
       <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px]">

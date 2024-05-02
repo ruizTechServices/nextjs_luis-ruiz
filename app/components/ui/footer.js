@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Logo from "./logo";
 import Dropdown from "./dropdown";
+import AuthButton from "../main/auth_button";
 
 
 function Footer(props) {
@@ -19,8 +20,11 @@ function Footer(props) {
         &copy;{new Date().getFullYear()} <Link href={'https://ruiztechservices.com'}>ruizTechServices</Link><span className="animate-blink">|</span> Luis-Ruiz.com All
         rights reserved.
       </div>
-
+      <div className="flex flex-row items-center space-x-4">
       <Dropdown links={props.links} />
+      <AuthButton />
+      </div>
+      
     </footer>
   );
 }

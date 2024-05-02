@@ -23,10 +23,11 @@ export default function UserDashboard() {
     };
 
     fetchUser();
-  }, [router]); // Dependency array includes router
+  }, [router, supabase.auth]); // Dependency array includes router
 
   if (!user) return null; // Render nothing while user data is loading
 
+  console.log(user);
   return (
     <div className="container mx-auto text-center h-full">
       <main className="m-10 border border-red-500 rounded-xl p-1 h-[700px]">
@@ -40,7 +41,7 @@ export default function UserDashboard() {
             </a>
             <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 p-4">
               <Image
-                src="/images/WCBE0080.jpg"
+                src={user.avatar_url}
                 alt="User Picture"
                 width={100}
                 height={100}

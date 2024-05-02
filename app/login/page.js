@@ -37,6 +37,7 @@ export default function Login({ params }) {
         : await supabase.auth.signUp({
           email: formData.get('email'),
           password: formData.get('password'),
+            //I need to inform the user to check their email after registration and then the link needs to redirect them to the login page
         });
 
       console.log(data);
