@@ -1,34 +1,38 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\mainFooter.js
 "use client";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'; // Correct import
 import Footer from "../ui/footer";
-import { useState, useEffect, Component } from "react";
-import { createClient } from '../../../lib/utils/supabase/supabaseClient';
-import { useRouter } from 'next/navigation'; // Correctly import useRouter
-const supabase = createClient();
+import { createClient } from '../../../lib/utils/supabase/supabaseClient'; // Import a pre-configured Supabase client
 
 function MainFooter() {
   const [user, setUser] = useState();
   const [links, setLinks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter(); // Correctly
+  const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
-    // Check active session and set user
-    const session = supabase.auth.getSession(); // Make sure you're using the correct method to check the session
+    const session = supabase.auth.getSession(); // Get current session directly
     setUser(session?.user ?? null);
-    setLoading(false);
 
-    // Subscription to auth changes
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
 
-    return () => {
-      listener?.subscription.unsubscribe(); // Make sure to correctly unsubscribe
-    };
+    return () => authListener?.subscription?.unsubscribe();
   }, []);
 
   useEffect(() => {
+    const checkUser = () => {
+      if (user && user.id === process.env.GIO_DASHBOARD_USER_ID) {
+        router.push("/dashboard");
+        return true;
+      }
+      return false;
+    };
+
     const generateLinks = () => {
       const baseLinks = [
         { href: "/", label: "Home" },
@@ -37,10 +41,13 @@ function MainFooter() {
         { href: "/blog", label: "Blog" },
       ];
 
-      if (user === process.env.GIO_DASHBOARD_USER_ID) {
-        baseLinks.push({ href: "/dashboard", label: "Daddy's Dashboard" });
-      }
-      if (user) {
+      if (user && user.id === 'b3c3e385-af49-4517-bd40-580fa759238b') {
+        baseLinks.push({
+          href: "/dashboard",
+          label: "Daddy's Dashboard",
+          onClick: checkUser,
+        });
+      } else if (user) {
         baseLinks.push({ href: `/user/${user.id}`, label: "Dashboard" });
       }
 
@@ -48,7 +55,7 @@ function MainFooter() {
     };
 
     generateLinks();
-  }, [user]);
+  }, [user, router]);
 
   return (
     <>
@@ -58,3 +65,4 @@ function MainFooter() {
 }
 
 export default MainFooter;
+////////This is wron!!!

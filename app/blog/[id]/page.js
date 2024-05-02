@@ -22,15 +22,30 @@ export default function BlogArticle({ params }) {
     const [upvote, setUpvote] = React.useState(false);
     const [downvote, setDownvote] = React.useState(false);
 
-
-
-
     const blog_post = {
         title: { title },
         summary: { summary },
         body: { body },
     };
+
     const supabase = createClient();
+
+    const fetchVotes = async () => {
+        const { data: votesData, error: votesError } = await supabase
+            .from('votes')
+            .select('vote_type')
+            .eq('post_id', params.id);
+    
+        if (votesError) {
+            console.error("Error fetching votes:", votesError);
+        } else {
+            const upVoteCount = votesData.filter(vote => vote.vote_type === 'up').length;
+            const downVoteCount = votesData.filter(vote => vote.vote_type === 'down').length;
+            setUpvotes(upVoteCount);
+            setDownvotes(downVoteCount);
+        }
+    };
+    
 
     useEffect(() => {
         const fetchBlogAndComments = async () => {
@@ -38,12 +53,12 @@ export default function BlogArticle({ params }) {
                 .from('blog_posts')
                 .select('*')
                 .eq('id', params.id);
-
+    
             const { data: commentsData, error: commentsError } = await supabase
                 .from('comments')
                 .select('*')
                 .eq('post_id', params.id);
-
+    
             if (postError) {
                 console.error('Error fetching post:', postError);
                 setError(postError);
@@ -57,10 +72,12 @@ export default function BlogArticle({ params }) {
                     setBody(postData[0].body);
                 }
             }
+    
+            await fetchVotes(); // Ensures votes are fetched when component mounts
         };
-
+    
         fetchBlogAndComments();
-    }, [params.id, supabase]);
+    }, [fetchVotes, params.id, supabase]);
 
     const handleCommentSubmit = async (event) => {
         event.preventDefault();
@@ -124,22 +141,6 @@ export default function BlogArticle({ params }) {
     };
 
 
-    const fetchVotes = async () => {
-        const user = await supabase.auth.getSession();
-        const post_id = params.id;
-        const user_email = user.email;
-        const vote_type = "up";
-
-        console.log(user_email);
-
-        const { data: votesData, error: votesError } = await supabase
-            .from('votes')
-            .select('*')
-            .eq(post_id);
-
-        console.log(votesData);
-    }
-
 
 
 
@@ -158,12 +159,15 @@ export default function BlogArticle({ params }) {
                     </p>
                 </article>
                 <div className="mt-5 flex justify-center items-center space-x-4">
+                    <p>{upvotes}</p>
+
                     <button
                         onClick={() => handleVote('up')}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                         <BsHandThumbsUp />
                     </button>
+                    <p>{downvotes}</p>
                     <button
                         onClick={() => handleVote('down')}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -176,7 +180,7 @@ export default function BlogArticle({ params }) {
                         </p>
                     )}
                 </div>
-                <button onClick={fetchVotes}>test fetchVotes</button>
+
 
 
                 <div className="max-w-4xl mx-auto mt-10">

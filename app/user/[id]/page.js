@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "../../../lib/utils/supabase/supabaseClient";
+import { CgProfile } from "react-icons/cg";
 
 export default function UserDashboard() {
   const supabase = createClient();
@@ -15,45 +16,84 @@ export default function UserDashboard() {
       const { data, error } = await supabase.auth.getUser();
 
       if (error) {
-        router.push("/login"); // Using Next.js router to redirect
+        router.push("/login");
+        console.log("Redirecting to login due to error:", error);
         return;
       }
 
       setUser(data);
+      console.log("User data fetched successfully:", data);
     };
 
     fetchUser();
   }, [router, supabase.auth]); // Dependency array includes router
 
-  if (!user) return null; // Render nothing while user data is loading
+  if (!user) {
+    console.log("User data not loaded yet"); // Inform about data loading state
+    return <p>Loading...</p>; // More user-friendly loading state
+  }
 
-  console.log(user);
+  // Function to simulate an API call
+  const handleApiCall = () => {
+    console.log("API call simulation");
+    // Simulated API call logic here
+  };
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    router.push("/"); // Redirect to home after logout
+  };
+
   return (
-    <div className="container mx-auto text-center h-full">
-      <main className="m-10 border border-red-500 rounded-xl p-1 h-[700px]">
-        <h1 className="text-4xl font-bold text-center mb-10">
-          User&apos;s Dashboard
-        </h1>
-        <div className="flex flex-wrap justify-center items-center">
-          <div>
-            <a href="/blog/1" className="text-red-500">
-              <h1 className="text-4xl font-bold text-center mb-10">Blog</h1>
-            </a>
-            <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 p-4">
-              <Image
-                src={user.avatar_url}
-                alt="User Picture"
-                width={100}
-                height={100}
-                className="rounded-full"
-              />
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{user.name}</div>
-                <p className="text-black">{user.email}</p> {/* Displaying user email */}
-              </div>
+    <div className="container mx-auto text-center min-h-screen bg-gray-100 py-10 px-4">
+      <main className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg">
+        <h1 className="text-2xl font-bold mb-5">User&apos;s Dashboard</h1>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <div className="bg-gray-200 p-2 rounded-lg shadow">
+            <Image
+              src={user.avatar_url || "/images/R.png"} // Fallback for missing avatar
+              alt="User Picture"
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
+            <div className="mt-3">
+              <h2 className="font-semibold text-lg">{user.name}</h2>
+              <p>{user.email}</p>
             </div>
           </div>
+          <div className="space-y-3">
+            <a href="/blog/1" className="text-blue-500 hover:text-blue-700 transition">
+              <h3 className="text-xl font-bold">Blog</h3>
+            </a>
+            <button
+              onClick={handleApiCall}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+              Simulate API Call
+            </button>
+          </div>
         </div>
+        <form>
+          <div className="w-full mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
+            <div className="bg-gray-200 p-2 rounded-lg shadow w-full h-[500px]">
+              <CgProfile className="text-blue-500" />
+              <div className="p-2 mt-3 text-left w-fit bg-white rounded-lg shadow-2xl">
+                <h2 className="font-semibold text-lg">Profile</h2>
+                  <p>Edit your profile information</p>
+                  <button
+                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                    Edit Profile
+                  </button>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <button onClick={logout} className="text-blue-500 hover:text-blue-700 transition">
+                <h3 className="text-xl font-bold">Logout</h3>
+              </button>
+            </div>
+          </div>
+
+        </form>
       </main>
     </div>
   );
