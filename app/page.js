@@ -23,7 +23,7 @@ export default function Portfolio() {
       <HeroSection />
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
-          Welcome to Luis-ruiz.com
+          Welcome to Luis-ruiz.com :) ;;;;
         </h1>
         <p className="mt-3 text-xl text-gray-600 dark:text-gray-300">
           A portfolio of Luis Ruiz, An Awesome Full-Stack Web Developer
