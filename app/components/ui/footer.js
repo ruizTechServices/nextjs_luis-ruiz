@@ -16,16 +16,16 @@ function Footer(props) {
         </Link> 
       </div>
       <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4">
-        <Link href={"https://facebook.com"} className="hover:text-blue-500 transition-colors">
+        <Link href={"https://www.facebook.com/giovanni.ruiz.522066"} className="hover:text-blue-500 transition-colors">
           <i className="fab fa-facebook-f"></i> <FaFacebook />
         </Link>
-        <Link href={"https://twitter.com" }className="hover:text-blue-300 transition-colors">
+        <Link href={"https://twitter.com/giosterr44" }className="hover:text-blue-300 transition-colors">
           <i className="fab fa-twitter"></i><FaTwitter />
         </Link>
-        <Link href={"https://instagram.com"} className="hover:text-pink-500 transition-colors">
+        <Link href={"https://www.instagram.com/peacefulpython44/"} className="hover:text-pink-500 transition-colors">
           <i className="fab fa-instagram"></i> <PiInstagramLogoBold />
         </Link>
-        <Link href={"https://linkedin.com"} className="hover:text-blue-700 transition-colors">
+        <Link href={"https://www.linkedin.com/in/ruiz44/"} className="hover:text-blue-700 transition-colors">
           <i className="fab fa-linkedin-in"></i> <FaLinkedin />
         </Link>
       </div>
