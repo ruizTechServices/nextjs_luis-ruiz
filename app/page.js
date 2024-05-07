@@ -17,13 +17,12 @@ import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
 
 export default function Portfolio() {
-
   return (
     <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
       <HeroSection />
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
-          Welcome to Luis-ruiz.com :) ;;;;
+          Welcome to Luis-ruiz.com
         </h1>
         <p className="mt-3 text-xl text-gray-600 dark:text-gray-300">
           A portfolio of Luis Ruiz, An Awesome Full-Stack Web Developer
@@ -96,8 +95,12 @@ export default function Portfolio() {
 
       <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <h1 className="text-4xl font-bold text-center text-white">Luis Ruiz</h1>
-          <p className="text-center text-xl mt-2 text-gray-800">New York City Native</p>
+          <h1 className="text-4xl font-bold text-center text-white">
+            Luis Ruiz
+          </h1>
+          <p className="text-center text-xl mt-2 text-gray-800">
+            New York City Native
+          </p>
 
           <div className="mt-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg">
             <div className="relative w-full h-full rounded-full overflow-hidden">
@@ -113,24 +116,30 @@ export default function Portfolio() {
 
           <div className="mt-8 text-center max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-gray-800">
-              Luis Ruiz, a 35-year-old professional with roots in New York City, currently oversees
-              management operations at Compulogic. Demonstrating a strong commitment to community
-              engagement, Luis conducts educational initiatives aimed at enhancing brand visibility
-              and trust.
+              Luis Ruiz, a 35-year-old professional with roots in New York City,
+              currently oversees management operations at Compulogic.
+              Demonstrating a strong commitment to community engagement, Luis
+              conducts educational initiatives aimed at enhancing brand
+              visibility and trust.
             </p>
             <div className="my-8 text-xl font-bold border-b-4 border-gray-700"></div>
-            <h3 className="text-2xl font-bold text-gray-800">Professional Skills</h3>
+            <h3 className="text-2xl font-bold text-gray-800">
+              Professional Skills
+            </h3>
             <p className="text-lg mt-2 text-gray-800">
-              With expertise in general maintenance and a profound passion for business growth and
-              personal development, Luis excels in diverse environments. He holds a Bachelor&apos;s
-              degree in Information Technology from the University of Phoenix, underscoring his strong
-              foundation in technical skills.
+              Luis, with his deep expertise in software development and a
+              profound passion for technology, excels in environments that
+              demand both technical proficiency and customer engagement. His
+              extensive experience spans web design and software development.
+              Additionally, Luis is adept at imparting knowledge, offering both
+              in-person and online instruction.
             </p>
             <h3 className="text-2xl font-bold text-gray-800 mt-8">Interests</h3>
             <p className="text-lg mt-2 text-gray-800">
-              Luis finds pleasure in engaging with complex video games like Red Dead Redemption 2,
-              Helldivers 2, and Genshin Impact, which he believes stimulate strategic and analytical
-              thinking. His enthusiasm for programming is driven by a goal to reach a level of
+              Luis finds pleasure in engaging with complex video games like Red
+              Dead Redemption 2, Helldivers 2, and Genshin Impact, which he
+              believes stimulate strategic and analytical thinking. His
+              enthusiasm for programming is driven by a goal to reach a level of
               expertise where his skills are indispensable to others.
             </p>
           </div>

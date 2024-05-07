@@ -65,4 +65,3 @@ function MainFooter() {
 }
 
 export default MainFooter;
-////////This is wron!!!
