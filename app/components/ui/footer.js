@@ -15,7 +15,7 @@ function Footer(props) {
             <Logo />
         </Link> 
       </div>
-      <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4">
+      <div className="flex flex-row items-center space-x-0 sm:space-x-4">
         <Link href={"https://www.facebook.com/giovanni.ruiz.522066"} className="hover:text-blue-500 transition-colors">
           <i className="fab fa-facebook-f"></i> <FaFacebook />
         </Link>
