@@ -1,6 +1,6 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\blog\[id]\page.js
 'use client';
-import AuthButton from "../../components/main/AuthButton";
+// import AuthButton from "../../components/main/AuthButton";
 import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import React from 'react';
 import { useState, useEffect } from "react";
