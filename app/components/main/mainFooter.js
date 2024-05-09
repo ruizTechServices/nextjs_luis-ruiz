@@ -39,6 +39,7 @@ function MainFooter() {
         { href: "/contact", label: "Contact" },
         { href: "/services", label: "Services" },
         { href: "/blog", label: "Blog" },
+        { href: "/catalog", label: "Catalog" },
       ];
 
       if (user && user.id === 'b3c3e385-af49-4517-bd40-580fa759238b') {
