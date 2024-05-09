@@ -10,7 +10,7 @@ import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
 import CreateAssistantForm from '../components/main/createAssistant';
-import { createClient } from "@/lib/utils/supabase/supabaseClient";
+import { createClient } from "../../lib/utils/supabase/supabaseClient";
 import { redirect } from 'next/navigation';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";

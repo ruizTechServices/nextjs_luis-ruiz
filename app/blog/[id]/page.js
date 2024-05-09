@@ -1,7 +1,7 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\blog\[id]\page.js
 'use client';
-import AuthButton from "@/app/components/main/auth_button";
-import { createClient } from "@/lib/utils/supabase/supabaseClient";
+import AuthButton from "../../components/main/AuthButton";
+import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import React from 'react';
 import { useState, useEffect } from "react";
 import { BsHandThumbsUp, BsHandThumbsDown } from "react-icons/bs";
