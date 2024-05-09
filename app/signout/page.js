@@ -2,10 +2,11 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import from 'next/navigation'
-import supabase from "../../lib/utils/supabase/supabaseClient";
+import { createClient} from "../../lib/utils/supabase/supabaseClient";
 
 const SignOut = () => {
   const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
     // Function to sign out the user using Supabase

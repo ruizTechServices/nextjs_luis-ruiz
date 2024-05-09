@@ -2,7 +2,7 @@
 "use client";
 import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
-import supabase from "../../../../lib/utils/supabase/supabaseClient";
+import {createClient} from "../../../../lib/utils/supabase/supabaseClient";
 
 export default function ContactCard() {
   const [fullname, setFullName] = useState("");
@@ -12,6 +12,7 @@ export default function ContactCard() {
   const [fetchError, setFetchError] = useState(null);
   const [contactlist, setContactList] = useState([]);
   const router = useRouter();
+  const supabase = createClient();
 
   const fetchContactList = async () => {
     try {
