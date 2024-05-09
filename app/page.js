@@ -148,7 +148,7 @@ export default function Portfolio() {
 
       <div className="my-10 mx-auto md:container w-3/4 border border-blue-400"></div>
 
-      <section className="flex flex-col items-center justify-center h-full md:min-h-screen md:p-10 text-center bg-white dark:bg-gray-700">
+      <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px]">
         <div className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
           <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
             My Work
