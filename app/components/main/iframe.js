@@ -13,7 +13,7 @@ const projects = [
 
 const ProjectViewer = () => {
   return (
-    <div className="mx-auto my-auto max-w-[700px]">
+    <div className="mx-auto my-auto md:max-w-[700px] w-auto">
       <div className="flex flex-col md:flex-row md:flex-wrap justify-center py-5 space-y-4 space-x-2">
         {projects.map((project, index) => (
           <iframe
