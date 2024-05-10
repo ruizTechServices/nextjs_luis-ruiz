@@ -3,12 +3,12 @@ import React from 'react';
 const projects = [
   { url: 'https://catherineruiz.com', title: 'Project 1' },
   { url: 'https://Compulogicpc.com', title: 'Project 2' },
-  { url: 'https://ruiztechservices.com', title: 'Project 3' },
+  // { url: 'https://ruiztechservices.com', title: 'Project 3' },
   { url: 'https://24hourgpt.com', title: 'Project 4' },
-  { url: 'https://demon-child.com', title: 'Project 5' },
+  // { url: 'https://demon-child.com', title: 'Project 5' },
   { url: 'https://letmeexplain.online', title: 'Project 6' },
-  { url: 'https://rrtruckingservices.com', title: 'Project 7' },
-  { url: 'https://dont-download.com', title: 'Project 8' },
+  // { url: 'https://rrtruckingservices.com', title: 'Project 7' },
+  // { url: 'https://dont-download.com', title: 'Project 8' },
 ];
 
 const ProjectViewer = () => {

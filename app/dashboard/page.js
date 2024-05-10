@@ -1,4 +1,4 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\dashboard\page.js
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\dashboard\page.js
 "use client";
 import { useState } from 'react';
 import { DashboardHeader } from "../components/main/dashboardHeader";
@@ -9,7 +9,7 @@ import Modal from "../components/ui/modal";
 import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
-import CreateAssistantForm from '../components/main/createAssistant';
+import CatalogItemForm from "../components/main/catalog/catalogItemForm";
 import { createClient } from "../../lib/utils/supabase/supabaseClient";
 import { redirect } from 'next/navigation';
 import { useEffect } from "react";
@@ -39,20 +39,24 @@ function Dashboard() {
     }
   });
 
-
-
   const openModal = (contentComponent) => setModalContent(contentComponent);
   const closeModal = () => setModalContent(null);
+
+
   return (
     <>
+
       <DashboardHeader />
+
+
+      {/*modals*/}
       <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
-        {/* <button
-          onClick={() => openModal(<CreateAssistantForm />)}
+        <button
+          onClick={() => openModal(<CatalogItemForm />)}
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
-          Create An Assistant
-        </button> */}
+          Add Catalog Item
+        </button>
         <button
           onClick={() => openModal(<JournalEntriesList />)}
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"

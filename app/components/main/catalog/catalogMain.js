@@ -1,3 +1,5 @@
+//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\components\main\catalog\catalogMain.js
+import Image from "next/image";
 import React from "react";
 
 const products = [
@@ -9,18 +11,74 @@ const products = [
     options: ["Size", "Color", "Style"]
   },
   {
-    id: 2,
-    name: "Product 2",
-    description: "Description of Product 2.",
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
     imageUrl: "/images/appsImage.jpg",
-    options: ["Size", "Material"]
+    options: ["Size", "Color", "Style"]
   },
   {
-    id: 3,
-    name: "Product 3",
-    description: "Description of Product 3.",
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
     imageUrl: "/images/appsImage.jpg",
-    options: ["Size", "Color"]
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
+  },
+  {
+    id: 1,
+    name: "Product 1",
+    description: "Description of Product 1.",
+    imageUrl: "/images/appsImage.jpg",
+    options: ["Size", "Color", "Style"]
   }
 ];
 
@@ -31,8 +89,8 @@ export default function CatalogMain() {
         <div className="flex flex-wrap -m-4">
           {products.map((product) => (
             <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full">
-              <a href="#" className="block relative h-48 rounded overflow-hidden">
-                <img alt="ecommerce" className="object-cover object-center w-full h-full block" src={product.imageUrl} />
+              <a href="/catalog/[id]" className="block relative h-48 rounded overflow-hidden">
+                <Image width={200} height={200} alt="ecommerce" className="object-cover object-center w-full h-full block" src={product.imageUrl} />
               </a>
               <div className="mt-4">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">

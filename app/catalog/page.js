@@ -30,7 +30,7 @@ const headerTitle = <h1 className="text-3xl font-bold mb-4">Website Templates Ca
 export default function Catalog() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
-      <div className="flex flex-col container mx-auto">
+      <div className="my-20 text-center flex flex-col container mx-auto">
       {headerTitle}
       <CatalogMain products={products} />
       </div>

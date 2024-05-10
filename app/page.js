@@ -18,8 +18,9 @@ import GptStore from "./components/main/gpt_store";
 
 export default function Portfolio() {
   return (
-    <main className="min-h-screen bg-gray-100 dark:bg-gray-900">
+    <main className="min-h-screen bg-white">
       <HeroSection />
+      {/*Intro*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
           Welcome to Luis-ruiz.com
@@ -38,6 +39,7 @@ export default function Portfolio() {
 
       <div className="md:container mx-auto w-1/2 border border-blue-400"></div>
 
+      {/*Frameworks I work with*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
           I code in <span>many</span> programming languages & frameworks.
@@ -76,6 +78,7 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/*About Me*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-800">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
           About Me
@@ -90,9 +93,11 @@ export default function Portfolio() {
           alt="About Luis"
           width={400}
           height={300}
+          className="rounded-xl"
         />
       </section>
 
+      {/*Quick Bio Section*/}
       <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <h1 className="text-4xl font-bold text-center text-white">
@@ -105,11 +110,11 @@ export default function Portfolio() {
           <div className="mt-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg">
             <div className="relative w-full h-full rounded-full overflow-hidden">
               <Image
-                src="/images/luisIT.jpg"
+                src="/images/IMG_3287.jpg"
                 alt="Luis Ruiz"
-                layout="fill"
-                objectFit="cover"
-                className="rounded-full"
+                width={200}
+                height={200}
+                className="top-0 absolute z-10 w-full h-full object-cover"
               />
             </div>
           </div>
@@ -148,12 +153,13 @@ export default function Portfolio() {
 
       <div className="my-10 mx-auto md:container w-3/4 border border-blue-400"></div>
 
-      <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px]">
-        <div className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
+      {/*My Work Section*/}
+      <section className="animate-in shadow-2xl mx-auto flex flex-col">
+        <div className="text-center md:mx-[300px] bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
           <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
             My Work
           </h2>
-          <p className="mt-3 text-lg text-black font-bold dark:text-gray-300">
+          <p className="md:mx-10 mt-3 text-lg text-black font-bold dark:text-gray-300">
             I&apos;ve contributed to numerous projects that help companies
             achieve their goals. Here&apos;s a glimpse of my work.
           </p>
@@ -162,9 +168,10 @@ export default function Portfolio() {
         <GptStore />
       </section>
 
-      <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px]">
+      {/*Bottom section*/}
+      <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px] my-5">
         <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
-          <div className="flex flex-col justify-center text-center w-full font-bold text-4xl ">
+          <div className="flex flex-col justify-center text-center w-full font-bold text-4xl gap-5">
             <h1>Web Designer</h1>
             <h1>Web Developer</h1>
             <h1>DevOps Engineer</h1>
@@ -174,9 +181,9 @@ export default function Portfolio() {
         <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
           <div className="flex justify-center items-center align-middle w-full mx-5 my-5 overflow-hidden">
             <Image
-              src={"/images/gioWater.jpg"}
+              src={"/images/IMG_4818.JPG"}
               alt="Luis"
-              width={5000}
+              width={300}
               height={0}
               className="rounded-2xl"
             />

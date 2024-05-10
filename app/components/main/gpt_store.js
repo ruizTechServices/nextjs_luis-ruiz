@@ -16,7 +16,7 @@ export default function GptStore() {
 
             <div className="border w-3/4 mx-auto m-10"></div>
 
-            <div className="border border-red-300 h-3/4 overflow-scroll">
+            <div className="border border-red-300 h-3/4 overflow-scroll mx-2">
                 <div className="border border-blue-400 rounded-lg p-10 flex justify-evenly items-center">
                     <Image
                         src="/images/codeCombinator.png"
