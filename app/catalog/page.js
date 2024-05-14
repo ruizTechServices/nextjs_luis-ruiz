@@ -15,13 +15,6 @@ const products = [
     description: "Description of Product 2.",
     imageUrl: "/images/appsImage.jpg",
     options: ["Size", "Material"]
-  },
-  {
-    id: 3,
-    name: "Product 3",
-    description: "Description of Product 3.",
-    imageUrl: "/images/appsImage.jpg",
-    options: ["Size", "Color"]
   }
 ];
 
