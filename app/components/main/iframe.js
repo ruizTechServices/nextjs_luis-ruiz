@@ -15,7 +15,7 @@ const projects = [
 const ProjectViewer = () => {
   return (
     <div className="">
-      <div className="border-2 border-gray-600 rounded-xl p-2 container mx-auto flex flex-col items-center justify-center mb-48 flex-wrap md:flex-row">
+      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto flex flex-col items-center justify-center mb-48 flex-wrap md:flex-row">
         {projects.map((project, index) => (
           <div
             key={index}
@@ -24,7 +24,7 @@ const ProjectViewer = () => {
             <iframe
               src={project.url}
               title={project.title}
-              className="w-[400px] h-[500px] shadow-2xl rounded-xl border-2 border-gray-600"
+              className="md:w-[400px] h-[500px] shadow-2xl rounded-xl border-2 border-gray-600"
             />
             <Link className='hover:cursor-pointer' href={project.url}><p>{project.title}</p></Link>
           </div>
