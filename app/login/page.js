@@ -80,9 +80,9 @@ export default function Login({ params }) {
           required
         />
         {isLogin ? (
-          <SubmitButton className="rounded-xl" pendingText="Signing In...">Sign In</SubmitButton>
+          <SubmitButton className="rounded-xl bg-blue-300 p-2" pendingText="Signing In...">Sign In</SubmitButton>
         ) : (
-          <SubmitButton className="rounded-xl" pendingText="Signing Up...">Sign Up</SubmitButton>
+          <SubmitButton className="rounded-xl bg-blue-300 p-2" pendingText="Signing Up...">Sign Up</SubmitButton>
         )}
         {errorMessage && <p className="mt-4 text-red-500">{errorMessage}</p>}
         <div className="mt-4">
