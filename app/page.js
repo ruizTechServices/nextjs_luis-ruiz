@@ -15,10 +15,14 @@ import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
+import Head from 'next/head'
 
 export default function Portfolio() {
   return (
     <main className="min-h-screen bg-white">
+      <Head>
+      <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
+      </Head>
       <HeroSection />
       {/*Intro*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
