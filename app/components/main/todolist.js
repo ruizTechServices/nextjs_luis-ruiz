@@ -1,4 +1,3 @@
-//C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\components\main\todolist.js
 import React, { useState, useEffect } from 'react';
 import { createClient } from '../../../lib/utils/supabase/supabaseClient';
 
@@ -12,13 +11,18 @@ const TodoList = () => {
         const { data, error } = await supabase
             .from('todos')
             .select('*')
-            .order('id', { ascending: false });
+            .order('id', { ascending: true });
 
         if (error) {
             console.log('Error fetching todos:', error);
         } else {
-            setTodos(data || []); // Ensure data is not null and is an array
+            setTodos(sortTodos(data || [])); // Ensure data is sorted
         }
+    };
+
+    // Function to sort todos by completion status
+    const sortTodos = (todos) => {
+        return todos.sort((a, b) => (a.is_completed === b.is_completed ? 0 : a.is_completed ? 1 : -1));
     };
 
     // Add a new todo to the database
@@ -31,7 +35,7 @@ const TodoList = () => {
         if (error) {
             console.log('Error adding todo:', error);
         } else if (data) {
-            setTodos(prev => [data, ...prev]);
+            setTodos(prev => sortTodos([data, ...prev]));
         }
     };
 
@@ -46,10 +50,10 @@ const TodoList = () => {
         if (error) {
             console.log('Error updating todo:', error);
         } else if (data) {
-            setTodos(prev => prev.map(todo => {
+            setTodos(prev => sortTodos(prev.map(todo => {
                 if (todo.id === id) return { ...todo, is_completed: !todo.is_completed };
                 return todo;
-            }));
+            })));
         }
     };
 
