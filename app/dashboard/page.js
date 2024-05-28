@@ -1,4 +1,4 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\dashboard\page.js
+// C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\dashboard\page.js
 "use client";
 import { useState } from 'react';
 import { DashboardHeader } from "../components/main/dashboardHeader";
@@ -14,6 +14,7 @@ import { createClient } from "../../lib/utils/supabase/supabaseClient";
 import { redirect } from 'next/navigation';
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import TodoList from '../components/main/todolist';
 
 function Dashboard() {
   const [modalContent, setModalContent] = useState(null);
@@ -92,6 +93,12 @@ function Dashboard() {
           className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
         >
           Blog Entry Form
+        </button>
+        <button
+          onClick={() => openModal(<TodoList />)}
+          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
+        >
+          ToDo List
         </button>
       </div>
 
