@@ -1,4 +1,4 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\user\[id]\page.js
+// C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\user\[id]\page.js
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";

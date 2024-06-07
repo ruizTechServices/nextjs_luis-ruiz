@@ -26,10 +26,10 @@ export default function Portfolio() {
       <HeroSection />
       {/*Intro*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
-        <h1 className="text-5xl font-bold text-gray-800 dark:text-white">
+        <h1 className="text-5xl font-bold text-gray-800 dark:text-black">
           Welcome to Luis-ruiz.com
         </h1>
-        <p className="mt-3 text-xl text-gray-600 dark:text-gray-300">
+        <p className="mt-3 text-xl text-gray-600 dark:text-black">
           A portfolio of Luis Ruiz, An Awesome Full-Stack Web Developer
         </p>
         <Image
@@ -41,7 +41,7 @@ export default function Portfolio() {
         />
       </section>
 
-      <div className="md:container mx-auto w-1/2 border border-blue-400"></div>
+      <div className="container mx-auto w-1/2 border border-blue-400"></div>
 
       {/*Frameworks I work with*/}
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
@@ -126,7 +126,7 @@ export default function Portfolio() {
           <div className="mt-8 text-center max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-gray-800">
               Luis Ruiz, a 35-year-old professional with roots in New York City,
-              currently oversees management operations at Compulogic.
+              currently oversees management operations at ruizTechServices.
               Demonstrating a strong commitment to community engagement, Luis
               conducts educational initiatives aimed at enhancing brand
               visibility and trust.
@@ -149,7 +149,9 @@ export default function Portfolio() {
               Dead Redemption 2, Helldivers 2, and Genshin Impact, which he
               believes stimulate strategic and analytical thinking. His
               enthusiasm for programming is driven by a goal to reach a level of
-              expertise where his skills are indispensable to others.
+              expertise where his skills are indispensable to others. So, he
+              studies and practices programming in his free time.
+              He is currently perfecting his design skills,as well.
             </p>
           </div>
         </main>
@@ -163,7 +165,7 @@ export default function Portfolio() {
           <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
             My Work
           </h2>
-          <p className="md:mx-10 mt-3 text-lg text-black font-bold dark:text-gray-300">
+          <p className="md:mx-10 mt-3 text-lg text-black font-bold">
             I&apos;ve contributed to numerous projects that help companies
             achieve their goals. Here&apos;s a glimpse of my work.
           </p>
@@ -175,7 +177,7 @@ export default function Portfolio() {
       {/*Bottom section*/}
       <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px] my-5">
         <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
-          <div className="flex flex-col justify-center text-center w-full font-bold text-4xl gap-5">
+          <div className="flex flex-col justify-center text-center w-full font-bold text-4xl gap-5 dark:text-black">
             <h1>Web Designer</h1>
             <h1>Web Developer</h1>
             <h1>DevOps Engineer</h1>
