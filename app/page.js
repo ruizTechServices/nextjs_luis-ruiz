@@ -85,7 +85,7 @@ export default function Portfolio() {
       </section>
 
       {/*About Me*/}
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 bg-white dark:bg-gray-800">
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800 via-gray-400 to-gray-600">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
           About Me
         </h2>
