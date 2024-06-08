@@ -16,6 +16,8 @@ import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
 import Head from 'next/head'
+import { Layout66 } from "./components/main/number66";
+import { Cta7 } from "./components/main/cta7";
 
 export default function Portfolio() {
   return (
@@ -83,11 +85,11 @@ export default function Portfolio() {
       </section>
 
       {/*About Me*/}
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center bg-white dark:bg-gray-800">
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 bg-white dark:bg-gray-800">
         <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
           About Me
         </h2>
-        <p className="mt-3 text-lg text-gray-600 dark:text-gray-300">
+        <p className="lg:w-[500px] mt-3 text-lg text-gray-600 dark:text-gray-300">
           With over a decade of experience as a full-stack web developer, I
           possess a profound expertise in technologies including NextJS,
           Sveltekit, JavaScript, TypeScript, among others.
@@ -176,7 +178,7 @@ export default function Portfolio() {
 
       {/*Bottom section*/}
       <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px] my-5">
-        <div className="flex overflow-hidden h-full md:w-1/2 bg-white">
+        <div className="flex overflow-hidden h-full md:w-1/2 bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
           <div className="flex flex-col justify-center text-center w-full font-bold text-4xl gap-5 dark:text-black">
             <h1>Web Designer</h1>
             <h1>Web Developer</h1>
@@ -189,13 +191,15 @@ export default function Portfolio() {
             <Image
               src={"/images/IMG_4818.JPG"}
               alt="Luis"
-              width={300}
+              width={500}
               height={0}
               className="rounded-2xl"
             />
           </div>
         </div>
       </section>
+      <Layout66 />
+      <Cta7 />
     </main>
   );
 }

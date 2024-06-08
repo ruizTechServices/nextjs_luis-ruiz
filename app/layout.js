@@ -27,9 +27,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <Adsense pId="8779702295184066" />
-        <meta name="google-adsense-account" content="ca-pub-8779702295184066"></meta>
+        <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
       </Head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-white dark:bg-black`}>  
         {children}
         <MainFooter />
       </body>
