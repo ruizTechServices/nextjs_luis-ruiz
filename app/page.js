@@ -46,8 +46,8 @@ export default function Portfolio() {
       <div className="container mx-auto w-1/2 border border-blue-400"></div>
 
       {/*Frameworks I work with*/}
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
-        <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
+      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
+        <h2 className="text-4xl font-bold">
           I code in <span>many</span> programming languages & frameworks.
         </h2>
         <div className="flex flex-col flex-wrap md:flex-row justify-center mt-6 md:space-x-10">
