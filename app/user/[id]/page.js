@@ -48,7 +48,7 @@ export default function UserDashboard() {
     await supabase.auth.signOut();
     router.push("/"); // Redirect to home after logout
   };
-
+  
   return (
     <div className="flex h-screen bg-gray-100 text-black">
       {/* Sidebar */}
@@ -109,7 +109,7 @@ export default function UserDashboard() {
       <div className="flex-1 p-10 text-2xl font-bold">
         <h1 className="mb-4">Dashboard</h1>
         <div>
-          Welcome, {user.email}!
+          Welcome, {user.id}!
         </div>
       </div>
     </div>
