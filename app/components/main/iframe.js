@@ -10,6 +10,7 @@ const projects = [
   { url: 'https://letmeexplain.online', title: 'Let Me Explain: An online feedback platform' },
   // { url: 'https://rrtruckingservices.com', title: 'https://rrtruckingservices.com' },
   // { url: 'https://dont-download.com', title: 'https://dont-download.com' },
+  { url: 'https://osvaldybarber.com', title: 'Osvaldy Barber: A Full-Service Barber ' },
 ];
 
 const ProjectViewer = () => {
