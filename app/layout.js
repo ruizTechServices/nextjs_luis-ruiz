@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
         <Adsense pId="8779702295184066" />
         <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
       </Head>
-      <body className={`${inter.className} bg-white dark:bg-black`}>  
+      <body className={`${inter.className} bg-white dark:bg-white`}>  
         {children}
         <MainFooter />
       </body>

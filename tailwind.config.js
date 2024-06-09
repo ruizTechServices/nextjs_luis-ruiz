@@ -39,6 +39,7 @@ module.exports = {
         typing: 'typing 4s steps(40, end) infinite',
         blink: 'blink 0.75s infinite',
         bounce: 'bounce 1s infinite',
+        
       },
     },
   },

@@ -69,7 +69,7 @@ export const Layout66 = ({ props }) => {
   }, [props]);
 
   return (
-    <section className="px-5% py-16 md:py-24 lg:py-28 mx-auto dark:text-black">
+    <section className="mx-10 my-10 md:py-24 lg:py-28 mx-auto dark:text-black">
       <div className="container lg:mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         <h3 className="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
           {layoutProps.heading}

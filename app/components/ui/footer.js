@@ -9,7 +9,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer(props) {
   return (
-    <footer className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 text-white py-6">
+    <footer className="bg-gradient-to-r from-green-200 via-yellow-100 to-yellow-500 text-black py-6">
       <div className="flex-col items-center md:flex-row space-y-4 md:hidden flex">
         <div className="border-red-500 w-20">
           <Link href={'/'}>
