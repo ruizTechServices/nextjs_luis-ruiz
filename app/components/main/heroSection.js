@@ -1,7 +1,7 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\heroSection.js
 "use client";
 import AnimatedText from "../ui/animatedText";
-import Logo from "../ui/logo";
+import Image from "next/image";
 
 const HeroSection = () => {
   const titles = [
@@ -18,13 +18,11 @@ const HeroSection = () => {
 
   return (
     <>
-      <div className="absolute z-50 flex items-center justify-center h-10 w-20 bg-white rounded-full shadow-md top-5 left-5">
-        <div className="w-20">
-          <Logo />
-        </div>
+      <div className="w-fit border-2 h-[100px] absolute top-10 left-10 z-10 bg-white rounded-full">
+        <Image src="/images/luis_ruizLogo.png" width={100} height={100} />
       </div>
       <div className="flex flex-col justify-center items-center h-screen bg-gradient-to-bl from-green-200 via-green-400 to-green-500">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-5">
+        <h1 className="text-7xl md:text-[80px] font-bold text-black mb-5">
           I am a &nbsp;
           <AnimatedText
             texts={titles}

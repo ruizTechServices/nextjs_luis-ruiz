@@ -5,28 +5,33 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import { CgProfile } from "react-icons/cg";
+import { FiMenu, FiHome, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 
 export default function UserDashboard() {
   const supabase = createClient();
   const router = useRouter();
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data, error } = await supabase.auth.getUser();
+  useEffect(
+    () => {
+      const fetchUser = async () => {
+        const { data, error } = await supabase.auth.getUser();
 
-      if (error) {
-        router.push("/login");
-        console.log("Redirecting to login due to error:", error);
-        return;
-      }
+        if (error) {
+          router.push("/login");
+          console.log("Redirecting to login due to error:", error);
+          return;
+        }
 
-      setUser(data);
-      console.log("User data fetched successfully:", data);
-    };
+        setUser(data);
+        console.log("User data fetched successfully:", data);
+      };
 
-    fetchUser();
-  }, [router, supabase.auth]); // Dependency array includes router
+      fetchUser();
+    },
+    [router, supabase.auth]
+  ); // Dependency array includes router
 
   if (!user) {
     console.log("User data not loaded yet"); // Inform about data loading state
@@ -45,56 +50,68 @@ export default function UserDashboard() {
   };
 
   return (
-    <div className="container mx-auto text-center min-h-screen bg-gray-100 py-10 px-4">
-      <main className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg">
-        <h1 className="text-2xl font-bold mb-5">User&apos;s Dashboard</h1>
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          <div className="bg-gray-200 p-2 rounded-lg shadow">
-            <Image
-              src={user.avatar_url || "/images/R.png"} // Fallback for missing avatar
-              alt="User Picture"
-              width={100}
-              height={100}
-              className="rounded-full"
-            />
-            <div className="mt-3">
-              <h2 className="font-semibold text-lg">{user.name}</h2>
-              <p>{user.email}</p>
-            </div>
-          </div>
-          <div className="space-y-3">
-            <a href="/blog/1" className="text-blue-500 hover:text-blue-700 transition">
-              <h3 className="text-xl font-bold">Blog</h3>
-            </a>
-            <button
-              onClick={handleApiCall}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-              Simulate API Call
-            </button>
-          </div>
+    <div className="flex h-screen bg-gray-100 text-black">
+      {/* Sidebar */}
+      <div
+        className={`text-black bg-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform ${menuOpen
+          ? "translate-x-0"
+          : "-translate-x-full"} md:relative md:translate-x-0 transition duration-200 ease-in-out`}
+      >
+        <button
+          className="p-4 text-black md:hidden"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          <FiMenu />
+        </button>
+        {/* Logo */}
+        <a
+          href="/"
+          className="text-black text-3xl font-semibold uppercase hover:text-gray-700"
+        >
+          Logo
+        </a>
+        {/* Nav Items */}
+        <nav className="text-black">
+          <a
+            href="/"
+            className="text-black block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
+          >
+            <FiHome className="inline-block mr-2" /> Home
+          </a>
+          <a
+            href="/settings"
+            className="text-black block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
+          >
+            <FiSettings className="inline-block mr-2" /> Settings
+          </a>
+          <a
+            href="/profile"
+            className="text-black block py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
+          >
+            <FiUser className="inline-block mr-2" /> Profile
+          </a>
+          <button
+            onClick={logout}
+            className="text-black block w-full text-left py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
+          >
+            <FiLogOut className="inline-block mr-2" /> Logout
+          </button>
+        </nav>
+      </div>
+      {/* Burger */}
+      <button
+        className={`${menuOpen ? "hidden" : "absolute"} border-2 text-black md:hidden`}
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        <FiMenu />
+      </button>
+      {/* Content Area */}
+      <div className="flex-1 p-10 text-2xl font-bold">
+        <h1 className="mb-4">Dashboard</h1>
+        <div>
+          Welcome, {user.email}!
         </div>
-        <form>
-          <div className="w-full mt-10 flex flex-col md:flex-row items-center justify-center gap-4">
-            <div className="bg-gray-200 p-2 rounded-lg shadow w-full h-[500px]">
-              <CgProfile className="text-blue-500" />
-              <div className="p-2 mt-3 text-left w-fit bg-white rounded-lg shadow-2xl">
-                <h2 className="font-semibold text-lg">Profile</h2>
-                  <p>Edit your profile information</p>
-                  <button
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                    Edit Profile
-                  </button>
-              </div>
-            </div>
-            <div className="space-y-3">
-              <button onClick={logout} className="text-blue-500 hover:text-blue-700 transition">
-                <h3 className="text-xl font-bold">Logout</h3>
-              </button>
-            </div>
-          </div>
-
-        </form>
-      </main>
+      </div>
     </div>
   );
 }

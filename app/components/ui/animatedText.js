@@ -13,7 +13,7 @@ const AnimatedText = ({ texts, speed = 2000 }) => {
   }, [texts.length, speed]);
 
   return (
-    <div className="overflow-hidden h-20 relative">
+    <div className="overflow-hidden h-[100px] relative">
       <div className="whitespace-nowrap animation-typing">
         {texts[index]} <span className="animate-blink">|</span>
       </div>

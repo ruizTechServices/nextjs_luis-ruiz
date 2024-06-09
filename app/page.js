@@ -15,37 +15,45 @@ import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
-import Head from 'next/head'
+import Head from "next/head";
 import { Layout66 } from "./components/main/number66";
 import { Cta7 } from "./components/main/cta7";
+import React, { useState, useEffect } from "react";
 
 export default function Portfolio() {
+  const [showArrow, setShowArrow] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowArrow(true);
+    }, 3000); // Show after 3000 ms = 3 seconds
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <main className="min-h-screen bg-white">
       <Head>
-      <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
+        <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
       </Head>
       <HeroSection />
-      {/*Intro*/}
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center">
-        <h1 className="text-5xl font-bold text-gray-800 dark:text-black">
-          Welcome to Luis-ruiz.com
-        </h1>
-        <p className="mt-3 text-xl text-gray-600 dark:text-black">
-          A portfolio of Luis Ruiz, An Awesome Full-Stack Web Developer
-        </p>
-        <Image
-          src="/images/luisIT.jpg"
-          alt="Luis Ruiz"
-          width={200}
-          height={200}
-          className="rounded-full"
-        />
-      </section>
-
-      <div className="container mx-auto w-1/2 border border-blue-400"></div>
-
-      {/*Frameworks I work with*/}
+      <div className="relative flex justify-center">
+        {showArrow &&
+          <div className="animate-bounce absolute bottom-10">
+            <svg
+              className="w-10 h-10 text-blue-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>}
+      </div>
       <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
         <h2 className="text-4xl font-bold">
           I code in <span>many</span> programming languages & frameworks.
@@ -84,26 +92,6 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/*About Me*/}
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800 via-gray-400 to-gray-600">
-        <h2 className="text-4xl font-bold text-gray-800 dark:text-white">
-          About Me
-        </h2>
-        <p className="lg:w-[500px] mt-3 text-lg text-gray-600 dark:text-gray-300">
-          With over a decade of experience as a full-stack web developer, I
-          possess a profound expertise in technologies including NextJS,
-          Sveltekit, JavaScript, TypeScript, among others.
-        </p>
-        <Image
-          src="/images/me_2.PNG"
-          alt="About Luis"
-          width={400}
-          height={300}
-          className="rounded-xl"
-        />
-      </section>
-
-      {/*Quick Bio Section*/}
       <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <h1 className="text-4xl font-bold text-center text-white">
@@ -133,7 +121,7 @@ export default function Portfolio() {
               conducts educational initiatives aimed at enhancing brand
               visibility and trust.
             </p>
-            <div className="my-8 text-xl font-bold border-b-4 border-gray-700"></div>
+            <div className="my-8 text-xl font-bold border-b-4 border-gray-700" />
             <h3 className="text-2xl font-bold text-gray-800">
               Professional Skills
             </h3>
@@ -152,16 +140,15 @@ export default function Portfolio() {
               believes stimulate strategic and analytical thinking. His
               enthusiasm for programming is driven by a goal to reach a level of
               expertise where his skills are indispensable to others. So, he
-              studies and practices programming in his free time.
-              He is currently perfecting his design skills,as well.
+              studies and practices programming in his free time. He is
+              currently perfecting his design skills,as well.
             </p>
           </div>
         </main>
       </section>
 
-      <div className="my-10 mx-auto md:container w-3/4 border border-blue-400"></div>
+      <div className="my-10 mx-auto md:container w-3/4 border border-blue-400" />
 
-      {/*My Work Section*/}
       <section className="animate-in shadow-2xl mx-auto flex flex-col">
         <div className="text-center md:mx-[300px] bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
           <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
@@ -176,7 +163,6 @@ export default function Portfolio() {
         <GptStore />
       </section>
 
-      {/*Bottom section*/}
       <section className="animate-in shadow-2xl mx-auto flex flex-col md:flex-row md:h-[500px] my-5">
         <div className="flex overflow-hidden h-full md:w-1/2 bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
           <div className="flex flex-col justify-center text-center w-full font-bold text-4xl gap-5 dark:text-black">

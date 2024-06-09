@@ -27,7 +27,7 @@ import { useState, useEffect } from 'react';
  */
 
 export const Layout66Defaults = {
-  heading: "Cutting-Edge Solutions at Luis-ruiz.com",
+  heading: "Allow me to create the tools for your business",
   description:
     "Explore innovative solutions and projects crafted with a blend of modern technologies and years of expertise in software development.",
   features: [
