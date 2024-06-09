@@ -39,7 +39,7 @@ export default function Portfolio() {
         {showArrow &&
           <div className="animate-bounce absolute bottom-10">
             <svg
-              className="w-10 h-10 text-blue-500"
+              className="w-20 h-20 text-blue-500"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
