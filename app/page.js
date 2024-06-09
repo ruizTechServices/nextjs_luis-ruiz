@@ -26,7 +26,7 @@ export default function Portfolio() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowArrow(true);
-    }, 3000); // Show after 3000 ms = 3 seconds
+    }, 5000); // Show after 5000 ms = 5 seconds
     return () => clearTimeout(timer);
   }, []);
   return (

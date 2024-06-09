@@ -14,7 +14,7 @@ import { Button } from "@relume_io/relume-ui";
  */
 
 export const Cta7Defaults = {
-  heading: "Try my services with a 60-money-back guarantee!*",
+  heading: "Try my services with a 60-day money-back guarantee!*",
   description: "Let me create your next project for you!",
   buttons: [{ title: "Sign Up" }],
 };
