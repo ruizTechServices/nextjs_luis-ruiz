@@ -18,76 +18,49 @@ import GptStore from "./components/main/gpt_store";
 import Head from "next/head";
 import { Layout66 } from "./components/main/number66";
 import { Cta7 } from "./components/main/cta7";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import Arrowdown from "./components/ui/arrowdown";
 
 export default function Portfolio() {
-  const [showArrow, setShowArrow] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowArrow(true);
-    }, 5000); // Show after 5000 ms = 5 seconds
-    return () => clearTimeout(timer);
-  }, []);
   return (
     <main className="min-h-screen bg-white">
-      <Head>
-        <meta name="google-adsense-account" content="ca-pub-8779702295184066" />
-      </Head>
       <HeroSection />
-      <div className="relative flex justify-center">
-        {showArrow &&
-          <div className="animate-bounce absolute bottom-10">
-            <svg
-              className="w-20 h-20 text-blue-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
-          </div>}
-      </div>
-      <section className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
-        <h2 className="text-4xl font-bold">
+      <Arrowdown />
+      <section id="herosection" className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
+        <h2 className="md:text-8xl text-4xl font-bold">
           I code in <span>many</span> programming languages & frameworks.
         </h2>
         <div className="flex flex-col flex-wrap md:flex-row justify-center mt-6 md:space-x-10">
-          <div className="flex justify-center m-6 hover:animate-bounce">
-            <IoLogoJavascript className="text-6xl text-yellow-300 bg-black" />
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <IoLogoJavascript className="text-8xl text-yellow-300 bg-black" />
           </div>
-          <div className="flex justify-center m-6 hover:animate-bounce">
-            <FaPython className="text-6xl text-blue-500 shadow-4xl" />
+          <div className="flex justify-center mt-6 hover:animate-bounce">
+            <FaPython className="text-8xl text-blue-500 shadow-4xl" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce ">
-            <FaHtml5 className="text-6xl text-orange-400" />
+            <FaHtml5 className="text-8xl text-orange-400" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <BiLogoTailwindCss className="text-6xl text-blue-300" />
+            <BiLogoTailwindCss className="text-8xl text-blue-300" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <FaPhp className="text-6xl text-black" />
+            <FaPhp className="text-8xl text-black" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <FaNodeJs className="text-6xl text-green-600" />
+            <FaNodeJs className="text-8xl text-green-600" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <FaReact className="text-6xl text-blue-300" />
+            <FaReact className="text-8xl text-blue-300" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <TbBrandNextjs className="text-6xl text-black" />
+            <TbBrandNextjs className="text-8xl text-black" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <RiSvelteFill className="text-6xl text-orange-600" />
+            <RiSvelteFill className="text-8xl text-orange-600" />
           </div>
           <div className="flex justify-center mt-6 hover:animate-bounce">
-            <FcLinux className="text-6xl text-orange-600" />
+            <FcLinux className="text-8xl text-orange-600" />
           </div>
         </div>
       </section>
