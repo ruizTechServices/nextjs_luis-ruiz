@@ -38,7 +38,9 @@ export default function UserDashboard() {
 
   if (!user) {
     console.log("User data not loaded yet"); // Inform about data loading state
-    return <p>Loading...</p>; // More user-friendly loading state
+    return <div className="flex flex-col items-center justify-center h-screen">
+      <p className="animate-pulse text-4xl font-bold">Loading...</p> Brought to you by ruizTechServices| 
+      </div>  
   }
 
   // // Function to simulate an API call

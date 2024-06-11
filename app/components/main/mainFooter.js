@@ -20,7 +20,7 @@ function MainFooter() {
         setUser(session?.user ?? null);
       }
     );
-
+    
     return () => authListener?.subscription?.unsubscribe();
   }, []);
 
