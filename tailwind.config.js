@@ -33,12 +33,21 @@ module.exports = {
             transform: 'translateY(0)',
             animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
           },
+        },
+        pulse: {
+          '0%, 100%': {
+            opacity: 1
+          },
+          '50%': {
+            opacity: .2
+          },
         }
       },
       animation: {
         typing: 'typing 4s steps(40, end) infinite',
         blink: 'blink 0.75s infinite',
         bounce: 'bounce 1s infinite',
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         
       },
     },
