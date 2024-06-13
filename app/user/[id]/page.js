@@ -1,5 +1,5 @@
 // C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\user\[id]\page.js
-"use client";
+'use client';
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -42,12 +42,6 @@ export default function UserDashboard() {
       <p className="animate-pulse text-4xl font-bold">Loading...</p> Brought to you by ruizTechServices| 
       </div>  
   }
-
-  // // Function to simulate an API call
-  // const handleApiCall = () => {
-  //   console.log("API call simulation");
-  //   // Simulated API call logic here
-  // };
 
   const logout = async () => {
     await supabase.auth.signOut();
@@ -133,11 +127,12 @@ export default function UserDashboard() {
       <div className="flex-1 p-10">
         <h1 className="mb-4 font-bold text-2xl">Your Personal Dashboard</h1>
         <p className="">
-          Here you will find all your personalized information. Also, all work
+          Here you will find all your personalized information.
+          <br/> Also, all work
           that Luis Ruiz will create for you or vice versa, will be displayed on
           this page.
         </p>
-        <div className="container mx-auto overflow-hidden bg-white border-2 h-screen rounded-lg shadow-lg">
+        <div className="border-t-2 mt-10 container mx-auto overflow-y-scroll no-scrollbar bg-white h-screen shadow-lg">
           {renderContent()}
         </div>
       </div>

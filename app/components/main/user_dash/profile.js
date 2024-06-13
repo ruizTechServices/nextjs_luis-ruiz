@@ -23,28 +23,6 @@ function Profile() {
         fetchUser();
     }, []); // Added dependencies array to prevent running on every re-render
 
-    // Handle the form submit
-    const handleSubmit = async event => {
-        event.preventDefault();
-        const name = event.target.name.value;
-        const phone = event.target.phone.value;
-        const email = event.target.email.value;
-
-        // Assuming you have a method to update user details in your supabase or relevant DB
-        const { error } = await supabase
-            .from("profiles")
-            .update({
-                raw_user_meta_data: JSON.stringify({ name: name, phone: phone, email: email })
-            })
-            .eq("id", user.id);
-
-        if (error) {
-            console.error("Failed to update user profile:", error);
-        } else {
-            console.log("Profile updated successfully!");
-            // Optionally, refetch user info or handle updates locally
-        }
-    };
 
     if (!user) {
         return <>
@@ -58,7 +36,7 @@ function Profile() {
     return (
         <div className="p-4 max-w-4xl mx-auto">
             <h2 className="text-lg font-semibold mb-4">Profile</h2>
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6">
                 {/* Name Setting */}
                 <div className="flex items-center justify-between">
                     <label htmlFor="name" className="flex-grow text-sm font-medium">

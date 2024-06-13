@@ -49,7 +49,7 @@ function MainFooter() {
           onClick: checkUser,
         });
       } else if (user) {
-        baseLinks.push({ href: `/user/${user.id}`, label: "Dashboard" });
+        baseLinks.push({ href: `/user/${user.id}`, label: `${user.name}'s Dashboard` });
       }
 
       setLinks(baseLinks);

@@ -47,9 +47,10 @@ const ProfilePicture = ({ onSuccess, onError }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-row">
+      <p className="flex-grow text-sm font-medium">Upload Profile Picture</p>
       <input type="file" onChange={handleFileChange} accept="image/*" />
-      <button onClick={uploadProfilePicture}>Upload Picture</button>
+      <button className="rounded-xl bg-blue-200 p-2" onClick={uploadProfilePicture}>Upload Picture</button>
     </div>
   );
 };
