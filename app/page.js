@@ -123,13 +123,12 @@ export default function Portfolio() {
       <div className="my-10 mx-auto md:container w-3/4 border border-blue-400" />
 
       <section className="animate-in shadow-2xl mx-auto flex flex-col">
-        <div className="text-center md:mx-[300px] bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
+        <div className="text-center bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-6 rounded-lg shadow-lg my-5 mx-2">
           <h2 className="text-4xl font-bold text-black drop-shadow-2xl">
             My Work
           </h2>
           <p className="md:mx-10 mt-3 text-lg text-black font-bold">
-            I&apos;ve contributed to numerous projects that help companies
-            achieve their goals. Here&apos;s a glimpse of my work.
+            These are projects that I have completed, or am currently working on.
           </p>
         </div>
         <ProjectViewer />
