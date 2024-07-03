@@ -7,7 +7,7 @@ const projects = [
   { url: 'https://ruiztechservices.com', title: 'ruizTechServices| Online Tech Support' },
   { url: "https://24hourgpt.com", title: "24 Hour GPT: Premium Chatbot for $1 a day" },
   // { url: 'https://demon-child.com', title: 'https://demon-child.com' },
-  { url: 'https://letmeexplain.online', title: 'Let Me Explain: An online feedback platform' },
+  // { url: 'https://letmeexplain.online', title: 'Let Me Explain: An online feedback platform' },
   // { url: 'https://rrtruckingservices.com', title: 'https://rrtruckingservices.com' },
   // { url: 'https://dont-download.com', title: 'https://dont-download.com' },
   { url: 'https://osvaldybarber.com', title: 'Osvaldy Barber: A Full-Service Barber ' },

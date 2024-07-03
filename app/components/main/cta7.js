@@ -25,8 +25,8 @@ export const Cta7 = (props) => {
   const { heading, description, buttons } = { ...Cta7Defaults, ...props };
 
   return (
-    <section className="px-[5%] py-16 my-1 md:py-24 lg:py-28 dark:text-black bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
-      <div className="container ml-2 mr-2 grid w-full grid-cols-1 items-start justify-between gap-6 md:grid-cols-[1fr_max-content] md:gap-x-12 md:gap-y-8 lg:gap-x-20">
+    <section className="mx-2 px-[5%] py-16 my-1 md:py-24 lg:py-28 dark:text-black bg-gradient-to-r from-yellow-200 via-green-200 to-green-500">
+      <div className="mx-auto container ml-2 mr-2 grid w-full grid-cols-1 items-start justify-between gap-6 md:grid-cols-[1fr_max-content] md:gap-x-12 md:gap-y-8 lg:gap-x-20">
         <div className="md:mr-12 lg:mr-0">
           <div className="w-full max-w-lg">
             <h2 className="mb-3 text-4xl font-bold leading-[1.2] md:mb-4 md:text-5xl lg:text-6xl">
