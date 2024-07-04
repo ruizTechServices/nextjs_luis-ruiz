@@ -1,4 +1,3 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntriesList.js
 "use client";
 import { useEffect, useState } from "react";
 import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
@@ -39,7 +38,7 @@ export const JournalEntriesList = () => {
   }, []);
 
   return (
-    <section className="">
+    <section className="overflow-hidden h-[500px] overflow-y-scroll">
       {fetchError && (
         <div className="bg-red-500 text-black p-4 rounded-md">
           <p>{fetchError}</p>

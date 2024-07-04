@@ -100,8 +100,9 @@ const TodoList = () => {
                     placeholder="Add new todo"
                     value={newTodo}
                     onChange={handleNewTodoChange}
+                    className='border-2 border-gray-300 rounded-md p-2 w-full'
                 />
-                <button className='rounded-lg bg-blue-300 px-2 mx-2' type="submit">Add</button>
+                <button className='w-20 rounded-lg bg-blue-300 px-2 mx-2' type="submit">Add</button>
             </form>
             <ul className='container mx-auto w-auto flex flex-col gap-5 overflow-y-scroll h-96'>
                 {todos.map(todo => (

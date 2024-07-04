@@ -1,30 +1,23 @@
-// C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\dashboard\page.js
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DashboardHeader } from "../components/main/dashboardHeader";
 import { JournalEntriesList } from "../components/main/journal/journalEntriesList";
 import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
 import BitcoinPriceClock from "../components/main/bitcoinbot";
-import Modal from "../components/ui/modal";
 import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from '../components/main/contact/contactEntryList';
 import { BlogEntryForm } from '../components/main/blog/blogEntryForm';
 import CatalogItemForm from "../components/main/catalog/catalogItemForm";
 import { createClient } from "../../lib/utils/supabase/supabaseClient";
 import { redirect } from 'next/navigation';
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import TodoList from '../components/main/todolist';
 
 function Dashboard() {
-  const [modalContent, setModalContent] = useState(null);
+  const [contentComponent, setContentComponent] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const supabase = createClient();
   const router = useRouter();
-  const [users, setUsers] = useState(null);
-  const [id, setId] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const getLoggedInUser = async () => {
@@ -36,79 +29,48 @@ function Dashboard() {
       }
       setLoggedInUser(user);
       console.log(loggedInUser);
-      getLoggedInUser();
     }
-  });
+    getLoggedInUser();
+  }, [loggedInUser, supabase]);
 
-  const openModal = (contentComponent) => setModalContent(contentComponent);
-  const closeModal = () => setModalContent(null);
-
+  const showContent = (contentComponent) => setContentComponent(contentComponent);
 
   return (
-    <>
-
+    <div className="flex flex-col h-full">
       <DashboardHeader />
-
-
-      {/*modals*/}
-      <div className="container mx-auto w-auto mb-10 flex md:flex-row flex-col justify-center items-center gap-5">
-        <button
-          onClick={() => openModal(<CatalogItemForm />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Add Catalog Item
-        </button>
-        <button
-          onClick={() => openModal(<JournalEntriesList />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Journal
-        </button>
-        <button
-          onClick={() => openModal(<ContactEntriesList />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Contact List/Entries
-        </button>
-        <button
-          onClick={() => openModal(<JournalEntryForm />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Add Journal Entry
-        </button>
-        <button
-          onClick={() => openModal(<PersonalAssistant />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          My Chatbot!
-        </button>
-        <button
-          onClick={() => openModal(<BitcoinPriceClock />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Bitcoin Price Status
-        </button>
-        <button
-          onClick={() => openModal(<BlogEntryForm />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          Blog Entry Form
-        </button>
-        <button
-          onClick={() => openModal(<TodoList />)}
-          className="button rounded-md bg-blue-500 p-5 md:w-auto text-white hover:bg-blue-700 transition duration-300 ease-in-out"
-        >
-          ToDo List
-        </button>
+      <div className="flex flex-1 flex-col md:flex-row">
+        <nav className="w-full md:w-64 bg-blue-400 text-white p-4 flex flex-col gap-2">
+          <button onClick={() => showContent(<CatalogItemForm />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Add Catalog Item</button>
+          <button onClick={() => showContent(<JournalEntriesList />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Journal</button>
+          <button onClick={() => showContent(<ContactEntriesList />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Contact List/Entries</button>
+          <button onClick={() => showContent(<JournalEntryForm />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Add Journal Entry</button>
+          <button onClick={() => showContent(<PersonalAssistant />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">My Chatbot!</button>
+          <button onClick={() => showContent(<BitcoinPriceClock />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Bitcoin Price Status</button>
+          <button onClick={() => showContent(<BlogEntryForm />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">Blog Entry Form</button>
+          <button onClick={() => showContent(<TodoList />)} className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl">ToDo List</button>
+        </nav>
+        <div className="flex-1 h-[300px] bg-white p-4 overflow-auto h-[700px] md:h-auto">
+          {contentComponent}
+        </div>
       </div>
-
-      {modalContent && (
-        <Modal isOpen={modalContent !== null} closeModal={closeModal}>
-          {modalContent}
-        </Modal>
-      )}
-    </>
+    </div>
   );
 }
 
 export default Dashboard;
+
+// Add the following Tailwind CSS classes in your global CSS file or directly in the component:
+<style jsx>{`
+  .btn {
+    padding: 10px;
+    background: #0070f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .btn:hover {
+    background: #005bb5;
+  }
+`}</style>
