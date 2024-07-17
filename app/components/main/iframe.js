@@ -6,6 +6,7 @@ const projects = [
   { url: "https://Compulogicpc.com", title: "Compulogic" },
   { url: 'https://ruiztechservices.com', title: 'ruizTechServices| Online Tech Support' },
   { url: "https://24hourgpt.com", title: "24 Hour GPT: Premium Chatbot for $1 a day" },
+  { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'https://username-generator-pure-giovanniruiz5.replit.app/' },
   // { url: 'https://demon-child.com', title: 'https://demon-child.com' },
   // { url: 'https://letmeexplain.online', title: 'Let Me Explain: An online feedback platform' },
   // { url: 'https://rrtruckingservices.com', title: 'https://rrtruckingservices.com' },
