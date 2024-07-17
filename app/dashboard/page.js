@@ -12,13 +12,13 @@ import { createClient } from "../../lib/utils/supabase/supabaseClient";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import TodoList from "../components/main/todolist";
-import { CodepenLikeEditor } from "../components/main/component_submissions";
+import CodepenLikeEditor from "../components/main/component_submissions";
+import MistralChat from "../components/main/mistral";
 
 function Dashboard() {
   const [contentComponent, setContentComponent] = useState(null);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const supabase = createClient();
-  const router = useRouter();
 
   useEffect(() => {
     const getLoggedInUser = async () => {
@@ -95,6 +95,12 @@ function Dashboard() {
             className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
           >
             Component Design & submission
+          </button>
+          <button
+            onClick={() => showContent(<MistralChat />)}
+            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
+          >
+            Mistral Chatbot
           </button>
         </nav>
         <div className="flex-1 h-[300px] bg-white p-4 overflow-auto h-[700px] md:h-auto">

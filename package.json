@@ -11,6 +11,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.4",
     "@headlessui/react": "^1.7.18",
+    "@mistralai/mistralai": "^0.5.0",
     "@relume_io/relume-tailwind": "^0.2.0",
     "@relume_io/relume-ui": "^0.2.1",
     "@supabase/ssr": "^0.1.0",
