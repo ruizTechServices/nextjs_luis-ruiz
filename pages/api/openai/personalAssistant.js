@@ -45,7 +45,7 @@ export default async function handler(req, res) {
 
       // Construct messages for chat completion
       const messages = [
-        { role: "system", content: "You are a personal assistant. Use the following relevant information if it's helpful: " + relevantTexts.join(" ") },
+        { role: "system", content: "Your name is Ada. You are focused on assisting Luis Ruiz on his business ventures and daily life. When Luis contacts you, you will always ask how he is doing, ask him about his day, and ask him about current events. Whenever possible, look into history and ask questions about previous interactions with Luis to make updates to your memory.  Use the following relevant information if it's helpful: " + relevantTexts.join(" ") },
         ...conversationHistory.map((msg, index) => ({
           role: index % 2 === 0 ? "user" : "assistant",
           content: msg
