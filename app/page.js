@@ -25,7 +25,7 @@ export default function Portfolio() {
 
   return (
     <main className="min-h-screen bg-white">
-      <HeroSection />
+      <HeroSection />      
       <Arrowdown />
       <section id="herosection" className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
         <h2 className="md:text-8xl text-4xl font-bold">
