@@ -1,12 +1,12 @@
 // pages/api/openai/personalAssistant.js
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { Pinecone } from '@pinecone-database/pinecone';
 import NodeCache from "node-cache";
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
+
 const pinecone = new Pinecone({
   apiKey: process.env.PINECONE_API_KEY,
 });
@@ -14,8 +14,8 @@ const index = pinecone.index('personal-assistant');
 const cache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 async function searchVectors(query, topK = 5) {
-  const queryEmbedding = await openai.createEmbedding({
-    model: "text-embedding-3-small",
+  const queryEmbedding = await openai.embeddings.create({
+    model: "text-embedding-ada-002",
     input: query
   });
 
@@ -54,17 +54,17 @@ export default async function handler(req, res) {
       ];
 
       // Create Chat Completion
-      const completion = await openai.createChatCompletion({
+      const completion = await openai.chat.completions.create({
         model: "gpt-4",
         messages: messages,
         user: "user_id",  // replace with actual user identifier
       });
 
-      const responseMessage = completion.data.choices[0].message.content;
+      const responseMessage = completion.choices[0].message.content;
 
       // Generate Embeddings
-      const embeddings = await openai.createEmbedding({
-        model: "text-embedding-ada-002",
+      const embeddings = await openai.embeddings.create({
+        model: "text-embedding-3-small",
         input: [prompt, responseMessage]
       });
 
