@@ -20,14 +20,17 @@ import { Layout66 } from "./components/main/number66";
 import { Cta7 } from "./components/main/cta7";
 import React, { useEffect } from "react";
 import Arrowdown from "./components/ui/arrowdown";
+import PineconeFileQuery from "./components/vectorize";
 
 export default function Portfolio() {
-
   return (
     <main className="min-h-screen bg-white">
-      <HeroSection />      
+      <HeroSection />
       <Arrowdown />
-      <section id="herosection" className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black">
+      <section
+        id="herosection"
+        className="flex flex-col items-center justify-center min-h-screen p-10 text-center text-black"
+      >
         <h2 className="md:text-8xl text-4xl font-bold">
           I code in <span>many</span> programming languages & frameworks.
         </h2>
@@ -128,7 +131,8 @@ export default function Portfolio() {
             My Work
           </h2>
           <p className="md:mx-10 mt-3 text-lg text-black font-bold">
-            These are projects that I have completed, or am currently working on.
+            These are projects that I have completed, or am currently working
+            on.
           </p>
         </div>
         <ProjectViewer />
@@ -158,7 +162,6 @@ export default function Portfolio() {
       </section>
       <Layout66 />
       <Cta7 />
-      
     </main>
   );
 }

@@ -1,15 +1,18 @@
-//pages/api/pinecone.js
+// pages/api/pinecone.js
 import { Pinecone } from '@pinecone-database/pinecone';
 import OpenAI from 'openai';
 
+// Initialize OpenAI client with API key from environment variables
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY 
 });
 
+// Configuration for Pinecone client with API key
 const pineconeConfig = {
-  apiKey: process.env.PINECONE_API_KEY, 
+  apiKey: process.env.PINECONE_API_KEY,
 };
 
+// Create Pinecone client and specify the index to use
 const pinecone = new Pinecone(pineconeConfig);
 const index = pinecone.index('personal-assistant');
 
@@ -21,11 +24,19 @@ export default async function handler(req, res) {
   try {
     const { prompt } = req.body;
 
+    if (!prompt) {
+      throw new Error('Prompt is required and was not provided.');
+    }
+
     // Generate embedding from OpenAI
     const embeddingResponse = await openai.createEmbedding({
-      model: "text-embedding-ada-002",
+      model: "text-embedding-3-small",
       input: prompt,
     });
+
+    if (!embeddingResponse.data || !embeddingResponse.data.data[0].embedding) {
+      throw new Error('Failed to generate embedding');
+    }
 
     const embedding = embeddingResponse.data.data[0].embedding;
 
@@ -38,6 +49,6 @@ export default async function handler(req, res) {
     res.status(200).json(queryResults);
   } catch (error) {
     console.error('Error in personalAssistant API:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: error.message || 'Internal Server Error' });
   }
 }
