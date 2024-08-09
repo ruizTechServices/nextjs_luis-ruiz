@@ -11,8 +11,7 @@ import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
-import { Layout66 } from "./components/main/number66";
-import { Cta7 } from "./components/main/cta7";
+import RolesSection from "./components/rolesSection";
 
 const tabs = [
   { id: 'skills', label: 'Skills' },
@@ -69,7 +68,7 @@ export default function Portfolio() {
               <h1 className="text-4xl font-bold text-center text-white mb-4">Luis Ruiz</h1>
               <p className="text-center text-xl mb-8 text-gray-800">New York City Native</p>
               <div className="mb-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg overflow-hidden">
-                <Image src="/images/IMG_3287.jpg" alt="Luis Ruiz" width={200} height={200} className="object-cover" />
+                <Image src="/images/meinasuit.png" alt="Luis Ruiz" width={200} height={200} className="object-cover" />
               </div>
               <p className="text-lg leading-relaxed text-gray-800 mb-8">
                 Luis Ruiz, a 35-year-old professional with roots in New York City, currently oversees management operations at ruizTechServices. Demonstrating a strong commitment to community engagement, Luis conducts educational initiatives aimed at enhancing brand visibility and trust.
@@ -98,28 +97,24 @@ export default function Portfolio() {
         )}
 
         {activeTab === 'experience' && (
-          <section className="flex flex-col md:flex-row md:h-[500px] p-10">
-            <div className="md:w-1/2 bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-8">
-              <div className="flex flex-col justify-center h-full">
-                <h2 className="text-4xl font-bold text-black mb-6">Roles</h2>
-                <ul className="space-y-4 text-2xl font-semibold text-gray-800">
-                  <li>Web Designer</li>
-                  <li>Web Developer</li>
-                  <li>DevOps Engineer</li>
-                  <li>Software Engineer</li>
-                </ul>
-              </div>
-            </div>
-            <div className="md:w-1/2 bg-white p-8 flex items-center justify-center">
-              <Image
-                src="/images/IMG_4818.JPG"
-                alt="Luis"
-                width={400}
-                height={400}
-                className="rounded-2xl shadow-lg"
-              />
-            </div>
-          </section>
+      <section className="flex flex-col lg:flex-row min-h-screen">
+        <div className="lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-8 flex items-center justify-center">
+          <div className="max-w-lg">
+            <RolesSection />
+          </div>
+        </div>
+        <div className="lg:w-1/2 bg-white p-8 flex items-center justify-center">
+          <div className="relative w-full max-w-md aspect-square">
+            <Image
+              src="/images/logo_lr.png"
+              alt="Luis Ruiz Logo"
+              layout="fill"
+              objectFit="contain"
+              className="rounded-2xl shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
         )}
       </div>
     </main>
