@@ -106,7 +106,7 @@ export default function Portfolio() {
         <div className="lg:w-1/2 bg-white p-8 flex items-center justify-center">
           <div className="relative w-full max-w-md aspect-square">
             <Image
-              src="/images/logo_lr.png"
+              src="/images/luisIT.jpg"
               alt="Luis Ruiz Logo"
               layout="fill"
               objectFit="contain"
