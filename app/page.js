@@ -15,12 +15,11 @@ import { RiSvelteFill } from "react-icons/ri";
 import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
-import Head from "next/head";
 import { Layout66 } from "./components/main/number66";
 import { Cta7 } from "./components/main/cta7";
 import React, { useEffect } from "react";
 import Arrowdown from "./components/ui/arrowdown";
-import PineconeFileQuery from "./components/vectorize";
+import Resume from "./components/main/resume/resume";
 
 export default function Portfolio() {
   return (
@@ -161,6 +160,9 @@ export default function Portfolio() {
         </div>
       </section>
       <Layout66 />
+      {/* <div className="container mx-auto">
+        <Resume />
+      </div> */}
       <Cta7 />
     </main>
   );

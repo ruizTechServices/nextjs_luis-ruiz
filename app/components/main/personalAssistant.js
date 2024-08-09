@@ -1,120 +1,87 @@
-"use client";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Send, User } from 'lucide-react';
 
-// The main Personal Assistant Component
-const PersonalAssistant = () => {
-  // State for managing user prompt
-  const [prompt, setPrompt] = useState("");
-  // State for storing the ongoing conversation
-  const [conversation, setConversation] = useState([]);
-  // State for managing error messages
-  const [error, setError] = useState("");
-  // State to indicate loading status
-  const [loading, setLoading] = useState(false);
+export default function Assistant() {
+  const [userMessage, setUserMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // Function to handle form submission
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Clear previous errors
-    setError("");
-    // Set loading to true while processing
-    setLoading(true);
+  const sendMessage = async () => {
+    if (!userMessage.trim()) return;
 
-    // Check if the prompt is empty
-    if (!prompt) {
-      setError("Please enter a prompt.");
-      setLoading(false);
-      return;
-    }
+    setIsLoading(true);
+    const newMessage = { role: 'user', content: userMessage };
+    setChatHistory(prevHistory => [...prevHistory, newMessage]);
 
     try {
-      // Make a POST request to the backend API
-      const res = await fetch(
-        `${window.location.origin}/api/openai/personalAssistant`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ prompt, conversationHistory: conversation }),
-        }
-      );
-
-      // If the response is not OK, throw an error
-      if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Error: ${errorText}`);
-      }
-
-      // Extract the message from the API response
-      const apiResponse = await res.json();
-      // Update the conversation with the new prompt and the response
-      setConversation((prev) => [...prev, prompt, apiResponse.message]);
-      // Clear the prompt input
-      setPrompt("");
-    } catch (err) {
-      // Set error message
-      setError(err.message);
+      const res = await fetch('/api/assistant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userMessage }),
+      });
+      const data = await res.json();
+      setChatHistory(prevHistory => [...prevHistory, { role: 'ada', content: data.response }]);
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      setChatHistory(prevHistory => [...prevHistory, { role: 'ada', content: 'Sorry, I encountered an error. Please try again.' }]);
     } finally {
-      // Set loading to false after processing
-      setLoading(false);
+      setIsLoading(false);
+      setUserMessage('');
     }
   };
 
   return (
-    // Main container for the component
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
-        {/* Display conversation history */}
-        <div className="mb-4 h-64 overflow-y-auto">
-          {conversation.map((message, index) => (
+    <div className="max-w-2xl mx-auto p-4 bg-gray-50 rounded-xl shadow-lg space-y-4">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Chat with Ada</h2>
+      <div className="bg-white rounded-lg shadow-inner p-4 h-96 overflow-y-auto space-y-4">
+        {chatHistory.map((msg, index) => (
+          <div
+            key={index}
+            className={`flex ${msg.role === 'ada' ? 'justify-start' : 'justify-end'}`}
+          >
             <div
-              key={index}
-              className={`mb-2 p-2 rounded-lg ${
-                index % 2 === 0
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-green-100 text-green-700"
+              className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                msg.role === 'ada'
+                  ? 'bg-indigo-100 text-indigo-900'
+                  : 'bg-gray-200 text-gray-900'
               }`}
             >
-              {message}
+              <div className="flex items-center mb-1">
+                {msg.role === 'ada' ? (
+                  <div className="w-6 h-6 rounded-full bg-indigo-500 flex items-center justify-center text-white text-xs font-bold mr-2">
+                    A
+                  </div>
+                ) : (
+                  <User className="w-5 h-5 text-gray-600 mr-2" />
+                )}
+                <span className="font-semibold">{msg.role === 'ada' ? 'Ada' : 'You'}</span>
+              </div>
+              <p className="text-sm">{msg.content}</p>
             </div>
-          ))}
-        </div>
-        {/* Form for user input */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="prompt"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Your Prompt
-            </label>
-            <input
-              type="text"
-              name="prompt"
-              id="prompt"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
           </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            {loading ? "Loading..." : "Send"}
-          </button>
-        </form>
-        {/* Display error message if there is any */}
-        {error && (
-          <div className="mt-4 p-4 w-full bg-red-100 text-red-700 rounded-md">
-            Error: {error}
-          </div>
-        )}
+        ))}
+      </div>
+      <div className="flex items-center space-x-2">
+        <input
+          type="text"
+          value={userMessage}
+          onChange={(e) => setUserMessage(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+          placeholder="Ask Ada something..."
+          className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        <button
+          onClick={sendMessage}
+          disabled={isLoading}
+          className={`p-2 rounded-lg ${
+            isLoading
+              ? 'bg-indigo-300 cursor-not-allowed'
+              : 'bg-indigo-500 hover:bg-indigo-600'
+          } text-white transition-colors duration-200`}
+        >
+          <Send className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
-};
-
-export default PersonalAssistant;
+}

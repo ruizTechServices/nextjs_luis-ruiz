@@ -43,3 +43,11 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+.obfuscated {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0.5, 0, 1.5);
+}
+.visible {
+  color: inherit;
+  text-shadow: none;
+}
