@@ -98,7 +98,7 @@ export default function Portfolio() {
 
         {activeTab === 'experience' && (
       <section className="flex flex-col lg:flex-row min-h-screen">
-        <div className="lg:w-1/2 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 p-8 flex items-center justify-center">
+        <div className="lg:w-1/2 bg-gradient-to-r from-green-200 via-yellow-100 to-yellow-500 p-8 flex items-center justify-center">
           <div className="max-w-lg">
             <RolesSection />
           </div>
