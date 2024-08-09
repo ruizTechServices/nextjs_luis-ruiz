@@ -5,7 +5,7 @@ const projects = [
   { url: "https://catherineruiz.com", title: "Catherine Ruiz's Website" },
   { url: "https://Compulogicpc.com", title: "Compulogic" },
   { url: 'https://ruiztechservices.com', title: 'ruizTechServices| Online Tech Support' },
-  { url: "https://24hourgpt.com", title: "24 Hour GPT: Premium Chatbot for $1 a day" },
+  { url: "https://www.24hourgpt.com", title: "24 Hour GPT: Premium Chatbot for $1 a day" },
   { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'A username generator app for social media and livestreamers' },
   { url: 'https://ruiztechgroq.replit.app/', title: 'A groq mixture of Agents app' },
   // { url: 'https://demon-child.com', title: 'https://demon-child.com' },
