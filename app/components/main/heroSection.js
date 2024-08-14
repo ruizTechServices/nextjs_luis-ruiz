@@ -22,7 +22,7 @@ const HeroSection = () => {
       </div>
       <div className="flex flex-col justify-center items-center h-[700px] bg-gradient-to-bl from-green-200 via-green-400 to-green-500">
         <h1 className="text-7xl md:text-[80px] font-bold text-black">
-          I'm a
+          I&apos;m a
         </h1>
         <div className="">
           <AnimatedText
