@@ -1,3 +1,4 @@
+// app/components/ui/animatedText.js
 'use client';
 
 import React, { useState, useEffect } from "react";
@@ -36,11 +37,11 @@ const AnimatedText = ({ texts, speed = 2000, typingSpeed = 100, deletingSpeed = 
   }, [charIndex, isDeleting, texts, typingSpeed, deletingSpeed, pauseTime, index]);
 
   return (
-    <div className="overflow-hidden h-[100px] relative">
-      <div className="whitespace-nowrap">
-        {displayedText} <span className="animate-blink">|</span>
-      </div>
-      <div className="absolute whitespace-nowrap animation-blink border-gray-900 h-full"></div>
+    <div className="overflow-hidden relative h-[100px] text-center">
+      <span className="whitespace-nowrap text-7xl md:text-[80px] font-bold text-black mb-5">
+        {displayedText}
+      </span>
+      <span className="animate-blink text-7xl md:text-[80px] font-bold text-black mb-5">|</span>
     </div>
   );
 };
