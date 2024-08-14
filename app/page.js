@@ -13,6 +13,7 @@ import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
 import RolesSection from "./components/rolesSection";
+import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
 
 const tabs = [
   { id: 'skills', label: 'Skills' },
@@ -118,6 +119,7 @@ export default function Portfolio() {
       </section>
         )}
       </div>
+      <ScrollToTopArrow />
     </main>
   );
 }
