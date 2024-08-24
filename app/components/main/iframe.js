@@ -15,8 +15,7 @@ const projects = [
 
 const ProjectViewer = () => {
   return (
-    <div className="">
-      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto flex flex-col items-center justify-center mb-48 flex-wrap md:flex-row">
+      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center justify-center mb-48">
         {projects.map((project, index) => (
           <div
             key={index}
@@ -25,13 +24,12 @@ const ProjectViewer = () => {
             <iframe
               src={project.url}
               title={project.title}
-              className="md:w-[400px] h-[500px] shadow-2xl rounded-xl border-2 border-gray-600"
+              className="w-full h-[500px] shadow-2xl rounded-xl border-2 border-gray-600"
             />
             <Link className='hover:cursor-pointer text-blue-400 dark:text-black' href={project.url}><p>{project.title}</p></Link>
           </div>
         ))}
       </div>
-    </div>
   );
 };
 

@@ -8,8 +8,7 @@ const projects = [
 
 const Projectai = () => {
   return (
-    <div className="">
-      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto flex flex-col items-center justify-center mb-48 flex-wrap md:flex-row">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 border-2 border-gray-600 rounded-xl p-2 container mx-auto items-center justify-center mb-48">
         {projects.map((project, index) => (
           <div
             key={index}
@@ -24,7 +23,6 @@ const Projectai = () => {
           </div>
         ))}
       </div>
-    </div>
   );
 };
 

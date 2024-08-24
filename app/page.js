@@ -10,6 +10,7 @@ import RolesSection from "./components/rolesSection";
 import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
 import Projectai from './components/main/iframe_ai';
 import Skills from './components/main/skills';
+import Publicchatbot from './components/public_chatbot';
 
 const tabs = [
   { id: 'skills', label: 'Skills' },
@@ -17,6 +18,7 @@ const tabs = [
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'Artificial Intelligence', label: 'AI' },
+  { id: 'Public Chatbot', label: 'Community Chatbot' },
 ];
 
 export default function Portfolio() {
@@ -28,7 +30,7 @@ export default function Portfolio() {
       {Arrowdown && <Arrowdown />}
 
       {/* Tabs */}
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-10 flex-wrap">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -110,6 +112,9 @@ export default function Portfolio() {
             {ProjectViewer && <Projectai />}
             {GptStore && <GptStore />}
           </section>
+        )}
+        {activeTab === 'Public Chatbot' && (
+          <Publicchatbot />
         )}
       </div>
       <ScrollToTopArrow />
