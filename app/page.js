@@ -4,22 +4,19 @@ import { useState } from 'react';
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
 import Arrowdown from "./components/ui/arrowdown";
-import { IoLogoJavascript } from "react-icons/io5";
-import { FaPython, FaHtml5, FaPhp, FaNodeJs, FaReact } from "react-icons/fa";
-import { BiLogoTailwindCss } from "react-icons/bi";
-import { TbBrandNextjs } from "react-icons/tb";
-import { RiSvelteFill } from "react-icons/ri";
-import { FcLinux } from "react-icons/fc";
 import ProjectViewer from "./components/main/iframe";
 import GptStore from "./components/main/gpt_store";
 import RolesSection from "./components/rolesSection";
 import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
+import Projectai from './components/main/iframe_ai';
+import Skills from './components/main/skills';
 
 const tabs = [
   { id: 'skills', label: 'Skills' },
   { id: 'about', label: 'About Me' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
+  { id: 'Artificial Intelligence', label: 'AI' },
 ];
 
 export default function Portfolio() {
@@ -49,20 +46,7 @@ export default function Portfolio() {
 
       {/* Tab Content */}
       <div className="mt-8">
-        {activeTab === 'skills' && (
-          <section className="flex flex-col items-center justify-center p-10 text-center text-black">
-            <h2 className="md:text-6xl text-4xl font-bold mb-8">
-              I code in <span className="text-indigo-600">many</span> programming languages & frameworks.
-            </h2>
-            <div className="flex flex-wrap justify-center gap-8">
-              {[IoLogoJavascript, FaPython, FaHtml5, BiLogoTailwindCss, FaPhp, FaNodeJs, FaReact, TbBrandNextjs, RiSvelteFill, FcLinux].map((Icon, index) => (
-                <div key={index} className="hover:animate-bounce">
-                  <Icon className="text-6xl" />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+        {activeTab === 'skills' && (<Skills />)}
 
         {activeTab === 'about' && (
           <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-10">
@@ -94,7 +78,6 @@ export default function Portfolio() {
               These are projects that I have completed, or am currently working on.
             </p>
             {ProjectViewer && <ProjectViewer />}
-            {GptStore && <GptStore />}
           </section>
         )}
 
@@ -117,6 +100,16 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
+        )}
+        {activeTab === 'Artificial Intelligence' && (
+          <section className="p-10">
+            <h2 className="text-4xl font-bold text-center text-black mb-8">Artificial Intelligence</h2>
+            <p className="text-center text-lg text-gray-600 mb-10">
+              These are AI projects that I have completed, or am currently working on.
+            </p>
+            {ProjectViewer && <Projectai />}
+            {GptStore && <GptStore />}
+          </section>
         )}
       </div>
       <ScrollToTopArrow />

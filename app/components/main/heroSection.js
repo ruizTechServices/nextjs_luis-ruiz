@@ -4,16 +4,30 @@ import Image from "next/image";
 
 const HeroSection = () => {
   const titles = [
-    "Developer",
-    "Designer",
-    "Creator",
-    "Programmer",
-    "Thinker",
-    "Builder",
-    "Technician",
-    "Strategist",
-    "Consultant",
+      "Developer",
+      "Designer",
+      "Creator",
+      "Programmer",
+      "Thinker",
+      "Builder",
+      "Technician",
+      "Strategist",
+      "Consultant",
+      "Coder",
+      "Manager",
+      "Producer",
+      "Specialist",
+      "Mentor",
+      "Director",
+      "Leader",
+      "Writer",
+      "Facilitator",
+      "Coordinator",
+      "Supervisor",
+      "Researcher",
+      "Planner",
   ];
+
 
   return (
     <>
