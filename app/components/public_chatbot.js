@@ -75,7 +75,7 @@ export default function Component() {
             </button>
             {showDisclosure && (
               <p id="disclosure-text" className="mt-2 text-base md:text-lg text-gray-600">
-                Kindly refrain from posing personal or sensitive questions. Be advised that your questions and the chatbot's responses will be recorded and stored in our database to improve future interactions. These exchanges may also be visible to other users, so please exercise discretion.
+                Kindly refrain from posing personal or sensitive questions. Be advised that your questions and the chatbot&apos;s responses will be recorded and stored in our database to improve future interactions. These exchanges may also be visible to other users, so please exercise discretion.
               </p>
             )}
           </div>
