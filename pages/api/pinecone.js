@@ -14,7 +14,7 @@ const pineconeConfig = {
 
 // Create Pinecone client and specify the index to use
 const pinecone = new Pinecone(pineconeConfig);
-const index = pinecone.index('personal-assistant');
+const index = pinecone.index('chat-history');
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
