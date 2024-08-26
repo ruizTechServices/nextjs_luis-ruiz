@@ -1,3 +1,4 @@
+//pages/api/openai/embedding.js
 import openai from '../../../lib/utils/openai/connection';
 
 export default async function handler(req, res) {

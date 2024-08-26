@@ -1,153 +1,139 @@
-import React, { useState } from "react";
-import { Send, Plus, MessageSquare, Menu, X } from "lucide-react"; // Importing icons from the lucide-react library
-import { index } from "../../lib/utils/pinecone/pinecone"; // Importing the Pinecone index
-import { createClient } from "../../lib/utils/supabase/supabaseClient"; // Importing the Supabase client
+import React, { useState, useEffect } from "react";
+import { Send, Plus, MessageSquare, Menu, X } from "lucide-react";
+import { createClient } from "../../lib/utils/supabase/supabaseClient";
 
 export default function Component() {
-  const supabase = createClient(); // Creating a Supabase client
-  // State variables for managing chats, active chat, input, and UI states
-  const [chats, setChats] = useState([{ id: 1, messages: [] }]); // Initial state with one chat
-  const [activeChat, setActiveChat] = useState(1); // State for tracking the currently active chat
-  const [input, setInput] = useState(""); // State for managing the user input in the chat
-  const [showDisclosure, setShowDisclosure] = useState(false); // State for toggling the disclosure text visibility
-  const [sidebarOpen, setSidebarOpen] = useState(false); // State for toggling the sidebar visibility on mobile
+  const supabase = createClient();
+  const [chats, setChats] = useState([{ id: 1, messages: [] }]);
+  const [activeChat, setActiveChat] = useState(1);
+  const [input, setInput] = useState("");
+  const [showDisclosure, setShowDisclosure] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Function to handle the form submission when the user sends a message
+  useEffect(() => {
+    loadChatHistory(activeChat);
+  }, [activeChat]);
+
+  const loadChatHistory = async (chatId) => {
+    try {
+      const { data, error } = await supabase
+        .from('chat_messages')
+        .select('message, created_at, is_user')
+        .eq('chat_id', chatId)
+        .order('created_at', { ascending: true });
+
+      if (error) throw error;
+
+      const formattedMessages = data.map(msg => ({
+        text: msg.message,
+        isUser: msg.is_user,
+        timestamp: msg.created_at
+      }));
+
+      setChats(prevChats => prevChats.map(chat =>
+        chat.id === chatId ? { ...chat, messages: formattedMessages } : chat
+      ));
+    } catch (error) {
+      console.error("Error loading chat history:", error);
+      alert("Failed to load chat history. Please try again.");
+    }
+  };
+
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-
+    e.preventDefault();
     if (input.trim()) {
-      // Check if the input is not empty
-      const newMessage = { text: input, isUser: true }; // Create a new message object
+      const newMessage = { text: input, isUser: true, timestamp: new Date().toISOString() };
 
       try {
-        // Step 1: Generate an embedding for the input text
-        const embeddingResponse = await fetch("/api/openai/embedding", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ input }), // Send the user input to the API
-        });
+        // Add the new user message to the chat immediately
+        setChats(prevChats => prevChats.map(chat =>
+          chat.id === activeChat
+            ? { ...chat, messages: [...chat.messages, newMessage] }
+            : chat
+        ));
 
-        const embeddingData = await embeddingResponse.json(); // Parse the response
-
-        if (!embeddingResponse.ok) {
-          throw new Error(embeddingData.error || "Failed to fetch embedding");
-        }
-
-        const vector = embeddingData.vector; // Extract the embedding vector from the response
-
-        // Step 2: Upsert (insert or update) the vector into Pinecone's index
-        await index.namespace("public-chatbot").upsert([
-          {
-            id: `chat-${activeChat}-msg-${Date.now()}`, // Unique ID for the message
-            values: vector, // The embedding vector
-            metadata: { chat_id: activeChat, text: input }, // Additional metadata
-          },
-        ]);
-
-        // Step 3: Query Pinecone for similar vectors
-        const queryResults = await index.namespace("public-chatbot").query({
-          vector: vector, // The embedding vector to query
-          topK: 3, // The number of similar vectors to retrieve
-          includeMetadata: true, // Include metadata in the results
-        });
-
-        // Step 4: Process query results to create context for the AI
-        const similarMessages = queryResults.matches.map(
-          (match) => match.metadata.text,
-        );
-        const context = similarMessages.join("\n"); // Combine similar messages to form context
-
-        // Step 5: Call the OpenAI API with the input and context to generate a response
+        // Call the GPT-4 Mini API (which now handles embeddings internally)
         const response = await fetch("/api/openai/gpt-4o_mini", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            prompt: input, // The user input
-            context: context, // The context from similar messages
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: input, chatId: activeChat }),
         });
 
-        const data = await response.json(); // Parse the API response
+        const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch response from OpenAI");
+          throw new Error(data.error || "Failed to fetch response from API");
         }
 
-        const responseMessage = { text: data.message, isUser: false }; // Create a response message object
+        const responseMessage = { text: data.message, isUser: false, timestamp: new Date().toISOString() };
 
-        // Step 6: Update the chat state with the new message and the AI response
-        const updatedChats = chats.map((chat) =>
+        // Add the AI response to the chat
+        setChats(prevChats => prevChats.map(chat =>
           chat.id === activeChat
-            ? {
-                ...chat,
-                messages: [...chat.messages, newMessage, responseMessage], // Add both user and AI messages
-              }
-            : chat,
-        );
+            ? { ...chat, messages: [...chat.messages, responseMessage] }
+            : chat
+        ));
 
-        setChats(updatedChats); // Update the state with the new chat data
-        setInput(""); // Clear the input field
+        setInput("");
 
-        // Step 7: Store the messages in Supabase for persistence
-        const { data: insertData, error: insertError } = await supabase
-          .from("chats")
-          .insert([
-            {
-              chat_id: activeChat,
-              message: input,
-              created_at: new Date().toISOString(),
-            },
-            {
-              chat_id: activeChat,
-              message: responseMessage.text,
-              created_at: new Date().toISOString(),
-            },
-          ]);
+        // Store messages in Supabase
+        await storeMessages(activeChat, [newMessage, responseMessage]);
 
-        if (insertError) {
-          console.error("Error storing messages:", insertError);
-          // Optionally, show an error message to the user
-          alert("Failed to save messages. Please try again.");
-        } else {
-          console.log("Messages stored successfully:", insertData);
-        }
       } catch (error) {
         console.error("Error processing chat:", error);
-        // Optionally, show an error message to the user
-        alert(
-          "An error occurred while processing your message. Please try again.",
-        );
+        alert("An error occurred while processing your message. Please try again.");
       }
     }
   };
 
-  // Function to create a new chat
-  const createNewChat = () => {
-    const newChatId = chats.length + 1; // Generate a new chat ID
-    setChats([...chats, { id: newChatId, messages: [] }]); // Add the new chat to the state
-    setActiveChat(newChatId); // Set the new chat as the active chat
-    setSidebarOpen(false); // Close the sidebar on mobile
+  const storeMessages = async (chatId, messages) => {
+    try {
+      const { error } = await supabase.from("chats").insert(
+        messages.map(msg => ({
+          chat_id: chatId,
+          message: msg.text,
+          is_user: msg.isUser,
+          created_at: msg.timestamp
+        }))
+      );
+
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error storing messages:", error);
+      // Optionally, show an error message to the user
+    }
   };
 
-  // Function to switch between chats
+  const createNewChat = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("chat_messages")
+        .insert({ message: "Chat started", is_user: false })
+        .select();
+
+      if (error) throw error;
+
+      const newChatId = data[0].chat_id;
+      setChats(prevChats => [...prevChats, { id: newChatId, messages: [] }]);
+      setActiveChat(newChatId);
+      setSidebarOpen(false);
+    } catch (error) {
+      console.error("Error creating new chat:", error);
+      alert("Failed to create a new chat. Please try again.");
+    }
+  };
+
   const switchChat = (chatId) => {
-    setActiveChat(chatId); // Set the selected chat as active
-    setSidebarOpen(false); // Close the sidebar on mobile
+    setActiveChat(chatId);
+    setSidebarOpen(false);
   };
 
-  // Function to toggle the disclosure text visibility
   const toggleDisclosure = () => {
-    setShowDisclosure(!showDisclosure); // Toggle the state for disclosure visibility
+    setShowDisclosure(!showDisclosure);
   };
 
-  // Function to toggle the sidebar visibility on mobile
   const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen); // Toggle the state for sidebar visibility
+    setSidebarOpen(!sidebarOpen);
   };
 
   return (
@@ -158,41 +144,42 @@ export default function Component() {
           onClick={toggleSidebar}
           className="text-gray-500 hover:text-gray-700"
         >
-          <Menu className="w-6 h-6" /> {/* Menu icon for opening the sidebar */}
+          <Menu className="w-6 h-6" />
         </button>
-        <h1 className="text-xl font-bold">Community Chatbot</h1>{" "}
-        {/* Header title */}
+        <h1 className="text-xl font-bold">Community Chatbot</h1>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`w-full md:w-64 bg-white shadow-md overflow-y-auto transition-transform duration-300 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 fixed md:static top-0 left-0 h-full z-30`}
+        className={`w-full md:w-64 bg-white shadow-md overflow-y-auto transition-transform duration-300 ease-in-out ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 fixed md:static top-0 left-0 h-full z-30`}
       >
         <div className="p-4 flex justify-between items-center md:block">
           <button
             onClick={createNewChat}
             className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 flex items-center justify-center"
           >
-            <Plus className="w-5 h-5 mr-2" /> New Chat{" "}
-            {/* Button to create a new chat */}
+            <Plus className="w-5 h-5 mr-2" /> New Chat
           </button>
           <button
             onClick={toggleSidebar}
             className="md:hidden text-gray-500 hover:text-gray-700"
           >
-            <X className="w-6 h-6" /> {/* Close icon to close the sidebar */}
+            <X className="w-6 h-6" />
           </button>
         </div>
         <div className="overflow-y-auto h-full">
-          {/* List of chats in the sidebar */}
           {chats.map((chat) => (
             <button
               key={chat.id}
               onClick={() => switchChat(chat.id)}
-              className={`w-full p-4 text-left hover:bg-gray-100 flex items-center ${activeChat === chat.id ? "bg-gray-200" : ""}`}
+              className={`w-full p-4 text-left hover:bg-gray-100 flex items-center ${
+                activeChat === chat.id ? "bg-gray-200" : ""
+              }`}
             >
-              <MessageSquare className="w-5 h-5 mr-2" /> {/* Icon for chat */}
-              Chat {chat.id} {/* Display the chat ID */}
+              <MessageSquare className="w-5 h-5 mr-2" />
+              Chat {chat.id}
             </button>
           ))}
         </div>
@@ -205,15 +192,13 @@ export default function Component() {
             Community Chatbot
           </h2>
           <div className="text-center mb-4 md:mb-6 lg:mb-10">
-            {/* Disclosure section */}
             <button
               className="text-base md:text-lg text-gray-600 underline focus:outline-none"
               onClick={toggleDisclosure}
               aria-expanded={showDisclosure}
               aria-controls="disclosure-text"
             >
-              {showDisclosure ? "CLOSE" : "DISCLOSURE"}{" "}
-              {/* Toggle button text */}
+              {showDisclosure ? "CLOSE" : "DISCLOSURE"}
             </button>
             {showDisclosure && (
               <p
@@ -221,34 +206,38 @@ export default function Component() {
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
                 Kindly refrain from posing personal or sensitive questions. Be
-                advised that your questions and the chatbot&apos;s responses
-                will be recorded and stored in our database to improve future
+                advised that your questions and the chatbot's responses will be
+                recorded and stored in our database to improve future
                 interactions. These exchanges may also be visible to other
                 users, so please exercise discretion.
-              </p> /* Disclosure text content */
+              </p>
             )}
           </div>
           <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
-            {/* Chat messages display */}
             <div className="h-screen md:h-full overflow-y-auto p-4 space-y-4">
               {chats
-                .find((chat) => chat.id === activeChat) // Find the active chat
+                .find((chat) => chat.id === activeChat)
                 ?.messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+                    className={`flex ${
+                      message.isUser ? "justify-end" : "justify-start"
+                    }`}
                   >
                     <div
-                      className={`max-w-xs md:max-w-sm lg:max-w-md px-3 py-2 rounded-lg ${message.isUser ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"}`}
+                      className={`max-w-xs md:max-w-sm lg:max-w-md px-3 py-2 rounded-lg ${
+                        message.isUser
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-200 text-gray-800"
+                      }`}
                     >
-                      {message.text} {/* Display the message text */}
+                      {message.text}
                     </div>
                   </div>
                 ))}
             </div>
           </div>
         </section>
-        {/* Input form for sending messages */}
         <form onSubmit={handleSubmit} className="p-4 border-t bg-white">
           <div className="flex max-w-3xl mx-auto">
             <input
@@ -262,8 +251,7 @@ export default function Component() {
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <Send className="w-5 h-5" />{" "}
-              {/* Send icon for the submit button */}
+              <Send className="w-5 h-5" />
             </button>
           </div>
         </form>
