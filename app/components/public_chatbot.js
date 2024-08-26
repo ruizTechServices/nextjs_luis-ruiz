@@ -206,7 +206,7 @@ export default function Component() {
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
                 Kindly refrain from posing personal or sensitive questions. Be
-                advised that your questions and the chatbot's responses will be
+                advised that your questions and the chatbot&apos;s responses will be
                 recorded and stored in our database to improve future
                 interactions. These exchanges may also be visible to other
                 users, so please exercise discretion.
