@@ -11,6 +11,7 @@ import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
 import Projectai from './components/main/iframe_ai';
 import Skills from './components/main/skills';
 import Publicchatbot from './components/public_chatbot';
+import Soundboard from './components/main/soundboard';
 
 const tabs = [
   { id: 'skills', label: 'Skills' },
@@ -19,6 +20,7 @@ const tabs = [
   { id: 'experience', label: 'Experience' },
   { id: 'Artificial Intelligence', label: 'AI' },
   { id: 'Public Chatbot', label: 'Community Chatbot' },
+  { id: 'soundboard', label: 'Soundboard' },
 ];
 
 export default function Portfolio() {
@@ -115,6 +117,9 @@ export default function Portfolio() {
         )}
         {activeTab === 'Public Chatbot' && (
           <Publicchatbot />
+        )}
+        {activeTab === 'soundboard' && (
+          <Soundboard />
         )}
       </div>
       <ScrollToTopArrow />
