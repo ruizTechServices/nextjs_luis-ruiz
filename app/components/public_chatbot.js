@@ -17,40 +17,48 @@ export default function Component() {
   const loadChatHistory = async (chatId) => {
     try {
       const { data, error } = await supabase
-        .from('chat_messages')
-        .select('message, created_at, is_user')
-        .eq('chat_id', chatId)
-        .order('created_at', { ascending: true });
+        .from("chat_messages")
+        .select("message, created_at") // Removed 'is_user'
+        .eq("chat_id", chatId)
+        .order("created_at", { ascending: true });
 
       if (error) throw error;
 
-      const formattedMessages = data.map(msg => ({
+      const formattedMessages = data.map((msg) => ({
         text: msg.message,
-        isUser: msg.is_user,
-        timestamp: msg.created_at
+        // Assuming all messages are from the user or AI, or you can add your own logic
+        timestamp: msg.created_at,
       }));
 
-      setChats(prevChats => prevChats.map(chat =>
-        chat.id === chatId ? { ...chat, messages: formattedMessages } : chat
-      ));
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          chat.id === chatId ? { ...chat, messages: formattedMessages } : chat,
+        ),
+      );
     } catch (error) {
       console.error("Error loading chat history:", error);
       alert("Failed to load chat history. Please try again.");
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim()) {
-      const newMessage = { text: input, isUser: true, timestamp: new Date().toISOString() };
+      const newMessage = {
+        text: input,
+        timestamp: new Date().toISOString(),
+      };
 
       try {
         // Add the new user message to the chat immediately
-        setChats(prevChats => prevChats.map(chat =>
-          chat.id === activeChat
-            ? { ...chat, messages: [...chat.messages, newMessage] }
-            : chat
-        ));
+        setChats((prevChats) =>
+          prevChats.map((chat) =>
+            chat.id === activeChat
+              ? { ...chat, messages: [...chat.messages, newMessage] }
+              : chat,
+          ),
+        );
 
         // Call the GPT-4 Mini API (which now handles embeddings internally)
         const response = await fetch("/api/openai/gpt-4o_mini", {
@@ -65,56 +73,75 @@ export default function Component() {
           throw new Error(data.error || "Failed to fetch response from API");
         }
 
-        const responseMessage = { text: data.message, isUser: false, timestamp: new Date().toISOString() };
+        const responseMessage = {
+          text: data.message,
+          timestamp: new Date().toISOString(),
+          embedding: data.embedding, // Assuming your API returns this
+        };
 
         // Add the AI response to the chat
-        setChats(prevChats => prevChats.map(chat =>
-          chat.id === activeChat
-            ? { ...chat, messages: [...chat.messages, responseMessage] }
-            : chat
-        ));
+        setChats((prevChats) =>
+          prevChats.map((chat) =>
+            chat.id === activeChat
+              ? { ...chat, messages: [...chat.messages, responseMessage] }
+              : chat,
+          ),
+        );
 
         setInput("");
 
-        // Store messages in Supabase
+        // Store messages in Supabase, including embeddings
         await storeMessages(activeChat, [newMessage, responseMessage]);
-
       } catch (error) {
         console.error("Error processing chat:", error);
-        alert("An error occurred while processing your message. Please try again.");
+        alert(
+          "An error occurred while processing your message. Please try again.",
+        );
       }
     }
   };
 
   const storeMessages = async (chatId, messages) => {
     try {
-      const { error } = await supabase.from("chats").insert(
-        messages.map(msg => ({
+      const { error } = await supabase.from("chat_messages").insert(
+        messages.map((msg) => ({
           chat_id: chatId,
           message: msg.text,
-          is_user: msg.isUser,
-          created_at: msg.timestamp
-        }))
+          created_at: msg.timestamp,
+        })),
       );
 
       if (error) throw error;
     } catch (error) {
       console.error("Error storing messages:", error);
-      // Optionally, show an error message to the user
     }
   };
 
   const createNewChat = async () => {
     try {
-      const { data, error } = await supabase
+      // Insert a new chat and retrieve its ID
+      const { data: newChat, error: chatError } = await supabase
+        .from("chats")
+        .insert({ created_at: new Date().toISOString() }) // Adjust according to your chat schema
+        .select("id"); // Assuming 'id' is the primary key of 'chats' table
+
+      if (chatError) throw chatError;
+
+      const newChatId = newChat[0].id;
+
+      // Insert a starting message for the new chat
+      const { error: messageError } = await supabase
         .from("chat_messages")
-        .insert({ message: "Chat started", is_user: false })
-        .select();
+        .insert({
+          chat_id: newChatId,
+          message: "Chat started",
+          created_at: new Date().toISOString(),
+        });
 
-      if (error) throw error;
+      if (messageError) throw messageError;
 
-      const newChatId = data[0].chat_id;
-      setChats(prevChats => [...prevChats, { id: newChatId, messages: [] }]);
+      // Update state
+      setChats((prevChats) => [...prevChats, { id: newChatId, messages: [] }]);
       setActiveChat(newChatId);
       setSidebarOpen(false);
     } catch (error) {
@@ -206,8 +233,8 @@ export default function Component() {
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
                 Kindly refrain from posing personal or sensitive questions. Be
-                advised that your questions and the chatbot&apos;s responses will be
-                recorded and stored in our database to improve future
+                advised that your questions and the chatbot&apos;s responses
+                will be recorded and stored in our database to improve future
                 interactions. These exchanges may also be visible to other
                 users, so please exercise discretion.
               </p>
