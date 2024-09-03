@@ -4,7 +4,7 @@ import Link from 'next/link';
 const projects = [
   { url: "https://catherineruiz.com", title: "Catherine Ruiz's Website" },
   { url: "https://Compulogicpc.com", title: "Compulogic" },
-  // { url: 'https://ruiztechservices.com', title: 'ruizTechServices| Online Tech Support' },
+  { url: 'https://ruiztechservices.com', title: 'ruizTechServices| Online Tech Support' },
   { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'A username generator app for social media and livestreamers' },
   // { url: 'https://demon-child.com', title: 'https://demon-child.com' },
   // { url: 'https://letmeexplain.online', title: 'Let Me Explain: An online feedback platform' },
