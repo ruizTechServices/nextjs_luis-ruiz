@@ -15,7 +15,7 @@ const projects = [
 
 const ProjectViewer = () => {
   return (
-      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 items-center justify-center mb-48">
+      <div className="gap-4 border-2 border-gray-600 rounded-xl p-2 container mx-auto grid grid-cols-1 md:grid-cols-3 items-center justify-center mb-48">
         {projects.map((project, index) => (
           <div
             key={index}
