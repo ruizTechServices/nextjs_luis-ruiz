@@ -15,7 +15,7 @@ import TodoList from "../components/main/todolist";
 import CodepenLikeEditor from "../components/main/component_submissions";
 import MistralChat from "../components/main/mistral";
 import GPT4Component from "../components/main/openai/gpt-4";
-import MarkdownEditor from "../components/markdown";
+import MarkdownEditor from "../components/MarkdownEditor";
 
 
 function Dashboard() {
