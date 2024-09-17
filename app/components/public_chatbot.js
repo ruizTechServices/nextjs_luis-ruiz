@@ -1,153 +1,80 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Send, Plus, MessageSquare, Menu, X } from "lucide-react";
-import { createClient } from "../../lib/utils/supabase/supabaseClient";
 
 export default function Component() {
-  const supabase = createClient();
-  const [chats, setChats] = useState([{ id: 1, messages: [] }]);
+  const [chats, setChats] = useState([
+    { id: 1, messages: [], title: "New Chat" },
+  ]);
   const [activeChat, setActiveChat] = useState(1);
   const [input, setInput] = useState("");
   const [showDisclosure, setShowDisclosure] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    loadChatHistory(activeChat);
-  }, [activeChat]);
+  // REPLACE THIS: Remove the sarcasticResponses array and replace it with your chatbot's actual response generation logic
+  const sarcasticResponses = [
+    "Oh sure, I could answer that... if only I were fully built.",
+    "I'm just a half-baked chatbot, ask me again in a few updates.",
+    "I'd love to help, but, you know... unfinished and all.",
+    "Maybe you should try again once I'm not a work in progress?",
+    "Yeah, I'm totally capable of answering that... or maybe not yet.",
+  ];
 
-  const loadChatHistory = async (chatId) => {
-    try {
-      const { data, error } = await supabase
-        .from("chat_messages")
-        .select("message, created_at") // Removed 'is_user'
-        .eq("chat_id", chatId)
-        .order("created_at", { ascending: true });
-
-      if (error) throw error;
-
-      const formattedMessages = data.map((msg) => ({
-        text: msg.message,
-        // Assuming all messages are from the user or AI, or you can add your own logic
-        timestamp: msg.created_at,
-      }));
-
-      setChats((prevChats) =>
-        prevChats.map((chat) =>
-          chat.id === chatId ? { ...chat, messages: formattedMessages } : chat,
-        ),
-      );
-    } catch (error) {
-      console.error("Error loading chat history:", error);
-      alert("Failed to load chat history. Please try again.");
-    }
-  };
-
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (input.trim()) {
       const newMessage = {
         text: input,
-        timestamp: new Date().toISOString(),
+        isUser: true,
       };
 
-      try {
-        // Add the new user message to the chat immediately
-        setChats((prevChats) =>
-          prevChats.map((chat) =>
-            chat.id === activeChat
-              ? { ...chat, messages: [...chat.messages, newMessage] }
-              : chat,
-          ),
-        );
+      // REPLACE THIS: Instead of picking a random sarcastic response, implement your chatbot's logic to generate a response based on the user's input
+      const responseMessage = {
+        text: sarcasticResponses[
+          Math.floor(Math.random() * sarcasticResponses.length)
+        ],
+        isUser: false,
+      };
 
-        // Call the GPT-4 Mini API (which now handles embeddings internally)
-        const response = await fetch("/api/openai/gpt-4o_mini", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: input, chatId: activeChat }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || "Failed to fetch response from API");
-        }
-
-        const responseMessage = {
-          text: data.message,
-          timestamp: new Date().toISOString(),
-          embedding: data.embedding, // Assuming your API returns this
-        };
-
-        // Add the AI response to the chat
-        setChats((prevChats) =>
-          prevChats.map((chat) =>
-            chat.id === activeChat
-              ? { ...chat, messages: [...chat.messages, responseMessage] }
-              : chat,
-          ),
-        );
-
-        setInput("");
-
-        // Store messages in Supabase, including embeddings
-        await storeMessages(activeChat, [newMessage, responseMessage]);
-      } catch (error) {
-        console.error("Error processing chat:", error);
-        alert(
-          "An error occurred while processing your message. Please try again.",
-        );
-      }
-    }
-  };
-
-  const storeMessages = async (chatId, messages) => {
-    try {
-      const { error } = await supabase.from("chat_messages").insert(
-        messages.map((msg) => ({
-          chat_id: chatId,
-          message: msg.text,
-          created_at: msg.timestamp,
-        })),
+      setChats((prevChats) =>
+        prevChats.map((chat) => {
+          // Only set the title if it's the first user message and title is "New Chat"
+          if (chat.id === activeChat && chat.title === "New Chat") {
+            const firstThreeWords =
+              input.trim().split(" ").slice(0, 3).join(" ") || "New Chat";
+            return {
+              ...chat,
+              messages: [...chat.messages, newMessage, responseMessage],
+              title: firstThreeWords,
+            };
+          }
+          return chat.id === activeChat
+            ? {
+                ...chat,
+                messages: [...chat.messages, newMessage, responseMessage],
+              }
+            : chat;
+        }),
       );
 
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error storing messages:", error);
+      setInput("");
     }
   };
 
-  const createNewChat = async () => {
-    try {
-      // Insert a new chat and retrieve its ID
-      const { data: newChat, error: chatError } = await supabase
-        .from("chats")
-        .insert({ created_at: new Date().toISOString() }) // Adjust according to your chat schema
-        .select("id"); // Assuming 'id' is the primary key of 'chats' table
-
-      if (chatError) throw chatError;
-
-      const newChatId = newChat[0].id;
-
-      // Insert a starting message for the new chat
-      const { error: messageError } = await supabase
-        .from("chat_messages")
-        .insert({
-          chat_id: newChatId,
-          message: "Chat started",
-          created_at: new Date().toISOString(),
-        });
-
-      if (messageError) throw messageError;
-
-      // Update state
-      setChats((prevChats) => [...prevChats, { id: newChatId, messages: [] }]);
-      setActiveChat(newChatId);
-      setSidebarOpen(false);
-    } catch (error) {
-      console.error("Error creating new chat:", error);
-      alert("Failed to create a new chat. Please try again.");
-    }
+  const createNewChat = () => {
+    const newChatId = chats.length + 1;
+    // REPLACE THIS: Change the starting message to something more appropriate for your chatbot
+    const startingMessage =
+      "This is the beginning of a new conversation. What could possibly go wrong?";
+    setChats((prevChats) => [
+      ...prevChats,
+      {
+        id: newChatId,
+        messages: [{ text: startingMessage, isUser: false }],
+        title: "New Chat",
+      },
+    ]);
+    setActiveChat(newChatId);
+    setSidebarOpen(false);
   };
 
   const switchChat = (chatId) => {
@@ -162,7 +89,7 @@ export default function Component() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
+//////////////////////////////////////////
   return (
     <div className="flex flex-col h-screen bg-gray-100 md:flex-row">
       {/* Mobile Header */}
@@ -206,7 +133,7 @@ export default function Component() {
               }`}
             >
               <MessageSquare className="w-5 h-5 mr-2" />
-              Chat {chat.id}
+              {chat.title} {/* Display chat title */}
             </button>
           ))}
         </div>
@@ -232,11 +159,11 @@ export default function Component() {
                 id="disclosure-text"
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
+                {/* REPLACE THIS: Update the disclosure text to match your chatbot's specific privacy policy and capabilities */}
                 Kindly refrain from posing personal or sensitive questions. Be
                 advised that your questions and the chatbot&apos;s responses
-                will be recorded and stored in our database to improve future
-                interactions. These exchanges may also be visible to other
-                users, so please exercise discretion.
+                will be recorded and stored to improve future interactions.
+                Since I'm not fully built, expect sarcastic remarks.
               </p>
             )}
           </div>

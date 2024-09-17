@@ -54,11 +54,7 @@ export default async function handler(req, res) {
       ],
     });
 
-    const aiResponse = completion.choices?.[0]?.message?.content;
-
-    if (!aiResponse) {
-      throw new Error("Failed to generate a response from the AI");
-    }
+    const aiResponse = completion.choices[0].message.content;
 
     // 5. Generate an embedding for the response
     const responseEmbeddingResult = await openai.embeddings.create({

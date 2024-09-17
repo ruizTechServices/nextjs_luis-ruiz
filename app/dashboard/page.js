@@ -15,6 +15,7 @@ import TodoList from "../components/main/todolist";
 import CodepenLikeEditor from "../components/main/component_submissions";
 import MistralChat from "../components/main/mistral";
 import GPT4Component from "../components/main/openai/gpt-4";
+import MarkdownEditor from "../components/markdown";
 
 
 function Dashboard() {
@@ -115,6 +116,12 @@ function Dashboard() {
             className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
           >
             Personal Assistant
+          </button>
+          <button
+            onClick={() => showContent(<MarkdownEditor/>)}
+            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
+          >
+            MarkdownEditor
           </button>
         </nav>
         <div className="flex-1 h-[300px] bg-white p-4 overflow-auto h-[700px] md:h-auto">
