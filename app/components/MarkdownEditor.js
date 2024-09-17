@@ -3,7 +3,7 @@ import Editor from 'react-simple-code-editor';
 import { highlight, languages } from 'prismjs';
 import 'prismjs/components/prism-markdown';
 import 'prismjs/themes/prism.css';
-import { Button } from '@/components/ui/button';
+import Button from '@/components/ui/button';
 import { Bold, Italic, List, Link } from 'lucide-react';
 
 const MarkdownEditor = () => {
