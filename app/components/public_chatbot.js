@@ -163,7 +163,7 @@ export default function Component() {
                 Kindly refrain from posing personal or sensitive questions. Be
                 advised that your questions and the chatbot&apos;s responses
                 will be recorded and stored to improve future interactions.
-                Since I'm not fully built, expect sarcastic remarks.
+                Since I&apos;m not fully built, expect sarcastic remarks.
               </p>
             )}
           </div>
