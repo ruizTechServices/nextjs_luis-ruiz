@@ -1,4 +1,4 @@
-//C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\login\page.js
+//app/login/page.js
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -24,35 +24,49 @@ export default function Login({ params }) {
     setErrorMessage(''); // Clear any errors when toggling
   };
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;  // Prevent multiple submissions
+
+    setLoading(true);
     const formData = new FormData(e.target);
 
     try {
       const { data, error } = isLogin
         ? await supabase.auth.signInWithPassword({
-          email: formData.get('email'),
-          password: formData.get('password'),
-        })
+            email: formData.get('email'),
+            password: formData.get('password'),
+          })
         : await supabase.auth.signUp({
-          email: formData.get('email'),
-          password: formData.get('password'),
-            //I need to inform the user to check their email after registration and then the link needs to redirect them to the login page
-        });
+            email: formData.get('email'),
+            password: formData.get('password'),
+          });
 
-      console.log(data);
       if (error) throw error;
+
+      if (data.session) {
+        // Cache the session in localStorage
+        localStorage.setItem('supabase-session', JSON.stringify(data.session));
+      }
+
+      //need to obsfuscate the email asap
       if (data.user && data.user.email === 'giosterr44@gmail.com') {
         router.push("/dashboard");
       } else if (data.user) {
-        router.push(`/user/${data.user.id}`); // Redirect to a user-specific page
+        router.push(`/user/${data.user.id}`);
       } else {
         throw new Error("User not found after authentication.");
       }
     } catch (error) {
       setErrorMessage(error.error_description || error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

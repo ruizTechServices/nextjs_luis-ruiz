@@ -17,6 +17,7 @@ import MistralChat from "../components/main/mistral";
 import GPT4Component from "../components/main/openai/gpt-4";
 import MarkdownEditor from "../components/MarkdownEditor";
 import PhotoUpload from "../components/photoUpload";
+import { getSession } from '../../lib/utils/sessionUtils';
 
 
 function Dashboard() {
@@ -26,17 +27,26 @@ function Dashboard() {
 
   useEffect(() => {
     const getLoggedInUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        redirect("/");
+      const session = getSession(); // Use the getSession function here
+
+      if (session) {
+        console.log('Using cached session:', session);
+        setLoggedInUser(session.user);  // Assume session has user details
+      } else {
+        // No session in localStorage, fetch from Supabase
+        const { data: { user }, error } = await supabase.auth.getUser();
+        if (!user) {
+          redirect("/");  // Redirect if no user is found
+        } else {
+          setLoggedInUser(user);  // Set the logged-in user
+          // Cache the session after fetching from Supabase
+          localStorage.setItem('supabase-session', JSON.stringify(user));
+        }
       }
-      setLoggedInUser(user);
-      console.log(loggedInUser);
     };
+
     getLoggedInUser();
-  }, [loggedInUser, supabase]);
+  }, []);
 
   const showContent = (contentComponent) =>
     setContentComponent(contentComponent);
