@@ -11,6 +11,9 @@ export default function Component() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // REPLACE THIS: Remove the sarcasticResponses array and replace it with your chatbot's actual response generation logic
+  // Suggestion: Implement a natural language processing (NLP) model using libraries like TensorFlow.js or use an API like OpenAI's GPT-3
+  // Example: const nlpModel = await tf.loadLayersModel('path/to/your/model.json');
+  // Or: const openai = new OpenAI({ apiKey: 'your-api-key' });
   const sarcasticResponses = [
     "Oh sure, I could answer that... if only I were fully built.",
     "I'm just a half-baked chatbot, ask me again in a few updates.",
@@ -28,6 +31,9 @@ export default function Component() {
       };
 
       // REPLACE THIS: Instead of picking a random sarcastic response, implement your chatbot's logic to generate a response based on the user's input
+      // Suggestion: Use the NLP model or API implemented above to generate a response
+      // Example: const response = await nlpModel.predict(tf.tensor([input]));
+      // Or: const response = await openai.complete({ prompt: input, max_tokens: 100 });
       const responseMessage = {
         text: sarcasticResponses[
           Math.floor(Math.random() * sarcasticResponses.length)
@@ -63,6 +69,8 @@ export default function Component() {
   const createNewChat = () => {
     const newChatId = chats.length + 1;
     // REPLACE THIS: Change the starting message to something more appropriate for your chatbot
+    // Suggestion: Use a welcoming message that introduces the chatbot's capabilities
+    // Example: const startingMessage = "Hello! I'm your AI assistant. How can I help you today?";
     const startingMessage =
       "This is the beginning of a new conversation. What could possibly go wrong?";
     setChats((prevChats) => [
@@ -160,10 +168,14 @@ export default function Component() {
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
                 {/* REPLACE THIS: Update the disclosure text to match your chatbot's specific privacy policy and capabilities */}
+                {/* Suggestion: Include information about data handling, AI limitations, and any relevant legal disclaimers */}
+                {/* Example: This AI assistant is designed to provide general information and assistance. It does not have access to personal data and cannot perform actions that require authentication. All conversations are anonymized and may be used to improve the AI's performance. */}
                 Kindly refrain from posing personal or sensitive questions. Be
-                advised that your questions and the chatbot&apos;s responses
+
+                advised that your questions and the chatbot's responses
                 will be recorded and stored to improve future interactions.
-                Since I&apos;m not fully built, expect sarcastic remarks.
+
+                Since I'm not fully built, expect sarcastic remarks.
               </p>
             )}
           </div>
