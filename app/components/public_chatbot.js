@@ -149,7 +149,7 @@ export default function Component() {
           </h2>
           <div className="p-4 bg-white rounded-lg shadow-md">
             <p className="text-lg text-gray-800 mb-4">
-              Using OpenAI's text generation models, you can build applications to:
+              Using OpenAI&apos;s text generation models, you can build applications to:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li className="transition-colors duration-200 hover:text-blue-600">Draft documents</li>
@@ -179,7 +179,7 @@ export default function Component() {
                 This AI assistant is designed to provide general information and
                 assistance. It does not have access to personal data and cannot
                 perform actions that require authentication. All conversations
-                are anonymized and may be used to improve the AI's performance.
+                are anonymized and may be used to improve the AI&apos;s performance.
                 Please avoid sharing sensitive personal information.
               </p>
             )}
