@@ -10,19 +10,7 @@ export default function Component() {
   const [showDisclosure, setShowDisclosure] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // REPLACE THIS: Remove the sarcasticResponses array and replace it with your chatbot's actual response generation logic
-  // Suggestion: Implement a natural language processing (NLP) model using libraries like TensorFlow.js or use an API like OpenAI's GPT-3
-  // Example: const nlpModel = await tf.loadLayersModel('path/to/your/model.json');
-  // Or: const openai = new OpenAI({ apiKey: 'your-api-key' });
-  const sarcasticResponses = [
-    "Oh sure, I could answer that... if only I were fully built.",
-    "I'm just a half-baked chatbot, ask me again in a few updates.",
-    "I'd love to help, but, you know... unfinished and all.",
-    "Maybe you should try again once I'm not a work in progress?",
-    "Yeah, I'm totally capable of answering that... or maybe not yet.",
-  ];
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim()) {
       const newMessage = {
@@ -30,37 +18,46 @@ export default function Component() {
         isUser: true,
       };
 
-      // REPLACE THIS: Instead of picking a random sarcastic response, implement your chatbot's logic to generate a response based on the user's input
-      // Suggestion: Use the NLP model or API implemented above to generate a response
-      // Example: const response = await nlpModel.predict(tf.tensor([input]));
-      // Or: const response = await openai.complete({ prompt: input, max_tokens: 100 });
-      const responseMessage = {
-        text: sarcasticResponses[
-          Math.floor(Math.random() * sarcasticResponses.length)
-        ],
-        isUser: false,
-      };
+      // Call the backend API to get the chatbot's response
+      try {
+        const response = await fetch("/api/openai/gpt-4_main", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: input, chatId: activeChat }),
+        });
 
-      setChats((prevChats) =>
-        prevChats.map((chat) => {
-          // Only set the title if it's the first user message and title is "New Chat"
-          if (chat.id === activeChat && chat.title === "New Chat") {
-            const firstThreeWords =
-              input.trim().split(" ").slice(0, 3).join(" ") || "New Chat";
-            return {
-              ...chat,
-              messages: [...chat.messages, newMessage, responseMessage],
-              title: firstThreeWords,
-            };
-          }
-          return chat.id === activeChat
-            ? {
+        const data = await response.json();
+
+        const responseMessage = {
+          text: data.message,
+          isUser: false,
+        };
+
+        setChats((prevChats) =>
+          prevChats.map((chat) => {
+            // Only set the title if it's the first user message and title is "New Chat"
+            if (chat.id === activeChat && chat.title === "New Chat") {
+              const firstThreeWords =
+                input.trim().split(" ").slice(0, 3).join(" ") || "New Chat";
+              return {
                 ...chat,
                 messages: [...chat.messages, newMessage, responseMessage],
-              }
-            : chat;
-        }),
-      );
+                title: firstThreeWords,
+              };
+            }
+            return chat.id === activeChat
+              ? {
+                  ...chat,
+                  messages: [...chat.messages, newMessage, responseMessage],
+                }
+              : chat;
+          })
+        );
+      } catch (error) {
+        console.error("Error fetching chatbot response:", error);
+      }
 
       setInput("");
     }
@@ -68,11 +65,8 @@ export default function Component() {
 
   const createNewChat = () => {
     const newChatId = chats.length + 1;
-    // REPLACE THIS: Change the starting message to something more appropriate for your chatbot
-    // Suggestion: Use a welcoming message that introduces the chatbot's capabilities
-    // Example: const startingMessage = "Hello! I'm your AI assistant. How can I help you today?";
     const startingMessage =
-      "This is the beginning of a new conversation. What could possibly go wrong?";
+      "Hello! I'm your AI assistant. How can I help you today?";
     setChats((prevChats) => [
       ...prevChats,
       {
@@ -97,7 +91,7 @@ export default function Component() {
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-//////////////////////////////////////////
+
   return (
     <div className="flex flex-col h-screen bg-gray-100 md:flex-row">
       {/* Mobile Header */}
@@ -153,6 +147,21 @@ export default function Component() {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center text-black mb-4 md:mb-6 lg:mb-8">
             Community Chatbot
           </h2>
+          <div className="p-4 bg-white rounded-lg shadow-md">
+            <p className="text-lg text-gray-800 mb-4">
+              Using OpenAI's text generation models, you can build applications to:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <li className="transition-colors duration-200 hover:text-blue-600">Draft documents</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Write computer code</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Answer questions about a knowledge base</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Analyze texts</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Give software a natural language interface</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Tutor in a range of subjects</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Translate languages</li>
+              <li className="transition-colors duration-200 hover:text-blue-600">Simulate characters for games</li>
+            </ul>
+          </div>
           <div className="text-center mb-4 md:mb-6 lg:mb-10">
             <button
               className="text-base md:text-lg text-gray-600 underline focus:outline-none"
@@ -167,15 +176,11 @@ export default function Component() {
                 id="disclosure-text"
                 className="mt-2 text-sm md:text-base lg:text-lg text-gray-600"
               >
-                {/* REPLACE THIS: Update the disclosure text to match your chatbot's specific privacy policy and capabilities */}
-                {/* Suggestion: Include information about data handling, AI limitations, and any relevant legal disclaimers */}
-                {/* Example: This AI assistant is designed to provide general information and assistance. It does not have access to personal data and cannot perform actions that require authentication. All conversations are anonymized and may be used to improve the AI's performance. */}
-                Kindly refrain from posing personal or sensitive questions. Be
-
-                advised that your questions and the chatbot's responses
-                will be recorded and stored to improve future interactions.
-
-                Since I'm not fully built, expect sarcastic remarks.
+                This AI assistant is designed to provide general information and
+                assistance. It does not have access to personal data and cannot
+                perform actions that require authentication. All conversations
+                are anonymized and may be used to improve the AI's performance.
+                Please avoid sharing sensitive personal information.
               </p>
             )}
           </div>
