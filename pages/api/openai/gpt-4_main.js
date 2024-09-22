@@ -2,11 +2,8 @@
 import { OpenAI } from 'openai';
 import { createClient } from '../../../lib/utils/supabase/supabaseClient';
 
-const openai = new OpenAI({ apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY });
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const supabase = createClient();
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
