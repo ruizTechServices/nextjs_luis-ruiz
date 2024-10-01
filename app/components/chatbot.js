@@ -8,9 +8,8 @@ export default function Chatbot() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!input.trim()) return; // Prevent empty submissions
+    if (!input.trim()) return;
 
-    // Add the user message to the chat
     const updatedMessages = [...messages, { role: "user", content: input }];
     setMessages(updatedMessages);
 
@@ -20,7 +19,7 @@ export default function Chatbot() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ messages: updatedMessages }), // Make sure messages are sent correctly
+        body: JSON.stringify({ messages: updatedMessages }),
       });
 
       if (!response.ok) {
@@ -28,18 +27,15 @@ export default function Chatbot() {
       }
 
       const data = await response.json();
-
-      // Add the AI response to the chat
       setMessages((prevMessages) => [
         ...prevMessages,
         { role: "assistant", content: data.content },
       ]);
     } catch (error) {
       console.error("Error:", error);
-      // You can display an error message to the user here
     }
 
-    setInput(""); // Reset input field
+    setInput("");
   };
 
   return (
