@@ -2,7 +2,7 @@
 import Together from 'together-ai';
 
 const together = new Together({
-  apiKey: process.env['TOGETHER_API_KEY'],
+  apiKey: process.env.TOGETHER_API_KEY || '7dccc77477e92185ecd649a35dddde1b893c4558a5fe26e20252486776c23685',
 });
 
 const stream = await together.chat.completions.create({
