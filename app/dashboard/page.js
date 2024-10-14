@@ -19,6 +19,9 @@ import MarkdownEditor from "../components/MarkdownEditor";
 import PhotoUpload from "../components/photoUpload";
 import { getSession } from '../../lib/utils/sessionUtils';
 import Chatbot from "../components/chatbot";
+import MistralNew from "../components/main/mistral-new";
+import GPT4New from "../components/main/openai/gpt-4-new";
+import PhotoUploader from "../components/photoUploader";
 
 
 function Dashboard() {
@@ -146,6 +149,24 @@ function Dashboard() {
             className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
           >
            Hugging Face
+          </button>
+          <button
+            onClick={() => showContent(<MistralNew />)}
+            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
+          >
+            Mistral Chatbot***
+          </button>
+          <button
+            onClick={() => showContent(<GPT4New />)}
+            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
+          >
+            GPT-4 Chatbot***
+          </button>
+          <button
+            onClick={() => showContent(<PhotoUploader />)}
+            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
+          >
+            Photo Upload***
           </button>
         </nav>
         <div className="flex-1 h-[300px] bg-white p-4 overflow-auto h-[700px] md:h-auto">
