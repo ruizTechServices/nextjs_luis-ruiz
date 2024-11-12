@@ -9,9 +9,14 @@ function Dropdown({ links }) {
     <div className="relative">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+        className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 transition-transform transform active:scale-95"
       >
-        Luis-Ruiz.com
+        <span className="transition-opacity duration-200 ease-in-out opacity-100 group-hover:opacity-0">
+          Menu
+        </span>
+        <span className="absolute opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100">
+          Open Menu
+        </span>
       </button>
 
       {isOpen && (
