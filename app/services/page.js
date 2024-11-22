@@ -1,6 +1,10 @@
 // C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\services\page.js
-import Head from "next/head";
 import { Layout38 } from "../components/main/layout38";
+
+export const metadata = {
+  title: "Services Offered by Luis Ruiz",
+  description: "I am a full-stack developer with a plethora of abilities and skills ready to bring your projects to life.",
+};
 
 export default function Services() {
   return (

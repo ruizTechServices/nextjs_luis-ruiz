@@ -113,7 +113,7 @@ export default function Portfolio() {
           </section>
         )}
         {activeTab === "Public Chatbot" && (
-          <Publicchatbot /> //We are working on this!!!<====
+          <Publicchatbot /> 
         )}
         {activeTab === "soundboard" && <Soundboard />}
       </div>
