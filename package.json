@@ -15,7 +15,7 @@
     "@pinecone-database/pinecone": "^2.2.2",
     "@relume_io/relume-tailwind": "^0.2.0",
     "@relume_io/relume-ui": "^0.2.1",
-    "@supabase/ssr": "^0.1.0",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.41.1",
     "@tailwindcss/forms": "^0.5.7",
     "axios": "^1.6.8",
