@@ -45,65 +45,57 @@ export const JournalEntryForm = () => {
   };
 
   return (
-    <section className="container mx-auto p-4 w-3/4 shadow-2xl m-10 rounded-lg bg-white dark:bg-gray-800">
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        {/* Form fields */}
-        <div>
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Title
-          </label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-lg focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="content"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Content
-          </label>
-          <textarea
-            name="content"
-            id="content"
-            rows="3"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-400 shadow-lg focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          ></textarea>
-        </div>
-        <div>
-          <label
-            htmlFor="tags"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Tags
-          </label>
-          <input
-            type="text"
-            name="tags"
-            id="tags"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-lg focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            placeholder="Separate tags with commas"
-          />
-        </div>
-        <button
-          type="submit"
-          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-2xl text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Submit
-        </button>
-      </form>
-    </section>
+    <section className="container mx-auto p-6 max-w-2xl bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-2xl my-10">
+  <form className="space-y-6" onSubmit={handleSubmit}>
+    <div className="space-y-2">
+      <label htmlFor="title" className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+        Title
+      </label>
+      <input
+        type="text"
+        name="title"
+        id="title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="w-full px-4 py-2 rounded-lg border-2 border-purple-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 transition duration-200 ease-in-out dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="Enter your journal title"
+      />
+    </div>
+    <div className="space-y-2">
+      <label htmlFor="content" className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+        Content
+      </label>
+      <textarea
+        name="content"
+        id="content"
+        rows="5"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        className="w-full px-4 py-2 rounded-lg border-2 border-purple-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 transition duration-200 ease-in-out dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="Write your journal entry here"
+      ></textarea>
+    </div>
+    <div className="space-y-2">
+      <label htmlFor="tags" className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+        Tags
+      </label>
+      <input
+        type="text"
+        name="tags"
+        id="tags"
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
+        className="w-full px-4 py-2 rounded-lg border-2 border-purple-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 transition duration-200 ease-in-out dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+        placeholder="Enter tags separated by commas"
+      />
+    </div>
+    <button
+      type="submit"
+      className="w-full py-3 px-6 text-white font-bold bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg shadow-lg hover:from-purple-600 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105"
+    >
+      Submit Journal Entry
+    </button>
+  </form>
+</section>
   );
 };
