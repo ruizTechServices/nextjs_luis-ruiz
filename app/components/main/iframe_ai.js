@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 
 const projects = [
-  { url: "https://www.24hourgpt.com", title: "24 Hour GPT: Premium Chatbot for $1 a day" },
   { url: 'https://ruiztechgroq.replit.app/', title: 'A groq mixture of Agents app' },
 ];
 
