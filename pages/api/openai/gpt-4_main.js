@@ -91,3 +91,38 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Failed to process request" });
   }
 }
+
+
+// -- Supabase AI is experimental and may produce incorrect answers
+// -- Always verify the output before executing
+
+// drop function if exists match_chat_messages (
+//   query_embedding vector (1536),
+//   match_threshold float,
+//   max_results int
+// );
+
+// create
+// or replace function match_chat_messages (
+//   query_embedding vector (1536),
+//   match_threshold float,
+//   max_results int
+// ) returns table (
+//   chat_id int,
+//   message text,
+//   created_at TIMESTAMPTZ,
+//   similarity float
+// ) language plpgsql as $$
+// BEGIN
+//   RETURN QUERY
+//   SELECT
+//     chat_messages.chat_id,
+//     chat_messages.message,
+//     chat_messages.created_at,
+//     1 - (chat_messages.embedding <=> query_embedding) AS similarity
+//   FROM chat_messages
+//   WHERE 1 - (chat_messages.embedding <=> query_embedding) > match_threshold
+//   ORDER BY chat_messages.embedding <=> query_embedding
+//   LIMIT max_results;
+// END;
+// $$;
