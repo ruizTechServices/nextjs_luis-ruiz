@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${inter.className} bg-white dark:bg-white`}>
         {children}
+        <Analytics />
         <MainFooter />
       </body>
     </html>
