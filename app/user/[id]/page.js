@@ -80,7 +80,7 @@ export default function UserDashboard() {
           href="/"
           className="text-black text-3xl font-semibold uppercase hover:text-gray-700"
         >
-          <Image src={"/images/logo_lr.png"} width={200} height={200} />
+          <Image src={"/images/logo_lr.png"} width={200} height={200} alt="Luis Ruiz Tech Services Logo" />
         </a>
         {/* Nav Items */}
         <nav className="text-black">

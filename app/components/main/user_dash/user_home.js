@@ -51,7 +51,7 @@ export default function Home() {
             <div className="flex flex-col text-center items-center p-4">
                 <p className="text-5xl font-bold">{formattedDateTime}</p>
                 <div className="rounded-full border-2 border-gray-200 w-fit">
-                    <Image src={"/images/logo_lr.png"} width={100} height={100} />
+                    <Image src={"/images/logo_lr.png"} width={100} height={100} alt="Luis Ruiz Tech Services Logo" />
                 </div>
             </div>
             {user && (

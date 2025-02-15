@@ -50,7 +50,7 @@ function Dashboard() {
     };
 
     getLoggedInUser();
-  }, []);
+  }, [supabase.auth]);
 
   const showContent = (contentComponent) =>
     setContentComponent(contentComponent);
