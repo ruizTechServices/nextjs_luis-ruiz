@@ -9,7 +9,7 @@ export default function TermsOfService() {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
         <p className="mb-4">
-          By accessing or using Luis Ruiz Tech Services' website, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
+          By accessing or using Luis Ruiz Tech Services&apos; website, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access our services.
         </p>
       </section>
 
