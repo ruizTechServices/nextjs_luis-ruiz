@@ -22,7 +22,7 @@ const SignOut = () => {
 
     // Ensure this code runs only on the client side
     signOutUser();
-  }, [router]); // Depend on 'router' to ensure it is included in the hook's dependency array
+  }, [router, supabase.auth]); // Include both router and supabase.auth in dependencies
 
   // Render the UI indicating a sign-out process
   return (

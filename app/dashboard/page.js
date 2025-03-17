@@ -50,128 +50,54 @@ function Dashboard() {
     };
 
     getLoggedInUser();
-  }, []);
+  }, [supabase.auth]);
 
   const showContent = (contentComponent) =>
     setContentComponent(contentComponent);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <DashboardHeader />
       <div className="flex flex-1 flex-col md:flex-row">
-        <nav className="w-full md:w-64 bg-blue-400 text-white p-4 flex flex-col gap-2">
-          <button
-            onClick={() => showContent(<CatalogItemForm />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Add Catalog Item
-          </button>
-          <button
-            onClick={() => showContent(<JournalEntriesList />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Journal
-          </button>
-          <button
-            onClick={() => showContent(<ContactEntriesList />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Contact List/Entries
-          </button>
-          <button
-            onClick={() => showContent(<JournalEntryForm />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Add Journal Entry
-          </button>
-          <button
-            onClick={() => showContent(<PersonalAssistant />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            My Chatbot!
-          </button>
-          <button
-            onClick={() => showContent(<BitcoinPriceClock />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Bitcoin Price Status
-          </button>
-          <button
-            onClick={() => showContent(<BlogEntryForm />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Blog Entry Form
-          </button>
-          <button
-            onClick={() => showContent(<TodoList />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            ToDo List
-          </button>
-          <button
-            onClick={() => showContent(<CodepenLikeEditor />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Component Design & submission
-          </button>
-          <button
-            onClick={() => showContent(<MistralChat />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Mistral Chatbot
-          </button>
-          <button
-            onClick={() => showContent(<GPT4Component/>)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            GPT-4o-mini Chatbot
-          </button>
-          <button
-            onClick={() => showContent(<PersonalAssistant/>)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Personal Assistant
-          </button>
-          <button
-            onClick={() => showContent(<MarkdownEditor/>)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            MarkdownEditor
-          </button>
-          <button
-            onClick={() => showContent(<PhotoUpload/>)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Uploader
-          </button>
-          <button
-            onClick={() => showContent(<Chatbot/>)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-           Hugging Face
-          </button>
-          <button
-            onClick={() => showContent(<MistralNew />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Mistral Chatbot***
-          </button>
-          <button
-            onClick={() => showContent(<GPT4New />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            GPT-4 Chatbot***
-          </button>
-          <button
-            onClick={() => showContent(<PhotoUploader />)}
-            className="btn w-full border-2 border-white rounded-2xl drop-shadow-2xl"
-          >
-            Photo Upload***
-          </button>
+        <nav className="w-full md:w-64 bg-blue-600 text-white p-4 overflow-y-auto">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-3">
+            {[
+              { label: "Add Catalog Item", component: <CatalogItemForm /> },
+              { label: "Journal", component: <JournalEntriesList /> },
+              { label: "Contact List", component: <ContactEntriesList /> },
+              { label: "Add Journal Entry", component: <JournalEntryForm /> },
+              { label: "My Chatbot!", component: <PersonalAssistant /> },
+              { label: "Bitcoin Price", component: <BitcoinPriceClock /> },
+              { label: "Blog Entry Form", component: <BlogEntryForm /> },
+              { label: "ToDo List", component: <TodoList /> },
+              { label: "Component Design", component: <CodepenLikeEditor /> },
+              { label: "Mistral Chat", component: <MistralChat /> },
+              { label: "GPT-4 Mini", component: <GPT4Component /> },
+              { label: "Personal Assistant", component: <PersonalAssistant /> },
+              { label: "Markdown Editor", component: <MarkdownEditor /> },
+              { label: "Photo Upload", component: <PhotoUpload /> },
+              { label: "Hugging Face", component: <Chatbot /> },
+              { label: "Mistral New", component: <MistralNew /> },
+              { label: "GPT-4 New", component: <GPT4New /> },
+              { label: "Photo Uploader", component: <PhotoUploader /> },
+            ].map((item, index) => (
+              <button
+                key={index}
+                onClick={() => showContent(item.component)}
+                className="btn w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
         </nav>
-        <div className="flex-1 h-[300px] bg-white p-4 overflow-auto h-[700px] md:h-auto">
-          {contentComponent}
-        </div>
+        <main className="flex-1 p-6 overflow-auto bg-white rounded-lg shadow-lg m-4">
+          {contentComponent || (
+            <div className="flex items-center justify-center h-full text-2xl text-gray-500">
+              Select an option to view content
+            </div>
+          )}
+        </main>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 // app/page.js
-"use client";
+'use client';
 import { useState } from "react";
 import Image from "next/image";
 import HeroSection from "./components/main/heroSection";
@@ -15,7 +15,6 @@ import Soundboard from "./components/main/soundboard";
 import Paragraphs from "./components/paragraphs";
 
 const tabs = [
-  { id: "skills", label: "Skills" },
   { id: "about", label: "About Me" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
@@ -56,14 +55,16 @@ export default function Portfolio() {
 
       {/* Tab Content */}
       <div className="mt-8">
-        {activeTab === "skills" && <Skills />}
 
         {activeTab === "about" && (
+          <>
           <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-10">
             <div className="max-w-4xl mx-auto">
               <Paragraphs />
             </div>
           </section>
+          <Skills />
+          </>
         )}
 
         {activeTab === "projects" && (

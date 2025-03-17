@@ -1,9 +1,9 @@
 // C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\mainFooter.js
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from 'next/navigation'; // Correct import
+import { useRouter } from "next/navigation"; // Correct import
 import Footer from "../ui/footer";
-import { createClient } from '../../../lib/utils/supabase/supabaseClient'; // Import a pre-configured Supabase client
+import { createClient } from "../../../lib/utils/supabase/supabaseClient"; // Import a pre-configured Supabase client
 
 function MainFooter() {
   const [user, setUser] = useState();
@@ -20,7 +20,7 @@ function MainFooter() {
         setUser(session?.user ?? null);
       }
     );
-    
+
     return () => authListener?.subscription?.unsubscribe();
   }, []);
 
@@ -39,17 +39,21 @@ function MainFooter() {
         { href: "/contact", label: "Contact" },
         { href: "/services", label: "Services" },
         { href: "/blog", label: "Blog" },
-        // { href: "/catalog", label: "Catalog" },
+        { href: "/privacy-policy", label: "Privacy Policy" },
+        { href: "/termsofservice", label: "Terms of Service" },
       ];
 
-      if (user && user.id === 'b3c3e385-af49-4517-bd40-580fa759238b') {
+      if (user && user.id === "b3c3e385-af49-4517-bd40-580fa759238b") {
         baseLinks.push({
           href: "/dashboard",
           label: "Daddy's Dashboard",
           onClick: checkUser,
         });
       } else if (user) {
-        baseLinks.push({ href: `/user/${user.id}`, label: `${user.name}'s Dashboard` });
+        baseLinks.push({
+          href: `/user/${user.id}`,
+          label: `${user.name}'s Dashboard`,
+        });
       }
 
       setLinks(baseLinks);
