@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 
 const projects = [
-  { url: 'https://catherineruiz.com',       title: "Catherine Ruiz’s Website" },
-  { url: 'https://Compulogicpc.com',        title: 'Compulogic' },
-  { url: 'https://ruiztechservices.com',    title: 'ruizTechServices | Online Tech Support' },
+  { url: 'https://catherineruiz.com',       title: "Catherine Ruiz’s Website", description: 'A website for Catherine Ruiz. It was built from scratch using HTML, CSS, and JavaScript.' },
+  { url: 'https://Compulogicpc.com',        title: 'Compulogic', description: 'A website for a computer shop in PA. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
+  { url: 'https://ruiztechservices.com',    title: 'ruizTechServices | Online Tech Support', description: 'A website for my tech company, ruizTechServices. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
   { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'Username Generator for Social & Streaming' },
   { url: 'https://osvaldybarber.com',       title: 'Osvaldy Barber – Full-Service Barbershop' },
 ];
@@ -32,6 +32,9 @@ const ProjectViewer = () => (
           {/* TEXT BLOCK */}
           <div className="w-full md:w-1/3 space-y-4 text-center md:text-left">
             <h3 className="text-xl font-semibold">{project.title}</h3>
+            <p className="text-gray-600">
+              {project.description}
+            </p>
             <Link
               href={project.url}
               target="_blank"
