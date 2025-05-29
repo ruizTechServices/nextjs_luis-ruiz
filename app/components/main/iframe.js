@@ -5,8 +5,8 @@ const projects = [
   { url: 'https://catherineruiz.com',       title: "Catherine Ruiz’s Website", description: 'A website for Catherine Ruiz. It was built from scratch using HTML, CSS, and JavaScript.' },
   { url: 'https://Compulogicpc.com',        title: 'Compulogic', description: 'A website for a computer shop in PA. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
   { url: 'https://ruiztechservices.com',    title: 'ruizTechServices | Online Tech Support', description: 'A website for my tech company, ruizTechServices. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
-  { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'Username Generator for Social & Streaming' },
-  { url: 'https://osvaldybarber.com',       title: 'Osvaldy Barber – Full-Service Barbershop' },
+  { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'Username Generator for Social & Streaming', description: 'A website for generating usernames for social media and streaming. It was made with HTML, CSS, and JavaScript.' },
+  { url: 'https://osvaldybarber.com',       title: 'Osvaldy Barber – Full-Service Barbershop', description: 'A website for a barber named Osvaldy. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
 ];
 
 const ProjectViewer = () => (
