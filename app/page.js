@@ -13,6 +13,7 @@ import Skills from "./components/main/skills";
 import Publicchatbot from "./components/public_chatbot";
 import Soundboard from "./components/main/soundboard";
 import Paragraphs from "./components/paragraphs";
+import TextToSpeech from "./components/text_to_speech";
 
 const tabs = [
   { id: "about", label: "About Me" },
