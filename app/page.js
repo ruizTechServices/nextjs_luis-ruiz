@@ -21,6 +21,7 @@ const tabs = [
   { id: "Artificial Intelligence", label: "AI" },
   { id: "Public Chatbot", label: "Community Chatbot" },
   { id: "soundboard", label: "Soundboard" },
+  { id: "text_to_speech", label: "Text to Speech" }
 ];
 
 export default function Portfolio() {
@@ -117,6 +118,7 @@ export default function Portfolio() {
           <Publicchatbot /> 
         )}
         {activeTab === "soundboard" && <Soundboard />}
+        {activeTab === "text_to_speech" && <TextToSpeech />}
       </div>
       <ScrollToTopArrow />
     </main>

@@ -1,0 +1,57 @@
+It means that in your `app/page.js`, whenever you hit
+
+```jsx
+{activeTab === "text_to_speech" && <TextToSpeech />}
+```
+
+the `TextToSpeech` identifier doesn’t exist—Next.js can’t find a component or variable by that name in scope. In plain terms: you’re trying to render `<TextToSpeech />`, but you never imported or defined `TextToSpeech` in this file (or you’ve got a typo).
+
+**Steps to verify and fix:**
+
+1. **Check for an import**
+   At the top of `app/page.js`, you should have something like:
+
+   ```js
+   import TextToSpeech from "@/components/TextToSpeech";
+   ```
+
+   or wherever your component actually lives. If you forgot this line, the JSX reference will throw exactly that “not defined” error.
+
+2. **Confirm the component’s filename and export**
+
+   * Open the file where you wrote your TextToSpeech logic (e.g., `components/TextToSpeech.js` or `app/text-to-speech/page.js`).
+   * Make sure it has a default (or named) export:
+
+     ```js
+     // components/TextToSpeech.js
+     export default function TextToSpeech() {
+       return <div>…</div>;
+     }
+     ```
+   * If you exported it as a named export (e.g., `export function TextToSpeech() {…}`), then your import must match:
+
+     ```js
+     import { TextToSpeech } from "@/components/TextToSpeech";
+     ```
+
+3. **Verify the path is correct**
+   Sometimes people put it under `components/` but accidentally import from the wrong folder. Double-check the relative path (or alias) points exactly to where `TextToSpeech` lives.
+
+4. **Watch out for misspellings or casing**
+   If your file is called `textToSpeech.js` but you import `TextToSpeech`, macOS/Windows might not catch it, but a deployment on Linux (case-sensitive) will. Make sure the file and import names match exactly.
+
+5. **Restart the dev server after renaming/moving files**
+   Occasionally a hot-reload misses a moved component. Stopping `npm run dev` (or `yarn dev`) and starting again can clear up stale references.
+
+---
+
+**If you’re still stuck**:
+
+* Show me the very top of `app/page.js` (the import section).
+* Point out where the `TextToSpeech` component is defined—file name, export style, folder structure.
+* That way, we can spot mismatches or typos.
+
+---
+
+**TL;DR:**
+Your code is trying to render `<TextToSpeech />`, but there’s no `TextToSpeech` imported or declared in scope. Make sure you have the correct import statement (matching file path, name, and export) at the top of `app/page.js`.
