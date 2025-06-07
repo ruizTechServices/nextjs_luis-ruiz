@@ -1,0 +1,59 @@
+Build Error
+Failed to compile
+
+Next.js (14.2.22) is outdated (learn more)
+./app/components/paragraphs.js
+Error: 
+  × Return statement is not allowed here
+     ╭─[/home/runner/workspace/app/components/paragraphs.js:66:1]
+  66 │         setCurrentSlide((prevSlide) => (prevSlide === 0 ? slides.length - 1 : prevSlide - 1));
+  67 │       };
+  68 │     
+  69 │ ╭─▶   return (
+  70 │ │       <section className="bg-gradient-to-r from-yellow-200 via-green-200 to-green-500 p-10">
+  71 │ │         <div className="max-w-4xl mx-auto">
+  72 │ │           <h1 className="text-6xl md:text-[80px] font-bold text-center text-black mb-4">Luis Ruiz</h1>
+  73 │ │           <p className="text-center text-xl mb-8 text-gray-800">Full-Stack Developer/
+  74 │ │             <br/>
+  75 │ │             founder of ruizTechServices
+  76 │ │           </p>
+  77 │ │           <div className="mb-8 bg-cover bg-center rounded-full w-48 h-48 mx-auto shadow-lg overflow-hidden">
+  78 │ │             <Image src="/images/meinasuit.png" alt="Luis Ruiz" width={200} height={200} className="object-cover" />
+  79 │ │           </div>
+  80 │ │   
+  81 │ │           {/* Slideshow */}
+  82 │ │           <div className="relative">
+  83 │ │             <div className="slide-content text-center text-xl md:text-4xl container mx-auto" dangerouslySetInnerHTML={{ __html: slides[currentSlide] }} />
+  84 │ │             <div className="flex justify-between mt-4">
+  85 │ │               <button
+  86 │ │                 onClick={prevSlide}
+  87 │ │                 className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600"
+  88 │ │               >
+  89 │ │                 Previous
+  90 │ │               </button>
+  91 │ │               <button
+  92 │ │                 onClick={nextSlide}
+  93 │ │                 className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600"
+  94 │ │               >
+  95 │ │                 Next
+  96 │ │               </button>
+  97 │ │             </div>
+  98 │ │           </div>
+  99 │ │         </div>
+ 100 │ │       </section>
+ 101 │ │       
+ 102 │ ╰─▶   );
+ 103 │     }
+     ╰────
+
+  × Expression expected
+     ╭─[/home/runner/workspace/app/components/paragraphs.js:100:1]
+ 100 │     </section>
+ 101 │     
+ 102 │   );
+ 103 │ }
+     · ─
+     ╰────
+
+Caused by:
+    Syntax Error
