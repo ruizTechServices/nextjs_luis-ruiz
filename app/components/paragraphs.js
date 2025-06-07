@@ -135,10 +135,6 @@ function Card({
   iconBg,
   title,
   paragraphs,
-}: {
-  iconBg: 'blue' | 'green' | 'purple' | 'yellow';
-  title: string;
-  paragraphs: string[];
 }) {
   return (
     <div className="bg-white/80 backdrop-blur-sm border border-white/30 rounded-2xl p-8 shadow-lg">
@@ -160,7 +156,7 @@ function Card({
   );
 }
 
-function CTA({ href, color, children }: { href: string; color: 'blue' | 'gray'; children: React.ReactNode }) {
+function CTA({ href, color, children }) {
   const base = color === 'blue' ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-600 hover:bg-gray-700';
   return (
     <a
@@ -175,13 +171,13 @@ function CTA({ href, color, children }: { href: string; color: 'blue' | 'gray'; 
 }
 
 /* ---------- Hero icons ---------- */
-const ArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
+const ArrowIcon = (props) => (
   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
   </svg>
 );
 
-const CheckIcon = (props: React.SVGProps<SVGSVGElement>) => (
+const CheckIcon = (props) => (
   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" {...props}>
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4" />
   </svg>
