@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 const projects = [
   { url: 'https://ruiztechgroq.replit.app/', title: 'A groq mixture of Agents app' },
+  { url: 'https://ragbot.replit.app/', title: 'A ragbot app' },
+  { url: 'https://chatbot-with-browser-and-rag.replit.app/', title: 'A chatbot with browser and rag' },
 ];
 
 const Projectai = () => {
