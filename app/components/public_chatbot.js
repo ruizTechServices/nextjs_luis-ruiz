@@ -16,6 +16,36 @@ const supabase = createClient(
 const STORAGE_KEY = "conversationId";
 const MAX_MESSAGE_LENGTH = 1000;
 
+// Utility function to generate conversation titles from first message
+const generateConversationTitle = (message) => {
+  if (!message || typeof message !== 'string') {
+    return "New Chat";
+  }
+
+  // Clean up excessive whitespace (replace 3+ spaces with single space)
+  let cleanedMessage = message.replace(/\s{3,}/g, ' ').trim();
+  
+  if (!cleanedMessage) {
+    return "New Chat";
+  }
+
+  // Split into words (including emojis as separate words)
+  // This regex splits on whitespace but keeps emojis as individual units
+  const words = cleanedMessage.split(/\s+/).filter(word => word.length > 0);
+  
+  // Take first 5 words (or all available if less than 5)
+  const titleWords = words.slice(0, 5).map(word => {
+    // Limit very long words/URLs to 25 characters
+    return word.length > 25 ? word.slice(0, 25) : word;
+  });
+
+  // Join words and add ellipsis if we had more than 5 words or any word was truncated
+  const title = titleWords.join(' ');
+  const needsEllipsis = words.length > 5 || words.some(word => word.length > 25);
+  
+  return needsEllipsis ? title + "..." : title;
+};
+
 // Custom hooks for better separation of concerns
 const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
@@ -62,10 +92,46 @@ const useConversations = () => {
       
       if (error) throw error;
       
-      const uniqueConversations = Array.from(
+      const uniqueConversationIds = Array.from(
         new Set(data?.map((item) => item.conversation_id) || [])
       );
-      setConversations(uniqueConversations);
+
+      // Fetch the first message for each conversation to create titles
+      const conversationsWithTitles = await Promise.all(
+        uniqueConversationIds.map(async (convId) => {
+          try {
+            const { data: firstMessage, error: messageError } = await supabase
+              .from("conversations")
+              .select("message, role")
+              .eq("conversation_id", convId)
+              .eq("role", "user")
+              .order("position_id", { ascending: true })
+              .limit(1);
+
+            if (messageError) throw messageError;
+
+            let title = "New Chat"; // Default fallback
+            
+            if (firstMessage && firstMessage.length > 0) {
+              const firstUserMessage = firstMessage[0].message;
+              title = generateConversationTitle(firstUserMessage);
+            }
+
+            return {
+              id: convId,
+              title: title
+            };
+          } catch (err) {
+            console.warn(`Error fetching title for conversation ${convId}:`, err);
+            return {
+              id: convId,
+              title: convId.slice(0, 5)
+            };
+          }
+        })
+      );
+
+      setConversations(conversationsWithTitles);
     } catch (err) {
       console.error("Error fetching conversations:", err);
       setError("Failed to load conversations");
@@ -143,16 +209,16 @@ ChatMessage.displayName = "ChatMessage";
 
 const ConversationItem = React.memo(({ conversation, isActive, onClick }) => (
   <button
-    onClick={() => onClick(conversation)}
+    onClick={() => onClick(conversation.id)}
     className={`
       w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3
-      transition-all duration-200 rounded-lg mx-2 mb-1
+      transition-all duration-200 rounded-lg mx-2 mb-1 min-w-0
       ${isActive ? "bg-blue-50 text-blue-600 shadow-sm" : "text-gray-700 hover:text-gray-900"}
     `}
   >
     <MessageSquare className="w-4 h-4 flex-shrink-0" />
-    <span className="truncate text-sm font-medium">
-      {conversation.slice(0, 8)}...
+    <span className="truncate text-sm font-medium min-w-0" title={conversation.title}>
+      {conversation.title}
     </span>
   </button>
 ));
@@ -347,7 +413,7 @@ export default function ChatComponent() {
             </button>
           </div>
           
-          <nav className="flex-1 overflow-y-auto py-2">
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden py-2">
             {hasError && (
               <ErrorMessage 
                 message={conversationsError || chatError} 
@@ -367,9 +433,9 @@ export default function ChatComponent() {
             ) : (
               conversations.map((conv) => (
                 <ConversationItem
-                  key={conv}
+                  key={conv.id}
                   conversation={conv}
-                  isActive={conv === conversationId}
+                  isActive={conv.id === conversationId}
                   onClick={handleConversationSelect}
                 />
               ))
