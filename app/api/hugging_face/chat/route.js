@@ -1,6 +1,4 @@
-
 import Together from 'together-ai';
-import { StreamingTextResponse } from 'ai';
 
 const together = new Together({
   apiKey: process.env.TOGETHER_API_KEY,
@@ -9,15 +7,15 @@ const together = new Together({
 export async function POST(req) {
   const { messages } = await req.json();
 
-  const stream = await together.chat.completions.create({
-    model: 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo',
+  const response = await together.chat.completions.create({
     messages,
+    model: 'meta-llama/Llama-2-7b-chat-hf',
     stream: true,
   });
 
   const textStream = new ReadableStream({
     async start(controller) {
-      for await (const chunk of stream) {
+      for await (const chunk of response) {
         const content = chunk.choices[0]?.delta?.content || '';
         if (content) {
           controller.enqueue(content);
@@ -27,5 +25,9 @@ export async function POST(req) {
     },
   });
 
-  return new StreamingTextResponse(textStream);
+  return new Response(textStream, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+    },
+  });
 }

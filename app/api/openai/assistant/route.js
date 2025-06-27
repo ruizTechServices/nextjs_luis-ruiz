@@ -1,6 +1,4 @@
-
 import OpenAI from "openai";
-import { StreamingTextResponse } from 'ai';
 
 // Initialize the OpenAI client
 const openai = new OpenAI({
@@ -44,5 +42,7 @@ export async function POST(req) {
     },
   });
 
-  return new StreamingTextResponse(stream);
+  return new Response(stream, {
+    headers: { 'Content-Type': 'text/event-stream' }
+  });
 }
