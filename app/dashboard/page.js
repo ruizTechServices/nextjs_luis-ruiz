@@ -1,6 +1,7 @@
 // app/dashboard/page.js
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { DashboardHeader } from "../components/main/dashboardHeader";
 import { JournalEntriesList } from "../components/main/journal/journalEntriesList";
 import { JournalEntryForm } from "../components/main/journal/journalEntryForm";
@@ -9,54 +10,87 @@ import PersonalAssistant from "../../app/components/main/personalAssistant";
 import { ContactEntriesList } from "../components/main/contact/contactEntryList";
 import { BlogEntryForm } from "../components/main/blog/blogEntryForm";
 import CatalogItemForm from "../components/main/catalog/catalogItemForm";
-import { createClient } from "../../lib/utils/supabase/supabaseClient";
-import { redirect } from "next/navigation";
 import TodoList from "../components/main/todolist";
 import CodepenLikeEditor from "../components/main/component_submissions";
 import MistralChat from "../components/main/mistral";
 import GPT4Component from "../components/main/openai/gpt-4";
 import MarkdownEditor from "../components/MarkdownEditor";
 import PhotoUpload from "../components/photoUpload";
-import { getSession } from '../../lib/utils/sessionUtils';
 import Chatbot from "../components/chatbot";
 import MistralNew from "../components/main/mistral-new";
 import GPT4New from "../components/main/openai/gpt-4-new";
 import PhotoUploader from "../components/photoUploader";
-
+import { useUser } from "@clerk/nextjs";
+import { isAdminUser, getUserEmail } from "../../lib/auth-client";
 
 function Dashboard() {
   const [contentComponent, setContentComponent] = useState(null);
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const supabase = createClient();
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const { user, isSignedIn, isLoaded } = useUser();
+  const router = useRouter();
 
   useEffect(() => {
-    const getLoggedInUser = async () => {
-      const session = getSession(); // Use the getSession function here
+    if (!isLoaded) return;
 
-      if (session) {
-        console.log('Using cached session:', session);
-        setLoggedInUser(session.user);  // Assume session has user details
-      } else {
-        // No session in localStorage, fetch from Supabase
-        const { data: { user }, error } = await supabase.auth.getUser();
-        if (!user) {
-          redirect("/");  // Redirect if no user is found
-        } else {
-          setLoggedInUser(user);  // Set the logged-in user
-          // Cache the session after fetching from Supabase
-          localStorage.setItem('supabase-session', JSON.stringify(user));
-        }
-      }
-    };
+    if (!isSignedIn) {
+      console.log("Not signed in. Redirecting to sign-in.");
+      router.push("/sign-in");
+      return;
+    }
 
-    getLoggedInUser();
-  }, [supabase.auth]);
+    // Check if user is admin (client-side check for UX, server-side is authoritative)
+    const isAdmin = isAdminUser(user);
+    
+    if (!isAdmin) {
+      console.log(`Non-admin user attempting dashboard access: ${getUserEmail(user)}`);
+      router.push(`/user/${user.id}`);
+      return;
+    }
+
+    console.log(`Admin access confirmed for: ${getUserEmail(user)}`);
+    setIsAuthorized(true);
+    setIsCheckingAuth(false);
+  }, [isLoaded, isSignedIn, user, router]);
+
+  // Show loading state while checking authentication
+  if (!isLoaded || isCheckingAuth) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4"></div>
+        <p className="text-xl font-semibold text-gray-700">Verifying admin access...</p>
+        <p className="text-sm text-gray-500 mt-2">Brought to you by ruizTechServices</p>
+      </div>
+    );
+  }
+
+  // Show unauthorized message if somehow they get here without proper access
+  if (!isAuthorized) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-red-50">
+        <div className="text-red-600 text-6xl mb-4">🚫</div>
+        <h1 className="text-2xl font-bold text-red-800 mb-2">Access Denied</h1>
+        <p className="text-red-600 mb-4">You don't have permission to access this admin dashboard.</p>
+        <button 
+          onClick={() => router.push(`/user/${user?.id}`)}
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Go to Your Dashboard
+        </button>
+      </div>
+    );
+  }
 
   const showContent = (contentComponent) =>
     setContentComponent(contentComponent);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
+      {/* Admin indicator */}
+      <div className="bg-green-600 text-white text-center py-1 text-sm">
+        🔒 Admin Dashboard - {getUserEmail(user)}
+      </div>
+      
       <DashboardHeader />
       <div className="flex flex-1 flex-col md:flex-row">
         <nav className="w-full md:w-64 bg-blue-600 text-white p-4 overflow-y-auto">

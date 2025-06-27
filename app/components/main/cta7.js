@@ -45,7 +45,7 @@ export const Cta7 = (props) => {
               iconRight={button.iconRight} 
               iconLeft={button.iconLeft}
             >
-              <a href="/login">{button.title}</a>
+              <a href="/sign-in">{button.title}</a>
             </Button>
           ))}
         </div>

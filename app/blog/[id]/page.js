@@ -4,6 +4,7 @@
 import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import React from 'react';
 import { useState, useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
 import { BsHandThumbsUp, BsHandThumbsDown } from "react-icons/bs";
 import { IoShareOutline } from "react-icons/io5";
 
@@ -81,8 +82,7 @@ export default function BlogArticle({ params }) {
 
     const handleCommentSubmit = async (event) => {
         event.preventDefault();
-        const user = await supabase.auth.getSession();
-        const userEmail = (await supabase.auth.getUser()).data.user.email;
+        const userEmail = user?.primaryEmailAddress?.emailAddress;
 
         if (!user) {
             setCommentError("You are not logged in. Login to comment.");
@@ -108,8 +108,7 @@ export default function BlogArticle({ params }) {
     };
 
     const handleVote = async (type) => {
-        const session = await supabase.auth.getSession();
-        const userEmail = session.data?.session?.user?.email; // More reliable way to access user email
+        const userEmail = user?.primaryEmailAddress?.emailAddress;
 
         // Check if the user email exists and the user is logged in
         if (!userEmail) {

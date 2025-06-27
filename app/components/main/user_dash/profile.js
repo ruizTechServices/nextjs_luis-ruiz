@@ -1,36 +1,29 @@
 // C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\components\main\user_dash\settingsForm.js
 import React, { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation"; // Corrected from 'next/navigation'
-import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
+import { useRouter, useParams } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 function Profile() {
-    const supabase = createClient();
     const router = useRouter();
     const params = useParams();
     const id = params.id;
-    const [user, setUser] = useState(null);
+    const { user, isSignedIn, isLoaded } = useUser();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const { data: userData, error } = await supabase.auth.getUser();
-            if (error) {
-                console.log("Redirecting to login due to error:", error);
-                router.push("/login");
-                return;
-            }
-            setUser(userData);
-        };
-        fetchUser();
-    }, []); // Added dependencies array to prevent running on every re-render
+        if (!isLoaded) return;
 
+        if (!isSignedIn) {
+            router.push("/sign-in");
+            console.log("Redirecting to sign-in as user is not signed in.");
+        }
+    }, [isLoaded, isSignedIn, router]);
 
-    if (!user) {
+    if (!isLoaded || !isSignedIn) {
         return <>
             <div className="h-full p-4 max-w-4xl mx-auto">
                 <p className="text-4xl animate-pulse">Loading...</p>
             </div>
         </>
-
     }
 
     return (
@@ -62,7 +55,7 @@ function Profile() {
                         <input
                             id="phone"
                             name="phone"
-                            defaultValue={user.phone} // Display logged-in user's phone
+                            defaultValue={user.primaryPhoneNumber?.phoneNumber} // Display logged-in user's phone
                             className="input w-1/3 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                             type="tel"
                         />
@@ -78,7 +71,7 @@ function Profile() {
                         <input
                             id="email"
                             name="email"
-                            defaultValue={user.email} // Display logged-in user's email
+                            defaultValue={user.primaryEmailAddress?.emailAddress} // Display logged-in user's email
                             className="input w-1/3 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                             type="email"
                         />

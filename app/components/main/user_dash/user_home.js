@@ -1,45 +1,28 @@
 // C:\Users\Gio\OneDrive\Desktop\ruizTechServices\luis-ruiz\nextjs\nextjs_luis-ruiz\app\components\main\user_dash\user_home.js
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 export default function Home() {
-    const supabase = createClient();
     const params = useParams();
     const id = params.id;
+    const { user, isSignedIn, isLoaded } = useUser();
     const [userInfo, setUserInfo] = useState(null);
-    const [user, setUser] = useState();
     const [userImage, setUserImage] = useState();
     const [userImageURL, setUserImageURL] = useState();
     const [userImageName, setUserImageName] = useState();
     const [currentDate, setCurrentDate] = useState();
 
-
     useEffect(() => {
-        const checkSession = async () => {
-            const { data: session } = await supabase.auth.getSession();
+        if (!isLoaded) return;
 
-            if (session) {
-                setUser(session.user);
-            } else {
-                console.log("No active session. Redirecting to login...");
-                router.push("/login");
-            }
-        };
-
-        checkSession();
-
-        const { data: authListener } = supabase.auth.onAuthStateChange(
-            async (_event, session) => {
-                setUser(session?.user ?? null);
-            }
-        );
-
-        return () => {
-            authListener?.subscription?.unsubscribe();
-        };
-    }, [supabase.auth]);
+        if (!isSignedIn) {
+            console.log("No active session. Clerk middleware should handle redirection.");
+            // Optionally, you can still redirect here if Clerk middleware is not configured to do so
+            // router.push("/sign-in");
+        }
+    }, [isLoaded, isSignedIn]);
 
     const now = new Date();
     const options = { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
@@ -57,8 +40,8 @@ export default function Home() {
             {user && (
                 <div className="rounded-lg p-4 mt-4 w-fit">
                     <h2 className="font-bold text-2xl">User Information</h2>
-                    <p>Email: {user.email}</p>
-                    <p>User Name: {user.name}</p>
+                    <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
+                    <p>User Name: {user?.fullName || user?.id}</p>
                 </div>
             )}
 

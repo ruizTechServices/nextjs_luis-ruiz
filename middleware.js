@@ -1,28 +1,64 @@
-// Import the required module from "next/server"
-const { updateSession } = require("./lib/utils/supabase/middleware");
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+import { NextResponse } from 'next/server';
 
-// Define the middleware function
-async function middleware(request) {
-  return await updateSession(request);
-}
+// Define protected routes
+const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/user(.*)',
+]);
 
-// Export the middleware function
-module.exports.middleware = middleware;
+// Admin email from environment variable for security
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'giosterr44@gmail.com';
 
-// Configuration object to specify matcher rules
-const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * Feel free to modify this pattern to include more paths.
-     */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
-  ],
+export default clerkMiddleware(async (auth, req) => {
+  // Check if this is a protected route
+  if (isProtectedRoute(req)) {
+    const { userId } = auth();
+    
+    // If user is not authenticated, redirect to sign-in
+    if (!userId) {
+      const signInUrl = new URL('/sign-in', req.url);
+      signInUrl.searchParams.set('redirect_url', req.url);
+      return NextResponse.redirect(signInUrl);
+    }
+
+    // Special handling for dashboard route - admin only
+    if (req.nextUrl.pathname.startsWith('/dashboard')) {
+      try {
+        // Get user data from Clerk
+        const { clerkClient } = await import('@clerk/nextjs/server');
+        const user = await clerkClient.users.getUser(userId);
+        
+        if (!user) {
+          console.log(`Dashboard access denied - User not found: ${userId}`);
+          return NextResponse.redirect(new URL(`/user/${userId}`, req.url));
+        }
+
+        const primaryEmail = user.emailAddresses.find(email => email.id === user.primaryEmailAddressId);
+        const userEmail = primaryEmail?.emailAddress;
+
+        // Log access attempt for security monitoring
+        console.log(`Dashboard access attempt - User: ${userEmail}, Timestamp: ${new Date().toISOString()}`);
+
+        // Only allow admin email to access dashboard
+        if (userEmail !== ADMIN_EMAIL) {
+          console.log(`Dashboard access denied - Non-admin user: ${userEmail}`);
+          return NextResponse.redirect(new URL(`/user/${userId}`, req.url));
+        }
+
+        console.log(`Dashboard access granted - Admin user: ${userEmail}`);
+      } catch (error) {
+        console.error('Error checking dashboard access:', error);
+        // On error, redirect to user dashboard for security
+        return NextResponse.redirect(new URL(`/user/${userId}`, req.url));
+      }
+    }
+  }
+
+  // Continue with the request
+  return NextResponse.next();
+});
+
+export const config = {
+  matcher: ['/((?!.*\..*|_next).*)', '/', '/(api|trpc)(.*)'],
 };
-
-// Export the configuration
-module.exports.config = config;

@@ -2,48 +2,37 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import { FiMenu, FiHome, FiLogOut, FiSettings, FiUser } from "react-icons/fi";
 import SettingsForm from "../../components/main/user_dash/settingsForm";
 import Profile from "../../components/main/user_dash/profile";
 import Home from "../../components/main/user_dash/user_home";
+import { useUser, useClerk } from "@clerk/nextjs";
 
 export default function UserDashboard() {
-  const supabase = createClient();
   const router = useRouter();
-  const [user, setUser] = useState(null);
+  const { user, isSignedIn, isLoaded } = useUser();
+  const { signOut } = useClerk();
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState("home");
 
-  useEffect(
-    () => {
-      const fetchUser = async () => {
-        const { data, error } = await supabase.auth.getUser();
+  useEffect(() => {
+    if (!isLoaded) return;
 
-        if (error) {
-          router.push("/login");
-          console.log("Redirecting to login due to error:", error);
-          return;
-        }
+    if (!isSignedIn) {
+      router.push("/sign-in");
+      console.log("Redirecting to sign-in as user is not signed in.");
+    }
+  }, [isLoaded, isSignedIn, router]);
 
-        setUser(data);
-        console.log("User data fetched successfully:", data);
-      };
-
-      fetchUser();
-    },
-    [router, supabase.auth]
-  ); // Dependency array includes router
-
-  if (!user) {
-    console.log("User data not loaded yet"); // Inform about data loading state
+  if (!isLoaded || !isSignedIn) {
+    console.log("User data not loaded yet or not signed in");
     return <div className="flex flex-col items-center justify-center h-screen">
       <p className="animate-pulse text-4xl font-bold">Loading...</p> Brought to you by ruizTechServices| 
       </div>  
   }
 
-  const logout = async () => {
-    await supabase.auth.signOut();
+  const handleLogout = async () => {
+    await signOut();
     router.push("/"); // Redirect to home after logout
   };
 
@@ -106,7 +95,7 @@ export default function UserDashboard() {
             <FiUser className="inline-block mr-2" /> Profile
           </a>
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="text-black block w-full text-left py-2.5 px-4 rounded transition duration-200 hover:bg-blue-500 hover:text-white"
           >
             <FiLogOut className="inline-block mr-2" /> Logout

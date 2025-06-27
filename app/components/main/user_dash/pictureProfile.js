@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { createClient } from "../../../../lib/utils/supabase/supabaseClient"; // Ensure you have a setup file for supabase client
+import { useUser } from "@clerk/nextjs";
 
 const ProfilePicture = ({ onSuccess, onError }) => {
   const supabase = createClient();
   const [file, setFile] = useState(null);
+  const { user, isSignedIn } = useUser();
 
   const handleFileChange = event => {
     setFile(event.target.files[0]);
@@ -15,8 +17,7 @@ const ProfilePicture = ({ onSuccess, onError }) => {
       return;
     }
 
-    const user = supabase.auth.getUser();
-    if (!user) {
+    if (!isSignedIn || !user) {
       onError("No authenticated user.");
       return;
     }
