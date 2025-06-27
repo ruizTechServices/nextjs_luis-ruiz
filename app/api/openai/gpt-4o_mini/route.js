@@ -1,13 +1,17 @@
-
 import { OpenAI } from 'openai';
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+
+// Initialize Supabase with available keys
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+let supabase = null;
+if (supabaseUrl && supabaseKey) {
+  supabase = createClient(supabaseUrl, supabaseKey);
+}
 
 export async function POST(req) {
   const { prompt, chatId } = await req.json();
@@ -29,6 +33,10 @@ export async function POST(req) {
     }
 
     // 2. Use the embedding to find similar messages in the database
+    if (!supabase) {
+      throw new Error("Supabase client is not initialized");
+    }
+
     const { data: similarMessages, error: matchError } = await supabase.rpc('match_chat_messages', {
       query_embedding: promptEmbedding,
       match_threshold: 0.7,
@@ -65,6 +73,10 @@ export async function POST(req) {
     }
 
     // Store the user's message and the AI's response in the database
+    if (!supabase) {
+      throw new Error("Supabase client is not initialized");
+    }
+
     const { error: insertError } = await supabase.from('chat_messages').insert([
       {
         chat_id: chatId,
