@@ -1,19 +1,19 @@
-// pages/api/openai/gpt-4_main.js
+
 import { OpenAI } from 'openai';
-import { createClient } from '../../../lib/utils/supabase/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
+import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const supabase = createClient();
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const { prompt, chatId } = req.body;
+export async function POST(req) {
+  const { prompt, chatId } = await req.json();
 
   if (!prompt || !chatId) {
-    return res.status(400).json({ error: "Prompt and chatId are required" });
+    return NextResponse.json({ error: "Prompt and chatId are required" }, { status: 400 });
   }
 
   try {
@@ -44,7 +44,7 @@ export default async function handler(req, res) {
 
     // 4. Generate a response using the GPT-4 model
     const completion = await openai.chat.completions.create({
-      model: "gpt-4", // Use the correct model identifier
+      model: "gpt-4o-mini", // Use the correct model identifier
       messages: [
         { role: "system", content: "You are a helpful assistant. Use the following context to inform your responses, but do not directly quote it unless asked:\n" + context },
         { role: "user", content: prompt }
@@ -85,44 +85,9 @@ export default async function handler(req, res) {
     }
 
     // 6. Return the response to the client
-    res.status(200).json({ message: aiResponse });
+    return NextResponse.json({ message: aiResponse });
   } catch (error) {
     console.error("Error processing request:", error);
-    res.status(500).json({ error: "Failed to process request" });
+    return NextResponse.json({ error: "Failed to process request" }, { status: 500 });
   }
 }
-
-
-// -- Supabase AI is experimental and may produce incorrect answers
-// -- Always verify the output before executing
-
-// drop function if exists match_chat_messages (
-//   query_embedding vector (1536),
-//   match_threshold float,
-//   max_results int
-// );
-
-// create
-// or replace function match_chat_messages (
-//   query_embedding vector (1536),
-//   match_threshold float,
-//   max_results int
-// ) returns table (
-//   chat_id int,
-//   message text,
-//   created_at TIMESTAMPTZ,
-//   similarity float
-// ) language plpgsql as $$
-// BEGIN
-//   RETURN QUERY
-//   SELECT
-//     chat_messages.chat_id,
-//     chat_messages.message,
-//     chat_messages.created_at,
-//     1 - (chat_messages.embedding <=> query_embedding) AS similarity
-//   FROM chat_messages
-//   WHERE 1 - (chat_messages.embedding <=> query_embedding) > match_threshold
-//   ORDER BY chat_messages.embedding <=> query_embedding
-//   LIMIT max_results;
-// END;
-// $$;

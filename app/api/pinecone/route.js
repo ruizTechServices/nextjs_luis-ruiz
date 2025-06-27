@@ -1,6 +1,7 @@
-// pages/api/pinecone.js
+
 import { Pinecone } from '@pinecone-database/pinecone';
 import OpenAI from 'openai';
+import { NextResponse } from 'next/server';
 
 // Initialize OpenAI client with API key from environment variables
 const openai = new OpenAI({
@@ -16,29 +17,25 @@ const pineconeConfig = {
 const pinecone = new Pinecone(pineconeConfig);
 const index = pinecone.index('chat-history');
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
+export async function POST(req) {
   try {
-    const { prompt } = req.body;
+    const { prompt } = await req.json();
 
     if (!prompt) {
       throw new Error('Prompt is required and was not provided.');
     }
 
     // Generate embedding from OpenAI
-    const embeddingResponse = await openai.createEmbedding({
+    const embeddingResponse = await openai.embeddings.create({
       model: "text-embedding-3-small",
       input: prompt,
     });
 
-    if (!embeddingResponse.data || !embeddingResponse.data.data[0].embedding) {
+    if (!embeddingResponse.data || !embeddingResponse.data[0].embedding) {
       throw new Error('Failed to generate embedding');
     }
 
-    const embedding = embeddingResponse.data.data[0].embedding;
+    const embedding = embeddingResponse.data[0].embedding;
 
     // Query Pinecone with the embedding
     const queryResults = await index.query({
@@ -46,9 +43,9 @@ export default async function handler(req, res) {
       topK: 3
     });
 
-    res.status(200).json(queryResults);
+    return NextResponse.json(queryResults);
   } catch (error) {
     console.error('Error in personalAssistant API:', error);
-    res.status(500).json({ error: error.message || 'Internal Server Error' });
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

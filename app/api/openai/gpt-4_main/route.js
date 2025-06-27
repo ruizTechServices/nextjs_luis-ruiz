@@ -1,22 +1,15 @@
-// pages/api/openai/gpt-4o_mini.js
 import { OpenAI } from 'openai';
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '../../../../lib/utils/supabase/supabaseClient';
+import { NextResponse } from 'next/server';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
+const supabase = createClient();
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
-  const { prompt, chatId } = req.body;
+export async function POST(req) {
+  const { prompt, chatId } = await req.json();
 
   if (!prompt || !chatId) {
-    return res.status(400).json({ error: "Prompt and chatId are required" });
+    return NextResponse.json({ error: "Prompt and chatId are required" }, { status: 400 });
   }
 
   try {
@@ -88,9 +81,9 @@ export default async function handler(req, res) {
     }
 
     // 6. Return the response to the client
-    res.status(200).json({ message: aiResponse });
+    return NextResponse.json({ message: aiResponse });
   } catch (error) {
     console.error("Error processing request:", error);
-    res.status(500).json({ error: "Failed to process request" });
+    return NextResponse.json({ error: "Failed to process request" }, { status: 500 });
   }
 }
