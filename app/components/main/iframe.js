@@ -7,8 +7,8 @@ const projects = [
   { url: 'https://ruiztechservices.com',    title: 'ruizTechServices | Online Tech Support', description: 'A website for my tech company, ruizTechServices. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
   { url: 'https://username-generator-pure-giovanniruiz5.replit.app/', title: 'Username Generator for Social & Streaming', description: 'A website for generating usernames for social media and streaming. It was made with HTML, CSS, and JavaScript.' },
   // { url: 'https://osvaldybarber.com',       title: 'Osvaldy Barber – Full-Service Barbershop', description: 'A website for a barber named Osvaldy. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
+  { url: 'https://www.sugaandspice.store', title: 'Suga and Spice | ', description: 'Suga and Spice. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
   { url: 'https://ruiz-home-services.replit.app/', title: 'ruizHomeServices | Home Services', description: 'A website for my home services company, ruizHomeServices. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
-  { url: 'https://sugaandspice.store', title: 'Suga and Spice | ', description: 'Suga and Spice. It was made with NextJS, TailwindCSS, and hosted on Vercel.' },
 ];
 
 const ProjectViewer = () => (
