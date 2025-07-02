@@ -1,10 +1,16 @@
 import Together from 'together-ai';
+import { auth } from '@clerk/nextjs/server';
 
 const together = new Together({
   apiKey: process.env.TOGETHER_API_KEY,
 });
 
 export async function POST(req) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
   const { messages } = await req.json();
 
   const response = await together.chat.completions.create({

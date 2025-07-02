@@ -12,12 +12,9 @@ import { BlogEntryForm } from "../components/main/blog/blogEntryForm";
 import CatalogItemForm from "../components/main/catalog/catalogItemForm";
 import TodoList from "../components/main/todolist";
 import CodepenLikeEditor from "../components/main/component_submissions";
-import MistralChat from "../components/main/mistral";
 import GPT4Component from "../components/main/openai/gpt-4";
 import MarkdownEditor from "../components/MarkdownEditor";
 import PhotoUpload from "../components/photoUpload";
-import Chatbot from "../components/chatbot";
-import MistralNew from "../components/main/mistral-new";
 import GPT4New from "../components/main/openai/gpt-4-new";
 import PhotoUploader from "../components/photoUploader";
 import { useUser } from "@clerk/nextjs";
@@ -105,13 +102,10 @@ function Dashboard() {
               { label: "Blog Entry Form", component: <BlogEntryForm /> },
               { label: "ToDo List", component: <TodoList /> },
               { label: "Component Design", component: <CodepenLikeEditor /> },
-              { label: "Mistral Chat", component: <MistralChat /> },
               { label: "GPT-4 Mini", component: <GPT4Component /> },
               { label: "Personal Assistant", component: <PersonalAssistant /> },
               { label: "Markdown Editor", component: <MarkdownEditor /> },
               { label: "Photo Upload", component: <PhotoUpload /> },
-              { label: "Hugging Face", component: <Chatbot /> },
-              { label: "Mistral New", component: <MistralNew /> },
               { label: "GPT-4 New", component: <GPT4New /> },
               { label: "Photo Uploader", component: <PhotoUploader /> },
             ].map((item, index) => (

@@ -1,11 +1,16 @@
 import { OpenAI } from 'openai';
 import { createClient } from '../../../../lib/utils/supabase/supabaseClient';
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const supabase = createClient();
 
 export async function POST(req) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const { prompt, chatId } = await req.json();
 
   if (!prompt || !chatId) {

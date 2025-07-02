@@ -6,6 +6,7 @@ import { Send, Plus, MessageSquare, Menu, X, AlertCircle } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { createClient } from "@supabase/supabase-js";
 
+
 // Create the Supabase client using your public keys
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -177,7 +178,13 @@ const useChatHistory = () => {
   }, []);
 
   const addMessage = useCallback((message) => {
-    setChat(prev => [...prev, message]);
+    console.log('Adding message:', message);
+    setChat(prev => {
+      console.log('Previous chat state:', prev);
+      const newChat = [...prev, message];
+      console.log('New chat state:', newChat);
+      return newChat;
+    });
   }, []);
 
   const clearChat = useCallback(() => {
@@ -283,10 +290,18 @@ export default function ChatComponent() {
   }, [setConversationId, clearChat]);
 
   const handleSend = useCallback(async () => {
+    console.log('handleSend called');
     const trimmedInput = input.trim();
-    if (!trimmedInput || isLoading) return;
+    console.log('trimmedInput:', trimmedInput);
+    console.log('isLoading:', isLoading);
+    
+    if (!trimmedInput || isLoading) {
+      console.log('Returning early - no input or loading');
+      return;
+    }
 
     if (trimmedInput.length > MAX_MESSAGE_LENGTH) {
+      console.log('Message too long');
       alert(`Message too long. Maximum ${MAX_MESSAGE_LENGTH} characters allowed.`);
       return;
     }
@@ -296,6 +311,7 @@ export default function ChatComponent() {
       convId = uuidv4();
       setConversationId(convId);
     }
+    console.log('convId:', convId);
 
     // Add user message optimistically
     const userMessage = { 
@@ -303,6 +319,7 @@ export default function ChatComponent() {
       role: "user", 
       content: trimmedInput 
     };
+    console.log('About to add user message:', userMessage);
     addMessage(userMessage);
 
     const currentInput = trimmedInput;
@@ -310,12 +327,13 @@ export default function ChatComponent() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("/api/openai/gpt-4", {
+      const response = await fetch("/api/openai/public-chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ 
-          prompt: currentInput, 
-          conversation_id: convId 
+          prompt: currentInput
         }),
       });
 
@@ -447,6 +465,7 @@ export default function ChatComponent() {
         <main className="flex-1 flex flex-col min-w-0 bg-white">
           <div className="flex-1 overflow-y-auto px-4 py-6">
             <div className="max-w-4xl mx-auto space-y-4">
+              {console.log('Rendering chat, length:', chat.length, 'messages:', chat)}
               {chat.length === 0 ? (
                 <div className="text-center py-12">
                   <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
@@ -455,6 +474,7 @@ export default function ChatComponent() {
                 </div>
               ) : (
                 <>
+                  {console.log('Rendering messages:', chat)}
                   {chat.map((message) => (
                     <ChatMessage key={message.id} message={message} />
                   ))}

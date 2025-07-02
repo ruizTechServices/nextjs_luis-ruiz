@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import { Pinecone } from '@pinecone-database/pinecone';
 import NodeCache from "node-cache";
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 
 // Initialize OpenAI with the provided API key
 const openai = new OpenAI({
@@ -39,6 +40,10 @@ async function searchVectors(query, topK = 5) {
 
 // The main API handler function
 export async function POST(req) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
     const { prompt, conversationHistory = [] } = await req.json();
 
@@ -66,7 +71,7 @@ export async function POST(req) {
     const completion = await openai.chat.completions.create({
       model: "gpt-4",
       messages: messages,
-      user: "user_id",  // replace with actual user identifier
+      user: userId,
     });
 
     // Extract the assistant's response from the completion result

@@ -1,8 +1,13 @@
 
 import openai from "../../../../lib/utils/openai/connection";
 import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs/server';
 
 export async function POST(req) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const { prompt } = await req.json();
   if (!prompt) {
     return NextResponse.json({ error: "User input is required" }, { status: 400 });

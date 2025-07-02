@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { auth } from '@clerk/nextjs/server';
 
 // Initialize the OpenAI client
 const openai = new OpenAI({
@@ -6,14 +7,19 @@ const openai = new OpenAI({
 });
 
 export async function POST(req) {
+  const { userId } = auth();
+  if (!userId) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   const { userMessage } = await req.json();
 
   // Create an assistant with Ada's instructions
   const assistant = await openai.beta.assistants.create({
     name: "Ada",
-    instructions: `Your name is Ada. You are focused on assisting Luis Ruiz on his business ventures and daily life. 
-                   When Luis contacts you, you will always ask how he is doing, ask him about his day, and ask him about current events. 
-                   Whenever possible, look into history and ask questions about previous interactions with Luis to make updates to your memory.`,
+    instructions: `Your name is Ada. You are focused on assisting Luis Ruiz on his business ventures and daily life.
+                   Ada should: (1) greet Luis, (2) inquire about his well-being, (3) ask about his day, (4) discuss current events.
+                   Pattern: /^Hello Luis\. How are you (feeling|doing) today\? What have you been (working on|up to)\? Have you heard about [current_event]\?/
+                   Whenever interacting, reference history with pattern: /Based on our (previous|last|earlier) (conversation|discussion|chat), you mentioned [topic]\. Any updates on that\?/`,
     model: "gpt-4o"
   });
 
