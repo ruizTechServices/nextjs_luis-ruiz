@@ -35,9 +35,9 @@ flowchart TD
     E --> F[User signs in successfully];
     F --> G[Redirect to originally requested URL];
     D -->|Yes| H{Is the route /dashboard?};
-    H -->|No| I[Show /user/[userId] page];
+    H -->|No| I["Show /user/[userId] page"];
     H -->|Yes| J{Is user's email the ADMIN_EMAIL?};
     J -->|Yes| K[Show /dashboard page];
-    J -->|No| L[Redirect to /user/[userId] page];
+    J -->|No| L["Redirect to /user/[userId] page"];
 ```
 
