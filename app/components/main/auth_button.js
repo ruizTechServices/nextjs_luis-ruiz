@@ -5,7 +5,7 @@ export default function AuthButton() {
   return (
     <div>
       <SignedIn>
-        <UserButton afterSignOutUrl="/" />
+        <UserButton />
       </SignedIn>
       <SignedOut>
         <Link href="/sign-in">
@@ -14,4 +14,4 @@ export default function AuthButton() {
       </SignedOut>
     </div>
   );
-}
+} 
