@@ -14,6 +14,7 @@ import Publicchatbot from "./components/public_chatbot";
 import Soundboard from "./components/main/soundboard";
 import Paragraphs from "./components/paragraphs";
 import TextToSpeech from "./components/text_to_speech";
+import ScriptProjects from "./components/main/scriptProjects";
 
 const tabs = [
   { id: "about", label: "About Me" },
@@ -22,7 +23,8 @@ const tabs = [
   { id: "Artificial Intelligence", label: "AI" },
   { id: "Public Chatbot", label: "Community Chatbot" },
   { id: "soundboard", label: "Soundboard" },
-  { id: "text_to_speech", label: "Text to Speech" }
+  { id: "text_to_speech", label: "Text to Speech" },
+  { id: "script-projects", label: "Script Projects" }
 ];
 
 export default function Portfolio() {
@@ -150,6 +152,7 @@ export default function Portfolio() {
         )}
         {activeTab === "soundboard" && <Soundboard />}
         {activeTab === "text_to_speech" && <TextToSpeech />}
+        {activeTab === "script-projects" && <ScriptProjects />}
       </div>
       <ScrollToTopArrow />
     </main>
