@@ -1,4 +1,3 @@
-// C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\journalEntry.js
 //Technically this is the card component that displays the journal entry
 "use client";
 
