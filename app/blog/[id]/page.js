@@ -10,6 +10,7 @@ import { IoShareOutline } from "react-icons/io5";
 
 
 export default function BlogArticle({ params }) {
+    const { user } = useUser();
     const [title, setTitle] = React.useState("blogTitle");
     const [summary, setSummary] = React.useState("");
     const [body, setBody] = React.useState("");
