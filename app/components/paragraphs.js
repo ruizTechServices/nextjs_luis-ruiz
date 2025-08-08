@@ -31,7 +31,7 @@ export default function Paragraphs() {
             Gio (Luis Giovanni Ruiz)
           </h1>
           <p className="text-lg text-gray-800 leading-relaxed max-w-2xl mx-auto">
-            I'm a Bronx-born, bilingual full-stack AI engineer and founder of RuizTechServices LLC (est. 2024). My flagship product <em>24Hour-AI</em> is a high-performance LLM platform achieving sub-200ms latency, 99.9% uptime, and 30% cost optimization while supporting 100+ concurrent users. I specialize in scalable AI infrastructure and enterprise-grade solutions that deliver measurable business value.
+            I&apos;m a Bronx-born, bilingual full-stack AI engineer and founder of RuizTechServices LLC (est. 2024). My flagship product <em>24Hour-AI</em> is a high-performance LLM platform achieving sub-200ms latency, 99.9% uptime, and 30% cost optimization while supporting 100+ concurrent users. I specialize in scalable AI infrastructure and enterprise-grade solutions that deliver measurable business value.
           </p>
           <p className="italic text-sm text-gray-500">“Learn → Build → Ship → Iterate.”</p>
         </section>
