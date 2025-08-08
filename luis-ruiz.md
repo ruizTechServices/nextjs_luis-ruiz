@@ -62,7 +62,7 @@ I want to add:
 - luis-ruiz.com
 - luisruiz.online
 - nucleus-bot.com
-- osvaldybarber.com
+- ~~osvaldybarber.com~~ <!-- Strikethrough is created using double tildes (~~) before and after the text -->
 - ruiztechservices.com
 - supa-mail.com
 - ruizhomeservices.com
