@@ -3,7 +3,7 @@
 // import AuthButton from "../../components/main/AuthButton";
 import { createClient } from "../../../lib/utils/supabase/supabaseClient";
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { BsHandThumbsUp, BsHandThumbsDown } from "react-icons/bs";
 import { IoShareOutline } from "react-icons/io5";
@@ -29,9 +29,9 @@ export default function BlogArticle({ params }) {
         body: { body },
     };
 
-    const supabase = createClient();
+    const supabase = useMemo(() => createClient(), []);
 
-    const fetchVotes = async () => {
+    const fetchVotes = useCallback(async () => {
         const { data: votesData, error: votesError } = await supabase
             .from('votes')
             .select('vote_type')
@@ -45,7 +45,7 @@ export default function BlogArticle({ params }) {
             setUpvotes(upVoteCount);
             setDownvotes(downVoteCount);
         }
-    };
+    }, [supabase, params.id]);
     
 
     useEffect(() => {

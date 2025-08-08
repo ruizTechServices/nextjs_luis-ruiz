@@ -1,13 +1,13 @@
 //C:\Users\NEWOWNER\local_only\local_ruiztechservices\luis_ruiz_com\websites\nextjs_luis-ruiz\app\components\main\blog\blogEntryList.js
 // Import necessary hooks and utilities
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../../../lib/utils/supabase/supabaseClient"; // Ensure correct import path
 import { BlogEntry } from "../blog/blogEntry"; // Ensure you have this component
 
 export const BlogEntriesList = () => {
     const [fetchError, setFetchError] = useState(null);
     const [blogPosts, setBlogPosts] = useState([]); // State to store blog posts
-    const supabase = createClient(); // Create a client instance
+    const supabase = useMemo(() => createClient(), []); // Create a stable client instance
 
     useEffect(() => {
         // Function to fetch blog posts
@@ -37,7 +37,7 @@ export const BlogEntriesList = () => {
         return () => {
             myChannel.unsubscribe();
         };
-    }, []);
+    }, [supabase]);
 
     // Render function
     return (

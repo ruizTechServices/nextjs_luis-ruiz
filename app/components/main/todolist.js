@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { createClient } from '../../../lib/utils/supabase/supabaseClient';
 
 const TodoList = () => {
-    const supabase = createClient();
+    const supabase = useMemo(() => createClient(), []);
     const [todos, setTodos] = useState([]);
     const [newTodo, setNewTodo] = useState('');
 
     // Fetch todos from the database
-    const fetchTodos = async () => {
+    const fetchTodos = useCallback(async () => {
         const { data, error } = await supabase
             .from('todos')
             .select('*')
@@ -18,7 +18,7 @@ const TodoList = () => {
         } else {
             setTodos(sortTodos(data || [])); // Ensure data is sorted
         }
-    };
+    }, [supabase]);
 
     // Function to sort todos by completion status
     const sortTodos = (todos) => {
@@ -71,7 +71,7 @@ const TodoList = () => {
         return () => {
             supabase.removeChannel(allChanges);
         };
-    }, []);
+    }, [supabase, fetchTodos]);
 
     // Handle new todo input change
     const handleNewTodoChange = (event) => {
@@ -90,7 +90,7 @@ const TodoList = () => {
     // Load todos on component mount
     useEffect(() => {
         fetchTodos();
-    }, []);
+    }, [fetchTodos]);
 
     return (
         <div>

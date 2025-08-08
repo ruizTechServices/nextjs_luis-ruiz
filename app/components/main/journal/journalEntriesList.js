@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
 import { JournalEntry } from "./journalEntry";
 
 export const JournalEntriesList = () => {
   const [fetchError, setFetchError] = useState(null);
   const [journal, setJournal] = useState([]);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const fetchJournal = async () => {
@@ -35,7 +35,7 @@ export const JournalEntriesList = () => {
     return () => {
       supabase.removeChannel(myChannel);
     };
-  }, []);
+  }, [supabase]);
 
   return (
     <section className="overflow-hidden h-auto md:h-[600px] md:overflow-y-auto bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900 dark:to-purple-900 rounded-2xl shadow-lg p-8 transition-all duration-300 ease-in-out">

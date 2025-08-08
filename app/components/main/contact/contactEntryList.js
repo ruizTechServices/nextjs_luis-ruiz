@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createClient } from "../../../../lib/utils/supabase/supabaseClient";
 import { ContactEntry } from "./contactEntry";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,7 +8,7 @@ export const ContactEntriesList = () => {
   const [fetchError, setFetchError] = useState(null);
   const [contactlist, setContactList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const fetchContactList = async () => {
@@ -42,7 +42,7 @@ export const ContactEntriesList = () => {
     return () => {
       supabase.removeChannel(myChannel);
     };
-  }, []);
+  }, [supabase]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
