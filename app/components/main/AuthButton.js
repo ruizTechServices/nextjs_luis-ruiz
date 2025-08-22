@@ -1,29 +1,50 @@
 
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
-import Link from 'next/link';
+"use client";
+
+import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 
 export default function AuthButton() {
-  return (
-    <div className="flex items-center">
-      <SignedIn>
+  const { isSignedIn, user, isLoaded } = useUser();
+
+  // Show loading state while Clerk is initializing
+  if (!isLoaded) {
+    return (
+      <div className="flex items-center space-x-2">
+        <div className="animate-pulse bg-gray-200 h-8 w-16 rounded"></div>
+      </div>
+    );
+  }
+
+  if (isSignedIn) {
+    return (
+      <div className="flex items-center space-x-2">
+        <span className="text-sm text-gray-700 hidden sm:inline">
+          {user?.fullName || user?.emailAddresses?.[0]?.emailAddress}
+        </span>
         <UserButton 
-          afterSignOutUrl="/" 
+          afterSignOutUrl="/"
           appearance={{
             elements: {
-              avatarBox: "h-8 w-8",
-              userButtonPopoverCard: "shadow-lg border border-gray-200"
+              avatarBox: "w-8 h-8"
             }
           }}
         />
-      </SignedIn>
-      <SignedOut>
-        <Link 
-          href="/sign-in"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 shadow-sm"
-        >
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center space-x-2">
+      <SignInButton mode="modal">
+        <button className="text-sm text-blue-600 hover:text-blue-800 transition-colors">
           Sign In
-        </Link>
-      </SignedOut>
+        </button>
+      </SignInButton>
+      <SignUpButton mode="modal">
+        <button className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+          Sign Up
+        </button>
+      </SignUpButton>
     </div>
   );
 }
