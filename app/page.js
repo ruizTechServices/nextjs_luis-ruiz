@@ -1,5 +1,5 @@
+
 // app/page.js
-'use client';
 import HeroSection from "./components/main/heroSection";
 import Arrowdown from "./components/ui/arrowdown";
 import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
@@ -12,6 +12,7 @@ import ChatbotTab from "./components/tabs/ChatbotTab";
 import SoundboardTab from "./components/tabs/SoundboardTab";
 import TextToSpeechTab from "./components/tabs/TextToSpeechTab";
 import ScriptProjectsTab from "./components/tabs/ScriptProjectsTab";
+import AuthButton from "./components/main/AuthButton";
 
 function TabContent({ activeTab }) {
   switch (activeTab) {
@@ -47,6 +48,14 @@ export default function Portfolio({ searchParams }) {
       <div className="mt-8">
         <TabContent activeTab={activeTab} />
       </div>
+      
+      {/* Auth Button at bottom of page */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="bg-white shadow-lg rounded-full p-3 border border-gray-200">
+          <AuthButton />
+        </div>
+      </div>
+      
       <ScrollToTopArrow />
     </main>
   );
