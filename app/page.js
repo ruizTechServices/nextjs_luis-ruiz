@@ -1,4 +1,5 @@
 // app/page.js
+'use client';
 import HeroSection from "./components/main/heroSection";
 import Arrowdown from "./components/ui/arrowdown";
 import ScrollToTopArrow from "./components/ui/ScrollToTopArrow";
