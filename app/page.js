@@ -49,12 +49,7 @@ export default function Portfolio({ searchParams }) {
         <TabContent activeTab={activeTab} />
       </div>
       
-      {/* Auth Button at bottom of page */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <div className="bg-white shadow-lg rounded-full p-3 border border-gray-200">
-          <AuthButton />
-        </div>
-      </div>
+      
       
       <ScrollToTopArrow />
     </main>

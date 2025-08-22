@@ -1,7 +1,7 @@
-// C:\Users\NEWOWNER\local_only\local_ruiztechservices\nextjs_luis-ruiz\app\components\main\mainFooter.js
+
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Correct import
+import { useRouter } from "next/navigation";
 import Footer from "../ui/footer";
 import { useUser } from "@clerk/nextjs";
 
@@ -22,7 +22,6 @@ function MainFooter() {
       ];
 
       if (isSignedIn) {
-        // Assuming any signed-in user can access a dashboard
         baseLinks.push({
           href: "/dashboard",
           label: "Dashboard",
@@ -39,11 +38,7 @@ function MainFooter() {
     generateLinks();
   }, [user, isSignedIn, router]);
 
-  return (
-    <>
-      <Footer links={links} />
-    </>
-  );
+  return <Footer links={links} />;
 }
 
 export default MainFooter;
