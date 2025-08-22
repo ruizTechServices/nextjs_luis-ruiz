@@ -1,52 +1,71 @@
+// components/ui/TabNavigation.js (Client Component)
 'use client';
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const tabs = [
-  "about",
-  "projects", 
-  "experience",
-  "Artificial Intelligence",
-  "Public Chatbot",
-  "soundboard",
-  "text_to_speech",
-  "script-projects"
+  { id: "about", label: "About Me" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "Artificial Intelligence", label: "AI" },
+  { id: "Public Chatbot", label: "Community Chatbot" },
+  { id: "soundboard", label: "Soundboard" },
+  { id: "text_to_speech", label: "Text to Speech" },
+  { id: "script-projects", label: "Script Projects" }
 ];
 
-export default function TabNavigation({ initialTab }) {
+export default function TabNavigation({ initialTab = 'about' }) {
   const [activeTab, setActiveTab] = useState(initialTab);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const currentTab = searchParams.get('tab') || 'about';
-    setActiveTab(currentTab);
-  }, [searchParams]);
-
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-    router.push(`/?tab=${encodeURIComponent(tab)}`, { scroll: false });
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+    router.push(`?tab=${tabId}`, { scroll: false });
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex space-x-8 overflow-x-auto">
+    <div className="mt-10">
+      <div className="overflow-x-auto scrollbar-hide">
+        <div className="flex space-x-0.5 sm:space-x-1 justify-start sm:justify-center min-w-max sm:min-w-0">
           {tabs.map((tab) => (
             <button
-              key={tab}
-              onClick={() => handleTabClick(tab)}
-              className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-200 ${
-                activeTab === tab
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              key={tab.id}
+              onClick={() => handleTabClick(tab.id)}
+              className={`
+                relative px-3 py-2.5 sm:px-5 sm:py-3 
+                text-sm sm:text-base font-medium
+                transition-all duration-200 ease-out
+                whitespace-nowrap
+                ${activeTab === tab.id
+                  ? "text-gray-900 bg-gray-900/5"
+                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-900/3"
+                }
+              `}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1).replace('_', ' ')}
+              {tab.label}
+              <div className={`
+                absolute bottom-0 left-0 right-0 h-0.5 
+                transition-all duration-200 ease-out
+                ${activeTab === tab.id
+                  ? "bg-gray-900 scale-x-100"
+                  : "bg-transparent scale-x-0"
+                }
+              `} />
             </button>
           ))}
         </div>
       </div>
-    </nav>
+      <div className="flex sm:hidden justify-center mt-4 space-x-1">
+        {tabs.map((tab) => (
+          <div
+            key={`dot-${tab.id}`}
+            className={`
+              w-1 h-1 rounded-full transition-all duration-200
+              ${activeTab === tab.id ? "bg-gray-900 w-4" : "bg-gray-300"}
+            `}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
